@@ -4,19 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<title>长沙 · 直播中控 在招公司清单</title>
+<title>长沙 · 直播中控在招公司清单</title>
 <style>
 :root{
-  color-scheme: light dark;
+  color-scheme:light dark;
   --surface-0:#faf9f6; --surface-1:#f2f0eb; --surface-2:#fffefd;
   --text-primary:#292824; --text-secondary:#57564e; --text-muted:#69685f;
   --border:#d6d3c9; --border-strong:#9e9b90; --border-stronger:#6e6c62;
   --bg-accent:#f5e9e0; --text-accent:#82462e; --border-accent:#d5ad96;
   --font-sans:"Anthropic Sans",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
   --font-mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
-  --radius:8px;
 }
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme:dark){
   :root{
     --surface-0:#23231f; --surface-1:#2c2c27; --surface-2:#30302a;
     --text-primary:#eeede6; --text-secondary:#cbcac0; --text-muted:#b4b3a6;
@@ -25,330 +24,430 @@
   }
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--surface-0); color:var(--text-primary);
-  font:400 15px/1.7 var(--font-sans);
-  -webkit-font-smoothing:antialiased; overflow-wrap:anywhere;
-}
-h1,h2,p,ol{margin:0}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);
+  font:400 13px/1.55 var(--font-sans);-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+h1,h2,p{margin:0}
 a{color:var(--text-accent);text-underline-offset:3px}
-.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
-.wrap{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+.wrap{width:min(1280px,calc(100% - 40px));margin-inline:auto}
 
-/* —— 页头 —— */
-.lede{padding:52px 0 22px;border-bottom:.5px solid var(--border-strong)}
-h1{font-size:25px;font-weight:500;letter-spacing:-.01em;line-height:1.35}
-h1 .n{font:500 25px var(--font-mono);color:var(--text-accent);margin-left:6px;font-variant-numeric:tabular-nums}
-.meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:12.5px;color:var(--text-muted)}
-.meta b{font-weight:400;color:var(--text-secondary);font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+/* ── 页头 ── */
+.lede{padding:30px 0 0}
+h1{font-size:19px;font-weight:500;letter-spacing:-.01em;line-height:1.3}
+h1 .snap{font:400 11px var(--font-mono);color:var(--text-muted);margin-left:10px;letter-spacing:0}
+.stats{display:flex;margin-top:16px;border-top:.5px solid var(--border-strong);border-bottom:.5px solid var(--border-strong)}
+.stat{flex:1;padding:9px 0 10px;border-right:.5px solid var(--border)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font:500 20px/1.1 var(--font-mono);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat b em{font-style:normal;font-size:11px;margin-left:2px;color:var(--text-muted);letter-spacing:0}
+.stat span{display:block;margin-top:3px;font-size:10.5px;letter-spacing:.1em;color:var(--text-muted)}
+.stat:first-child b{color:var(--text-accent)}
 
-/* —— 表格 —— */
-table{width:100%;border-collapse:collapse;margin-top:4px}
-thead th{
-  position:sticky;top:0;z-index:2;text-align:left;
-  padding:11px 14px;background:var(--surface-0);
-  font-size:11.5px;font-weight:500;letter-spacing:.1em;color:var(--text-muted);
-  border-bottom:.5px solid var(--border-strong);white-space:nowrap;
-}
-tbody td{padding:23px 14px;border-bottom:.5px solid var(--border);vertical-align:top}
+/* ── 表格 ── */
+table{width:100%;border-collapse:collapse;margin-top:2px;table-layout:fixed}
+thead th{position:sticky;top:0;z-index:2;text-align:left;padding:7px 9px;
+  background:var(--surface-1);border-bottom:.5px solid var(--border-strong);
+  font-size:10px;font-weight:500;letter-spacing:.12em;color:var(--text-muted);white-space:nowrap}
+tbody td{padding:10px 13px;border-bottom:.5px solid var(--border);vertical-align:top}
 tbody tr:hover td{background:var(--surface-1)}
-tbody tr:first-child td{padding-top:22px}
+.c-rank{width:44px;padding-left:2px}
+.c-co{width:22%} .c-work{width:23%} .c-req{width:20.5%}
+.c-num{width:104px} .c-pay{width:162px} .c-link{width:132px}
+.c-req{border-left:.5px solid var(--border)}
+.c-num{border-left:.5px solid var(--border)}
 
-.col-co{width:27%} .col-req{width:32%} .col-num{width:10%}
-.col-pay{width:17%} .col-link{width:14%}
+.rk{font:400 14px/1.2 var(--font-mono);color:var(--border-strong);font-variant-numeric:tabular-nums}
+.rk.top{color:var(--text-accent);font-weight:500;font-size:16px}
+.co{font-size:13px;font-weight:500;line-height:1.35;letter-spacing:-.005em}
+.sub{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:4px}
+.jm{font-size:10.5px;color:var(--text-muted)}
+.t{display:inline-flex;align-items:center;gap:4px;font-size:10px;letter-spacing:.02em;white-space:nowrap}
+.t i{width:5px;height:5px;border-radius:50%;flex:none;border:.5px solid var(--border-stronger);background:transparent}
+.t.ok{color:var(--text-accent)} .t.ok i{background:var(--text-accent);border-color:var(--text-accent)}
+.t.warn{color:var(--text-muted)}
+.desc{margin-top:4px;font-size:10.5px;line-height:1.5;color:var(--text-muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.why{margin-top:5px;font-size:10.5px;line-height:1.5;color:var(--text-accent);
+  padding-left:7px;border-left:1.5px solid var(--border-accent)}
+.body{font-size:11px;line-height:1.62}
+.c-work .body{color:var(--text-muted);font-size:10.5px;line-height:1.68}
+.c-req .body{color:var(--text-secondary)}
 
-.idx{font:400 11.5px/1 var(--font-mono);color:var(--text-muted);letter-spacing:.04em;display:block}
-.co{font-size:15px;font-weight:500;line-height:1.45;margin-top:5px}
-.sub{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:7px;font-size:12px;color:var(--text-muted)}
-.dot{opacity:.5}
-.t{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
-.t .d{width:5px;height:5px;border-radius:50%;background:transparent;border:.5px solid var(--border-stronger);flex:none}
-.t .d.on{background:var(--text-accent);border-color:var(--text-accent)}
-.t:has(.d.on){color:var(--text-accent)}
-.desc{margin-top:9px;font-size:12.5px;line-height:1.65;color:var(--text-secondary)}
-.req{font-size:12.5px;line-height:1.75;color:var(--text-secondary)}
-.note{display:block;margin-top:6px;font-size:11.5px;line-height:1.5;color:var(--text-muted)}
-.money{font-size:14px;font-weight:500;letter-spacing:-.02em}
-td .mono{font-size:13.5px}
-.col-num .mono{white-space:nowrap}
-.col-link a{display:inline-flex;align-items:baseline;gap:3px;font:400 12.5px var(--font-mono);
-  letter-spacing:-.01em;text-decoration:none;border-bottom:.5px solid var(--border-accent);padding-bottom:2px}
-.col-link a:hover{border-bottom-color:var(--text-accent)}
-.col-link .arr{font-size:10px;opacity:.65}
-.plat{display:block;margin-top:8px;font-size:11px;letter-spacing:.04em;color:var(--text-muted)}
+.pill{display:inline-block;padding:0 6px;border-radius:99px;background:var(--bg-accent);
+  color:var(--text-accent);font:500 10.5px/1.7 var(--font-mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pill.na{background:var(--surface-1);color:var(--text-muted);font-weight:400;box-shadow:inset 0 0 0 .5px var(--border)}
+.fr{display:flex;align-items:center;gap:4px;margin-top:5px;font-size:10px;letter-spacing:.02em}
+.fr i{width:5px;height:5px;border-radius:50%;flex:none;background:var(--border-stronger)}
+.fr.new{color:var(--text-accent);font-weight:500} .fr.new i{background:var(--text-accent)}
+.fr.warm{color:var(--text-secondary)} .fr.old i,.fr.unknown i{background:transparent;border:.5px solid var(--border-stronger)}
+.fr.old,.fr.unknown{color:var(--text-muted)}
+.date{display:block;margin-top:3px;font:400 10px var(--font-mono);color:var(--text-muted)}
 
-/* —— 信息保真 —— */
-.fid{margin-top:64px;padding-top:26px;border-top:.5px solid var(--border-strong);padding-bottom:76px}
-.fid h2{display:flex;align-items:baseline;gap:10px;font-size:15px;font-weight:500}
-.fid h2 .mono{font-size:11.5px;color:var(--text-muted);letter-spacing:.1em}
-.fid ol{list-style:none;margin-top:20px;counter-reset:f}
-.fid li{
-  counter-increment:f;position:relative;padding-left:34px;
-  font-size:13px;line-height:1.8;color:var(--text-secondary);
-}
-.fid li+li{margin-top:12px}
-.fid li::before{
-  content:counter(f,decimal-leading-zero);position:absolute;left:0;top:2px;
-  font:400 11px/1.6 var(--font-mono);color:var(--text-muted);
-}
+.money b{font:500 14px/1.15 var(--font-mono);letter-spacing:-.04em;color:var(--text-accent);font-variant-numeric:tabular-nums}
+.money i{font-style:normal;margin-left:2px;font-size:9.5px;color:var(--text-muted)}
+.note{display:block;margin-top:4px;font-size:10px;line-height:1.45;color:var(--text-muted)}
+.c-link a{display:inline-flex;align-items:baseline;gap:2px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:400 10px var(--font-mono);
+  text-decoration:none;border-bottom:.5px solid var(--border-accent);padding-bottom:1px;letter-spacing:-.02em}
+.c-link a:hover{border-bottom-color:var(--text-accent)}
+.hh{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arr{flex:none;font-size:9px;opacity:.6}
+.plat{display:block;margin-top:5px;font-size:9.5px;letter-spacing:.04em;color:var(--text-muted)}
+
+/* ── 信息保真 ── */
+.fid{margin-top:34px;padding-top:16px;border-top:.5px solid var(--border-strong);padding-bottom:52px}
+.fid h2{display:flex;align-items:baseline;gap:8px;font-size:12.5px;font-weight:500}
+.fid h2 .mono{font:400 10px var(--font-mono);color:var(--text-muted);letter-spacing:.14em}
+.fid ol{list-style:none;margin-top:13px;counter-reset:f;columns:2;column-gap:34px}
+.fid li{counter-increment:f;position:relative;padding-left:25px;font-size:11px;line-height:1.62;
+  color:var(--text-secondary);break-inside:avoid;margin-bottom:9px}
+.fid li::before{content:counter(f,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font:400 9.5px/1.6 var(--font-mono);color:var(--text-muted)}
 .fid b{font-weight:500;color:var(--text-primary)}
-.fid em{font-style:normal;color:var(--text-primary);border-bottom:.5px solid var(--border-accent);padding-bottom:1px}
+.fid em{font-style:normal;color:var(--text-primary);border-bottom:.5px solid var(--border-accent)}
 .fid .q{color:var(--text-accent)}
+.fid .lg{display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
 
-/* —— 响应式：表格转记录块 —— */
-@media (max-width:860px){
-  .wrap{width:calc(100% - 32px)}
-  .lede{padding:34px 0 18px}
-  h1{font-size:20px} h1 .n{font-size:20px}
+/* ── 响应式 ── */
+@media (max-width:900px){
+  .wrap{width:calc(100% - 26px)}
+  .lede{padding-top:22px}
+  h1{font-size:16px} h1 .snap{display:block;margin:4px 0 0}
+  .stats{display:grid;grid-template-columns:1fr 1fr}
+  .stat{border-right:0;border-bottom:.5px solid var(--border);padding:8px 0}
+  .stat:nth-child(odd){border-right:.5px solid var(--border)}
+  .stat:nth-child(4){border-right:0}
+  .stat:last-child{grid-column:1/-1;border-bottom:0;border-right:0}
   thead{display:none}
   table,tbody,tr,td{display:block;width:auto}
-  tbody tr{padding:24px 0;border-bottom:.5px solid var(--border)}
+  tbody tr{padding:14px 0;border-bottom:.5px solid var(--border)}
   tbody td{padding:0;border:0}
-  tbody td:hover,tbody tr:hover td{background:transparent}
-  tbody td+td{margin-top:14px}
-  tbody td[data-l]::before{
-    content:attr(data-l);display:block;margin-bottom:5px;
-    font-size:10.5px;letter-spacing:.12em;color:var(--text-muted);
-  }
-  tbody td[data-l="公司"]::before{display:none}
-  .co{font-size:16px}
-  .fid{margin-top:40px;padding-bottom:56px}
+  tbody td+td{margin-top:8px}
+  tbody td[data-l]::before{content:attr(data-l);display:block;margin-bottom:3px;
+    font-size:9.5px;letter-spacing:.12em;color:var(--text-muted)}
+  tbody td.c-co::before{display:none}
+  .c-co,.c-work,.c-req,.c-num,.c-pay,.c-link{width:auto;border-left:0}
+  .c-rank{width:auto;padding:0;margin-bottom:1px}
+  .rk{font-size:11px} .rk.top{font-size:11px}
+  .co{font-size:14px}
+  .c-link a{font-size:11px}
+  .body{font-size:11.5px}
+  .fid ol{columns:1}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <main class="wrap">
 
   <header class="lede">
-    <h1>长沙 · 直播中控在招公司清单<span class="n">16</span></h1>
-    <div class="meta">
-      <span>数据快照 <b>2026-11-06 19:00</b></span>
-      <span>已核验 <b>14</b></span>
-      <span>待确认 <b>2</b></span>
-      <span>写明人数 <b>12</b> 家 / 共 <b>21</b> 个坑位</span>
+    <h1>长沙 · 直播中控在招公司清单<span class="snap">2026-11-06 19:00 快照 · 16 家</span></h1>
+    <div class="stats">
+      <div class="stat"><b>16<em>家</em></b><span>在招公司</span></div>
+      <div class="stat"><b>21<em>个</em></b><span>明确坑位</span></div>
+      <div class="stat"><b>3-10<em>K</em></b><span>月薪区间</span></div>
+      <div class="stat"><b>5<em>家</em></b><span>7 天内新发布</span></div>
+      <div class="stat"><b>14<em>家</em></b><span>已核验原文</span></div>
     </div>
   </header>
 
   <table>
     <thead>
       <tr>
-        <th class="col-co">公司</th>
-        <th class="col-req">岗位要求</th>
-        <th class="col-num">人数</th>
-        <th class="col-pay">薪资待遇</th>
-        <th class="col-link">招聘链接</th>
+        <th class="c-rank">#</th>
+        <th class="c-co">公司 · 推荐理由</th>
+        <th class="c-work">工作内容</th>
+        <th class="c-req">岗位要求</th>
+        <th class="c-num">人数 / 时效</th>
+        <th class="c-pay">薪资</th>
+        <th class="c-link">链接</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td data-l="公司">
-          <span class="idx">01</span>
-          <div class="co">长沙知花知果网络科技集团有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播中控</div>
-          <p class="desc">2014年创立的长沙生鲜社群团购公司，精选国内外水果海鲜产地直采+社区直配；现主推预制菜直播，80/90 后创业团队。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、1-3年；会场景搭建与设备维护、后台链接与库存配置；直播中盯流量/GMV 用耳返提示主播；能接受早班 6:00 到岗。</p></td>
-        <td data-l="人数"><span class="mono">1 人</span><span class="note">HR 一周前在线</span></td>
-        <td data-l="薪资"><span class="mono money">6000-10000 元/月</span><span class="note">底薪+绩效6-8K+提成+五险一金；※早班6:00到岗</span></td>
-        <td data-l="招聘链接"><a href="https://www.liepin.com/job/1983347123.shtml" target="_blank" rel="noopener noreferrer" title="https://www.liepin.com/job/1983347123.shtml">liepin.com<span class="arr">↗</span></a>
-      <span class="plat">猎聘</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">02</span>
-          <div class="co">长沙市爱巴森网络科技有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>秒播直播中控（童装）</div>
-          <p class="desc">长沙岳麓区电商公司，少于50人；服务森马、巴拉巴拉等童装品牌做品牌自播代运营。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、1年以上；有秒播中控经验优先，写明「优先颜值高、情商高」；中控台操作、样衣设备管理、粉丝答疑、播前准备与播后复盘。</p></td>
-        <td data-l="人数"><span class="mono">1 人</span><span class="note">10-30 发布</span></td>
-        <td data-l="薪资"><span class="mono money">5000-10000 元/月</span><span class="note">绩效奖金+提成+五险+零食下午茶+培训</span></td>
-        <td data-l="招聘链接"><a href="https://jobs.51job.com/changsha-ylq/174082240.html" target="_blank" rel="noopener noreferrer" title="https://jobs.51job.com/changsha-ylq/174082240.html">jobs.51job.com<span class="arr">↗</span></a>
-      <span class="plat">前程无忧</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">03</span>
-          <div class="co">湖南奇异生物科技有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>中控 / 场控 / 助播</div>
-          <p class="desc">湖南食品生物科技企业，100-299人；做食品类目自播，办公在开福区锦绣华天。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、1-3年；1年以上电商直播中控/场控/助播经验；熟抖音快手后台；上下架、库存、优惠券、弹窗全流程；能弹性排班。</p></td>
-        <td data-l="人数"><span class="mono">未标注</span><span class="note">09-05 发布</span></td>
-        <td data-l="薪资"><span class="mono money">7000-10000 元/月</span><span class="note">全表起薪最高；食品类目自播团队</span></td>
-        <td data-l="招聘链接"><a href="https://m.zhaopin.com/jobs/CC512540320J40935267812.htm" target="_blank" rel="noopener noreferrer" title="https://m.zhaopin.com/jobs/CC512540320J40935267812.htm">m.zhaopin.com<span class="arr">↗</span></a>
-      <span class="plat">智联招聘</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">04</span>
+        <td class="c-rank"><span class="rk top">01</span></td>
+        <td class="c-co" data-l="公司">
           <div class="co">长沙星莱德文化发展有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播间技术专员（灯光/运镜/场控）</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播间技术专员（灯光/运镜/场控）</span></div>
           <p class="desc">长沙本土传媒公司，主打直播间视觉与技术支撑；技术型中控岗，管灯光、控镜头、稳画面。</p>
+          <p class="why">上限 1 万 · 招 2 人 · 3 天前更新</p>
         </td>
-        <td data-l="岗位要求"><p class="req">18-30岁、大专、应届可投；会直播灯光与机位基础操作，懂运镜调色优先；无经验肯学也行；能适应直播排班。</p></td>
-        <td data-l="人数"><span class="mono">2 人</span><span class="note">11-03 更新</span></td>
-        <td data-l="薪资"><span class="mono money">5000-10000 元/月</span><span class="note">阶梯式提成+绩效；免费带薪培训、老手带教</span></td>
-        <td data-l="招聘链接"><a href="https://m.liepin.com/lptjob/85169397" target="_blank" rel="noopener noreferrer" title="https://m.liepin.com/lptjob/85169397">m.liepin.com<span class="arr">↗</span></a>
-      <span class="plat">猎聘</span></td>
+        <td class="c-work" data-l="工作内容"><p class="body">布置直播间灯光与机位，单反/云台运镜切镜；跟播时切画面、弹素材、接 BGM，把控节奏；设备巡检与故障排查，协助拍短视频。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">18-30 岁、大专、应届可投；会直播灯光与机位基础操作，懂运镜调色优先；无经验肯学也行。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">2 人</span>
+          <span class="fr new"><i></i>3 天前</span>
+          <span class="date">11-03 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>5000-10000</b><i>元/月</i></span><span class="note">阶梯提成+绩效；免费带薪培训、老手带教</span></td>
+        <td class="c-link" data-l="链接"><a href="https://m.liepin.com/lptjob/85169397" target="_blank" rel="noopener noreferrer" title="https://m.liepin.com/lptjob/85169397"><span class="hh">liepin.com</span><span class="arr">↗</span></a><span class="plat">猎聘</span></td>
       </tr>
       <tr>
-        <td data-l="公司">
-          <span class="idx">05</span>
-          <div class="co">长沙宜可珈文化传媒有限公司</div>
-          <div class="sub"><span class="t"><i class="d"></i>待确认</span><span class="dot">·</span>直播中控 / 场控</div>
-          <p class="desc">2024年成立的新媒体公司，运营自研智能摄像头品牌「神眸」；视频号监控赛道头部直播间，20-99人。</p>
+        <td class="c-rank"><span class="rk top">02</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">长沙市爱巴森网络科技有限公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">秒播直播中控（童装）</span></div>
+          <p class="desc">长沙岳麓区电商公司，少于 50 人；服务森马、巴拉巴拉等童装品牌做品牌自播代运营。</p>
+          <p class="why">上限 1 万 · 7 天前发布 · 品牌童装自播</p>
         </td>
-        <td data-l="岗位要求"><p class="req">1-3年、学历不限；跟播单品付费直播间，对画面声音异常敏感能及时调设备；回复公屏、配合主播逼单；要有冲劲。</p></td>
-        <td data-l="人数"><span class="mono">未标注</span><span class="note">开福区君泰大厦</span></td>
-        <td data-l="薪资"><span class="mono money">5000-10000 元/月</span><span class="note">底薪5000-6000，提成后可达8000-10000</span></td>
-        <td data-l="招聘链接"><a href="https://www.zhipin.com/job_detail/8b5bd0242c48321003N409m0F1dR.html" target="_blank" rel="noopener noreferrer" title="https://www.zhipin.com/job_detail/8b5bd0242c48321003N409m0F1dR.html">zhipin.com<span class="arr">↗</span></a>
-      <span class="plat">BOSS直聘</span></td>
+        <td class="c-work" data-l="工作内容"><p class="body">中控台操作；协助主播互动、营造氛围；直播前准备与播后复盘；管理样衣与设备，回复粉丝提问。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1 年以上；有秒播中控经验优先，写明「优先颜值高、情商高」；会电脑操作，对数据敏感。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">1 人</span>
+          <span class="fr new"><i></i>7 天前</span>
+          <span class="date">10-30 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>5000-10000</b><i>元/月</i></span><span class="note">绩效+提成+五险+零食下午茶+培训</span></td>
+        <td class="c-link" data-l="链接"><a href="https://jobs.51job.com/changsha-ylq/174082240.html" target="_blank" rel="noopener noreferrer" title="https://jobs.51job.com/changsha-ylq/174082240.html"><span class="hh">51job.com</span><span class="arr">↗</span></a><span class="plat">前程无忧</span></td>
       </tr>
       <tr>
-        <td data-l="公司">
-          <span class="idx">06</span>
-          <div class="co">湖南大热文化传媒有限公司</div>
-          <div class="sub"><span class="t"><i class="d"></i>待确认</span><span class="dot">·</span>直播间中控 / 场控（同时在招中控助播）</div>
-          <p class="desc">2018年成立的长沙头部 MCN，视频号直播带货头部机构，主做女装、形体、瑜伽、家居；100-499人，两整层办公。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、1年以内可投；开播前调灯光设备；商品上下架、改库存改价；直播中配合主播喊话，性格外向不怯场。</p></td>
-        <td data-l="人数"><span class="mono">未标注</span><span class="note">两个岗位同招</span></td>
-        <td data-l="薪资"><span class="mono money">6000-9000 元/月</span><span class="note">无责底薪+绩效+提成+五险；晋升：场控→组长→主管</span></td>
-        <td data-l="招聘链接"><a href="https://www.zhipin.com/job_detail/3b6556f6ca279c3e03d52tS5FFpY.html" target="_blank" rel="noopener noreferrer" title="https://www.zhipin.com/job_detail/3b6556f6ca279c3e03d52tS5FFpY.html">zhipin.com<span class="arr">↗</span></a>
-      <span class="plat">BOSS直聘</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">07</span>
-          <div class="co">长沙嘉时嘉辰文化传媒有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播中控 / 助播</div>
-          <p class="desc">长沙电商直播公司，成熟达人直播间、成熟抖音账号；20-99人，团队年轻，有系统培训。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、1-3年；6个月以上相关经验；熟主流直播平台操作；细致、临场应变强，能配合主播调控节奏。</p></td>
-        <td data-l="人数"><span class="mono">2 人</span><span class="note">招聘顾问今日在线</span></td>
-        <td data-l="薪资"><span class="mono money">5000-9000 元/月</span><span class="note">无责底薪+提成+五险；免费零食、系统培训</span></td>
-        <td data-l="招聘链接"><a href="https://www.liepin.com/job/1983889173.shtml" target="_blank" rel="noopener noreferrer" title="https://www.liepin.com/job/1983889173.shtml">liepin.com<span class="arr">↗</span></a>
-      <span class="plat">猎聘</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">08</span>
-          <div class="co">俊彩星驰文化传媒</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播中控</div>
-          <p class="desc">电商/淘宝直播团队，店铺规模0-20人；负责人深耕抖音多年，多品类 0-1 起号，已起号、销售额稳定的成熟团队。（个人招聘者发布）</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">学历经验不限、可无经验；会上架、设优惠券；会调直播设备与灯光；晚班 13:00-22:00，反应快、声音洪亮。</p></td>
-        <td data-l="人数"><span class="mono">1 人</span><span class="note">※ 地址有矛盾</span></td>
-        <td data-l="薪资"><span class="mono money">5000-9000 元/月</span><span class="note">试用期4000-5000，转正5000-1万；五险+年终奖</span></td>
-        <td data-l="招聘链接"><a href="https://b.dianzhangzhipin.com/job/1XF739S5FFE~.html" target="_blank" rel="noopener noreferrer" title="https://b.dianzhangzhipin.com/job/1XF739S5FFE~.html">b.dianzhangzhipin.com<span class="arr">↗</span></a>
-      <span class="plat">店长直聘</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">09</span>
+        <td class="c-rank"><span class="rk top">03</span></td>
+        <td class="c-co" data-l="公司">
           <div class="co">湖南她时代品质购电子商务有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播中控</div>
-          <p class="desc">电商/淘宝直播间，店铺规模50-99人；自有品牌直播间，走「固定底薪+销售额提成」结构。</p>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播中控</span></div>
+          <p class="desc">电商/淘宝直播间，店铺规模 50-99 人；自有品牌直播间，走「固定底薪+销售额提成」结构。</p>
+          <p class="why">唯一写死固定底薪 5000 · 招 2 人</p>
         </td>
-        <td data-l="岗位要求"><p class="req">大专、1-3年；上下架产品、改价、弹框；配合主播转化流量；有数据敏感度；突发情况能快速决策；责任心强、能吃苦。</p></td>
-        <td data-l="人数"><span class="mono">2 人</span><span class="note">近期更新</span></td>
-        <td data-l="薪资"><span class="mono money">5000-8000 元/月</span><span class="note">固定底薪5000+销售额提成；五险一金，次月15号发薪</span></td>
-        <td data-l="招聘链接"><a href="https://dianzhangm.zhipin.com/job/1n183t6-GVM~.html" target="_blank" rel="noopener noreferrer" title="https://dianzhangm.zhipin.com/job/1n183t6-GVM~.html">dianzhangm.zhipin.com<span class="arr">↗</span></a>
-      <span class="plat">店长直聘</span></td>
+        <td class="c-work" data-l="工作内容"><p class="body">上下架产品、改价、弹框；配合主播转化流量；盯实时数据；突发情况快速决策。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1-3 年；有数据敏感度；沟通与组织能力好；责任心强、能吃苦。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">2 人</span>
+          <span class="fr new"><i></i>近日更新</span>
+          <span class="date">近期 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>5000-8000</b><i>元/月</i></span><span class="note">固定底薪 5000 + 销售额提成；五险一金，次月 15 号发薪</span></td>
+        <td class="c-link" data-l="链接"><a href="https://dianzhangm.zhipin.com/job/1n183t6-GVM~.html" target="_blank" rel="noopener noreferrer" title="https://dianzhangm.zhipin.com/job/1n183t6-GVM~.html"><span class="hh">dianzhang.zhipin</span><span class="arr">↗</span></a><span class="plat">店长直聘</span></td>
       </tr>
       <tr>
-        <td data-l="公司">
-          <span class="idx">10</span>
+        <td class="c-rank"><span class="rk">04</span></td>
+        <td class="c-co" data-l="公司">
           <div class="co">深圳市冠旭电子股份有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>产品直播场控</div>
-          <p class="desc">1997年成立的深圳高新技术企业，自主耳机品牌 Cleer、233621，1000-5000人；长沙设直播间，办公在开福区博创园。</p>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">产品直播场控</span></div>
+          <p class="desc">1997 年成立的深圳高新技术企业，自主耳机品牌 Cleer、233621，1000-5000 人；长沙设直播间。</p>
+          <p class="why">上市公司体系 · 4 天前发布 · 五险一金</p>
         </td>
-        <td data-l="岗位要求"><p class="req">大专、1年以上直播场控经验；精通抖音快手后台与 OBS 推流；能盯流量数据调推流节奏、处理设备与话术异常；接受夜班。</p></td>
-        <td data-l="人数"><span class="mono">1 人</span><span class="note">11-02 发布</span></td>
-        <td data-l="薪资"><span class="mono money">4000-8000 元/月</span><span class="note">五险一金、带薪年假、节日福利、专业培训</span></td>
-        <td data-l="招聘链接"><a href="https://jobs.51job.com/changsha-kfq/173541384.html" target="_blank" rel="noopener noreferrer" title="https://jobs.51job.com/changsha-kfq/173541384.html">jobs.51job.com<span class="arr">↗</span></a>
-      <span class="plat">前程无忧</span></td>
+        <td class="c-work" data-l="工作内容"><p class="body">负责直播间现场调度，盯流量数据调推流节奏；统筹主播/运营/场务，卡上链接与改价节点；处理设备故障与违规话术；播后出优化报告。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1 年以上场控经验；精通抖音快手后台与 OBS 推流；抗压强，接受夜班。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">1 人</span>
+          <span class="fr new"><i></i>4 天前</span>
+          <span class="date">11-02 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>4000-8000</b><i>元/月</i></span><span class="note">五险一金、带薪年假、节日福利、专业培训</span></td>
+        <td class="c-link" data-l="链接"><a href="https://jobs.51job.com/changsha-kfq/173541384.html" target="_blank" rel="noopener noreferrer" title="https://jobs.51job.com/changsha-kfq/173541384.html"><span class="hh">51job.com</span><span class="arr">↗</span></a><span class="plat">前程无忧</span></td>
       </tr>
       <tr>
-        <td data-l="公司">
-          <span class="idx">11</span>
-          <div class="co">闹闹虎（湖南）科技有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播中控</div>
-          <p class="desc">湖南本土科技服务公司，20-99人；直播合作方为天心区潮奢虎奢侈品服饰集合店，办公在坡子街。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、1-3年；负责直播过程中的中控操作与设备调试，保证音视频输出质量；实时监控直播数据并对效果负责。</p></td>
-        <td data-l="人数"><span class="mono">未标注</span><span class="note">天心区坡子街</span></td>
-        <td data-l="薪资"><span class="mono money">5000-8000 元/月</span><span class="note">人事活跃，回复较快</span></td>
-        <td data-l="招聘链接"><a href="https://m.zhaopin.com/jobs/CCL1311029400J40803465405.htm" target="_blank" rel="noopener noreferrer" title="https://m.zhaopin.com/jobs/CCL1311029400J40803465405.htm">m.zhaopin.com<span class="arr">↗</span></a>
-      <span class="plat">智联招聘</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">12</span>
-          <div class="co">长沙考拉鼻鼻品牌管理有限责任公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播场控 / 中控 / 助播</div>
-          <p class="desc">品牌管理公司，100-299人，主做鞋服箱包类目直播；办公在岳麓区麓谷企业广场。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、1-3年；熟抖音直播玩法与后台；懂带货话术、会提产品卖点；排班制（最晚 14:00-23:00），大小休。</p></td>
-        <td data-l="人数"><span class="mono">2 人</span><span class="note">08-26 发布</span></td>
-        <td data-l="薪资"><span class="mono money">6000-7000 元/月</span><span class="note">季度聚餐、年度旅游、下午茶、生日会、奖金</span></td>
-        <td data-l="招聘链接"><a href="https://m.zhaopin.com/jobs/CCL1475543930J40742789007.htm" target="_blank" rel="noopener noreferrer" title="https://m.zhaopin.com/jobs/CCL1475543930J40742789007.htm">m.zhaopin.com<span class="arr">↗</span></a>
-      <span class="plat">智联招聘</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">13</span>
-          <div class="co">劲仔食品集团股份有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>中控 / 场控</div>
-          <p class="desc">A股上市公司（003000），湖南本土休闲食品龙头，「劲仔小鱼」品牌；1000-9999人。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、经验门槛宽松（1年以下可投）；半年以上中控/场控经验；熟抖音规则与流量机制；数据敏感、懂投放 ROI。</p></td>
-        <td data-l="人数"><span class="mono">1 人</span><span class="note">09-09 发布</span></td>
-        <td data-l="薪资"><span class="mono money">4000-7000 元/月</span><span class="note">上市企业，福利体系完整</span></td>
-        <td data-l="招聘链接"><a href="https://m.zhaopin.com/jobs/CC463084220J40695164212.htm" target="_blank" rel="noopener noreferrer" title="https://m.zhaopin.com/jobs/CC463084220J40695164212.htm">m.zhaopin.com<span class="arr">↗</span></a>
-      <span class="plat">智联招聘</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">14</span>
-          <div class="co">昆明冬冬食品有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播中控</div>
-          <p class="desc">1997年成立的云南休闲食品企业（卤蛋、辣条面筋、鸭脖等九大类80余品种），年产值20亿+；500-1000人，长沙设直播点。</p>
-        </td>
-        <td data-l="岗位要求"><p class="req">大专、1年以上；有抖音带货直播间中控/助播经验优先，有千川投流经验优先；熟直播软硬件；能适应高强度、抗压。</p></td>
-        <td data-l="人数"><span class="mono">1 人</span><span class="note">11-04 发布</span></td>
-        <td data-l="薪资"><span class="mono money">4000-7000 元/月</span><span class="note">带薪年假、五险、交通补贴、通讯补贴</span></td>
-        <td data-l="招聘链接"><a href="https://jobs.51job.com/changsha-frq/174122508.html" target="_blank" rel="noopener noreferrer" title="https://jobs.51job.com/changsha-frq/174122508.html">jobs.51job.com<span class="arr">↗</span></a>
-      <span class="plat">前程无忧</span></td>
-      </tr>
-      <tr>
-        <td data-l="公司">
-          <span class="idx">15</span>
+        <td class="c-rank"><span class="rk">05</span></td>
+        <td class="c-co" data-l="公司">
           <div class="co">湖南航业控股集团有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>中控（同批另招助播 5 人）</div>
-          <p class="desc">2022年成立于长沙的独资小微企业，注册资本200万，主营企业管理、园区运营、教育咨询；少于50人，在岳麓区望城坡。</p>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">中控（同批另招助播 5 人）</span></div>
+          <p class="desc">2022 年成立于长沙的独资小微企业，注册资本 200 万，主营企业管理、园区运营、教育咨询；少于 50 人。</p>
+          <p class="why">一次招 5 人 · 门槛最低 · 校招官方发布</p>
         </td>
-        <td data-l="岗位要求"><p class="req">大专及以上、不限专业；熟悉抖音/视频号后台操作优先；细心、抗压，能接受直播排班与灵活节奏。</p></td>
-        <td data-l="人数"><span class="mono">5 人</span><span class="note">10-27 发布</span></td>
-        <td data-l="薪资"><span class="mono money">3000-6000 元/月</span><span class="note">校招岗；同批助播岗也是 5 人、同薪资</span></td>
-        <td data-l="招聘链接"><a href="https://csxy.bysjy.com.cn/detail/job?id=3280227&amp;jobfair_id=31537" target="_blank" rel="noopener noreferrer" title="https://csxy.bysjy.com.cn/detail/job?id=3280227&amp;jobfair_id=31537">csxy.bysjy.com.cn<span class="arr">↗</span></a>
-      <span class="plat">校招平台</span></td>
+        <td class="c-work" data-l="工作内容"><p class="body">配合主播完成女装直播间整场；兼顾中控上下架、改价、弹窗、库存核对；整理样衣、做品质预检；播后归位盘点与复盘。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专及以上、不限专业；熟悉抖音/视频号后台优先；细心抗压，能接受直播排班。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">5 人</span>
+          <span class="fr warm"><i></i>10 天前</span>
+          <span class="date">10-27 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>3000-6000</b><i>元/月</i></span><span class="note">校招岗；同批助播岗也是 5 人、同薪资</span></td>
+        <td class="c-link" data-l="链接"><a href="https://csxy.bysjy.com.cn/detail/job?id=3280227&amp;jobfair_id=31537" target="_blank" rel="noopener noreferrer" title="https://csxy.bysjy.com.cn/detail/job?id=3280227&amp;jobfair_id=31537"><span class="hh">bysjy.com.cn</span><span class="arr">↗</span></a><span class="plat">校招平台</span></td>
       </tr>
       <tr>
-        <td data-l="公司">
-          <span class="idx">16</span>
-          <div class="co">湖南佳澜文化传媒有限公司</div>
-          <div class="sub"><span class="t"><i class="d on"></i>已核验</span><span class="dot">·</span>直播中控</div>
-          <p class="desc">2021年成立的电商新媒体公司，核心团队来自湖南广电，服务淘宝/抖音/小红书/视频号全域；长沙网络主播协会理事单位，少于50人。</p>
+        <td class="c-rank"><span class="rk">06</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">昆明冬冬食品有限公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播中控</span></div>
+          <p class="desc">1997 年成立的云南休闲食品企业（卤蛋、辣条面筋、鸭脖等九大类 80 余品种），年产值 20 亿+；长沙设直播点。</p>
+          <p class="why">2 天前刚发 · 全国食品企业在长沙设点</p>
         </td>
-        <td data-l="岗位要求"><p class="req">大专及以上，应届生/大四实习优先；打字快、会基础办公软件，无经验可带薪培训；接受晚班轮班与周末排班。</p></td>
-        <td data-l="人数"><span class="mono">2 人</span><span class="note">09-01 发布</span></td>
-        <td data-l="薪资"><span class="mono money">3000-5000 元/月</span><span class="note">零基础带薪培训；考核后跟班实操</span></td>
-        <td data-l="招聘链接"><a href="https://jy.hunau.edu.cn/detail/job?id=3232208" target="_blank" rel="noopener noreferrer" title="https://jy.hunau.edu.cn/detail/job?id=3232208">jy.hunau.edu.cn<span class="arr">↗</span></a>
-      <span class="plat">校招平台</span></td>
+        <td class="c-work" data-l="工作内容"><p class="body">抖音直播间搭建、调试与维护；协助主播互动、维护秩序；跟踪数据优化直播内容；配合活动策划执行。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1 年以上；有抖音带货中控/助播经验优先，有千川投流经验优先；能适应高强度、抗压。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">1 人</span>
+          <span class="fr new"><i></i>2 天前</span>
+          <span class="date">11-04 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>4000-7000</b><i>元/月</i></span><span class="note">带薪年假、五险、交通补贴、通讯补贴</span></td>
+        <td class="c-link" data-l="链接"><a href="https://jobs.51job.com/changsha-frq/174122508.html" target="_blank" rel="noopener noreferrer" title="https://jobs.51job.com/changsha-frq/174122508.html"><span class="hh">51job.com</span><span class="arr">↗</span></a><span class="plat">前程无忧</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">07</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">长沙知花知果网络科技集团有限公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播中控</span></div>
+          <p class="desc">2014 年创立的长沙生鲜社群团购公司，精选国内外水果海鲜产地直采+社区直配；现主推预制菜直播。</p>
+          <p class="why">上限 1 万 · 但已 90 天未更新 · 早班 6:00</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">场景搭建与设备维护；后台建链接、改价、设库存；开播前对品会；直播中盯流量/点击/转化/GMV 并耳返提示主播；处理价格与库存异常；播后复盘。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1-3 年；会场景搭建与后台配置；能接受早班 6:00 到岗、下午 14:30 再回公司。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">1 人</span>
+          <span class="fr stale"><i></i>约 90 天</span>
+          <span class="date">90 天前更新</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>6000-10000</b><i>元/月</i></span><span class="note">底薪+绩效 6-8K + 提成 + 五险一金；※早班 6:00 到岗</span></td>
+        <td class="c-link" data-l="链接"><a href="https://www.liepin.com/job/1983347123.shtml" target="_blank" rel="noopener noreferrer" title="https://www.liepin.com/job/1983347123.shtml"><span class="hh">liepin.com</span><span class="arr">↗</span></a><span class="plat">猎聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">08</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">长沙嘉时嘉辰文化传媒有限公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播中控 / 助播</span></div>
+          <p class="desc">长沙电商直播公司，成熟达人直播间、成熟抖音账号；20-99 人，有系统培训。</p>
+          <p class="why">招 2 人 · 成熟达人号 · 已挂 90 天</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">播前货品整理与链接上架；直播中配合主播调控节奏、更新商品信息、协助改价；话术引导做氛围；播后整理数据、记录问题。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1-3 年；6 个月以上相关经验；熟主流直播平台操作；细致、临场应变强。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">2 人</span>
+          <span class="fr stale"><i></i>约 90 天</span>
+          <span class="date">90 天前更新</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>5000-9000</b><i>元/月</i></span><span class="note">无责底薪+提成+五险；免费零食、系统培训</span></td>
+        <td class="c-link" data-l="链接"><a href="https://www.liepin.com/job/1983889173.shtml" target="_blank" rel="noopener noreferrer" title="https://www.liepin.com/job/1983889173.shtml"><span class="hh">liepin.com</span><span class="arr">↗</span></a><span class="plat">猎聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">09</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">俊彩星驰文化传媒</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播中控</span></div>
+          <p class="desc">电商/淘宝直播团队，店铺规模 0-20 人；负责人深耕抖音多年，已起号、销售额稳定的成熟团队。（个人招聘者发布）</p>
+          <p class="why">门槛最低可无经验 · 但地址自相矛盾</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">全程跟播：上下架、弹讲解、秒杀、发券福袋；气氛烘托、配合倒计时、教粉丝下单、提醒主播不违规；飘屏控评、引导公屏互动；统计业绩与复盘数据。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">学历经验不限、可无经验；会上架设券；会调设备灯光；晚班 13:00-22:00，反应快、声音洪亮。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">1 人</span>
+          <span class="fr unknown"><i></i>发布日未知</span>
+          
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>5000-9000</b><i>元/月</i></span><span class="note">试用期 4000-5000，转正 5000-1 万；五险+年终奖</span></td>
+        <td class="c-link" data-l="链接"><a href="https://b.dianzhangzhipin.com/job/1XF739S5FFE~.html" target="_blank" rel="noopener noreferrer" title="https://b.dianzhangzhipin.com/job/1XF739S5FFE~.html"><span class="hh">dianzhang.zhipin</span><span class="arr">↗</span></a><span class="plat">店长直聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">10</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">劲仔食品集团股份有限公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">中控 / 场控</span></div>
+          <p class="desc">A 股上市公司（003000），湖南本土休闲食品龙头，「劲仔小鱼」品牌；1000-9999 人。</p>
+          <p class="why">上市公司 · 经验要求宽松 · 已挂 58 天</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">货品上下架、场景视觉优化；跟进销售数据出复盘报告；监控投放效果、优化 ROI；维护商品链接、提炼话术、把控互动节奏。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、经验门槛宽松（1 年以下可投）；半年以上中控/场控经验；熟抖音规则与流量机制。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">1 人</span>
+          <span class="fr old"><i></i>58 天前</span>
+          <span class="date">09-09 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>4000-7000</b><i>元/月</i></span><span class="note">上市企业，福利体系完整</span></td>
+        <td class="c-link" data-l="链接"><a href="https://m.zhaopin.com/jobs/CC463084220J40695164212.htm" target="_blank" rel="noopener noreferrer" title="https://m.zhaopin.com/jobs/CC463084220J40695164212.htm"><span class="hh">zhaopin.com</span><span class="arr">↗</span></a><span class="plat">智联招聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">11</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">湖南奇异生物科技有限公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">中控 / 场控 / 助播</span></div>
+          <p class="desc">湖南食品生物科技企业，100-299 人；做食品类目自播，办公在开福区锦绣华天。</p>
+          <p class="why">起薪 7000 全表最高 · 已挂 62 天</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">播前设备调试、链接核对、福利品配置、脚本物料准备；直播中上下架、改库存、发券、弹窗；盯公屏、回咨询、处理负面评论；递样品补卖点；播后复盘。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1-3 年；1 年以上电商直播中控/场控/助播经验；熟抖音快手后台；能弹性排班。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill na">未标注</span>
+          <span class="fr old"><i></i>62 天前</span>
+          <span class="date">09-05 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>7000-10000</b><i>元/月</i></span><span class="note">全表起薪最高；食品类目自播团队</span></td>
+        <td class="c-link" data-l="链接"><a href="https://m.zhaopin.com/jobs/CC512540320J40935267812.htm" target="_blank" rel="noopener noreferrer" title="https://m.zhaopin.com/jobs/CC512540320J40935267812.htm"><span class="hh">zhaopin.com</span><span class="arr">↗</span></a><span class="plat">智联招聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">12</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">长沙考拉鼻鼻品牌管理有限责任公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播场控 / 中控 / 助播</span></div>
+          <p class="desc">品牌管理公司，100-299 人，主做鞋服箱包类目直播；办公在岳麓区麓谷企业广场。</p>
+          <p class="why">薪资中下 · 已挂 72 天</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">负责场控保证主播顺利开播；与主播互动提活跃度；分析主播销售与后台流量数据；优化内容、处理突发。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1-3 年；熟抖音直播玩法与后台；懂带货话术、会提卖点；排班制（最晚 14:00-23:00），大小休。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">2 人</span>
+          <span class="fr old"><i></i>72 天前</span>
+          <span class="date">08-26 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>6000-7000</b><i>元/月</i></span><span class="note">季度聚餐、年度旅游、下午茶、生日会、奖金</span></td>
+        <td class="c-link" data-l="链接"><a href="https://m.zhaopin.com/jobs/CCL1475543930J40742789007.htm" target="_blank" rel="noopener noreferrer" title="https://m.zhaopin.com/jobs/CCL1475543930J40742789007.htm"><span class="hh">zhaopin.com</span><span class="arr">↗</span></a><span class="plat">智联招聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">13</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">长沙宜可珈文化传媒有限公司</div>
+          <div class="sub"><span class="t warn"><i></i>待确认</span><span class="jm">直播中控 / 场控</span></div>
+          <p class="desc">2024 年成立的新媒体公司，运营自研智能摄像头品牌「神眸」；视频号监控赛道头部直播间，20-99 人。</p>
+          <p class="why">提成后可达 1 万 · 但被反爬未能核实</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">跟播单品付费直播间；对画面与声音异常敏感，及时调设备；回复公屏、配合主播逼单；执行直播间工作安排。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">1-3 年、学历不限；对画面声音异常敏感；回复公屏、配合主播逼单；要有冲劲。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill na">未标注</span>
+          <span class="fr unknown"><i></i>发布日未知</span>
+          
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>5000-10000</b><i>元/月</i></span><span class="note">底薪 5000-6000，提成后可达 8000-10000</span></td>
+        <td class="c-link" data-l="链接"><a href="https://www.zhipin.com/job_detail/8b5bd0242c48321003N409m0F1dR.html" target="_blank" rel="noopener noreferrer" title="https://www.zhipin.com/job_detail/8b5bd0242c48321003N409m0F1dR.html"><span class="hh">zhipin.com</span><span class="arr">↗</span></a><span class="plat">BOSS直聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">14</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">湖南大热文化传媒有限公司</div>
+          <div class="sub"><span class="t warn"><i></i>待确认</span><span class="jm">直播间中控 / 场控（同招中控助播）</span></div>
+          <p class="desc">2018 年成立的长沙头部 MCN，视频号直播带货头部机构，主做女装、形体、瑜伽、家居；100-499 人。</p>
+          <p class="why">头部 MCN · 两岗同招 · 但被反爬未能核实</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">开播前调灯光设备；商品上下架、改库存改价；配合主播喊话造氛围；发福袋、把控节奏；管理后台留言与评论区。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1 年以内可投；会调灯光设备；能配合主播喊话，性格外向不怯场。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill na">未标注</span>
+          <span class="fr unknown"><i></i>发布日未知</span>
+          
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>6000-9000</b><i>元/月</i></span><span class="note">无责底薪+绩效+提成+五险；晋升：场控→组长→主管</span></td>
+        <td class="c-link" data-l="链接"><a href="https://www.zhipin.com/job_detail/3b6556f6ca279c3e03d52tS5FFpY.html" target="_blank" rel="noopener noreferrer" title="https://www.zhipin.com/job_detail/3b6556f6ca279c3e03d52tS5FFpY.html"><span class="hh">zhipin.com</span><span class="arr">↗</span></a><span class="plat">BOSS直聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">15</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">闹闹虎（湖南）科技有限公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播中控</span></div>
+          <p class="desc">湖南本土科技服务公司，20-99 人；直播合作方为天心区潮奢虎奢侈品服饰集合店。</p>
+          <p class="why">薪资中等 · 已挂 86 天，投前先电话</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">中控操作与设备调试，保证音视频输出质量；实时监控直播数据并反馈调整。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专、1-3 年；熟悉直播设备与软件操作；应变能力与团队合作好。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill na">未标注</span>
+          <span class="fr stale"><i></i>86 天前</span>
+          <span class="date">08-12 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>5000-8000</b><i>元/月</i></span><span class="note">人事活跃，回复较快</span></td>
+        <td class="c-link" data-l="链接"><a href="https://m.zhaopin.com/jobs/CCL1311029400J40803465405.htm" target="_blank" rel="noopener noreferrer" title="https://m.zhaopin.com/jobs/CCL1311029400J40803465405.htm"><span class="hh">zhaopin.com</span><span class="arr">↗</span></a><span class="plat">智联招聘</span></td>
+      </tr>
+      <tr>
+        <td class="c-rank"><span class="rk">16</span></td>
+        <td class="c-co" data-l="公司">
+          <div class="co">湖南佳澜文化传媒有限公司</div>
+          <div class="sub"><span class="t ok"><i></i>已核验</span><span class="jm">直播中控</span></div>
+          <p class="desc">2021 年成立的电商新媒体公司，核心团队来自湖南广电；长沙网络主播协会理事单位，少于 50 人。</p>
+          <p class="why">零基础可培训 · 起薪 3-5K 全表最低</p>
+        </td>
+        <td class="c-work" data-l="工作内容"><p class="body">播前设备调试、网络与灯光检查、核对链接/售价/库存/优惠券；直播中上下架、改价、弹窗、发福袋秒杀；盯评论区、处理卡顿与超卖；播后数据登记与复盘。</p></td>
+        <td class="c-req" data-l="岗位要求"><p class="body">大专及以上，应届/大四实习优先；打字快、会基础办公软件，无经验可带薪培训；接受晚班轮班。</p></td>
+        <td class="c-num" data-l="人数 / 时效">
+          <span class="pill">2 人</span>
+          <span class="fr old"><i></i>66 天前</span>
+          <span class="date">09-01 发布</span>
+        </td>
+        <td class="c-pay" data-l="薪资"><span class="money"><b>3000-5000</b><i>元/月</i></span><span class="note">零基础带薪培训；考核后跟班实操</span></td>
+        <td class="c-link" data-l="链接"><a href="https://jy.hunau.edu.cn/detail/job?id=3232208" target="_blank" rel="noopener noreferrer" title="https://jy.hunau.edu.cn/detail/job?id=3232208"><span class="hh">hunau.edu.cn</span><span class="arr">↗</span></a><span class="plat">校招平台</span></td>
       </tr>
     </tbody>
   </table>
@@ -356,15 +455,16 @@ td .mono{font-size:13.5px}
   <section class="fid">
     <h2><span class="mono">FIDELITY</span>信息保真说明</h2>
     <ol>
-      <li><b>口径</b>：只收「电商带货直播间」的中控 / 场控 / 中控助播。娱乐团播的「氛围助播」不算，已剔除。</li>
-      <li><b>已核验 14 家</b>：逐条打开了招聘页面并读到岗位正文，薪资、人数、学历经验是照页面原文抄的，没有一处是估算。来源为猎聘、前程无忧、智联招聘的职位详情页，以及店长直聘、湖南高校就业平台的岗位页。</li>
-      <li><b>待确认 2 家</b>：只在 BOSS直聘挂出。该站对程序访问全站拦截（只返回"正在加载中"，硬访问会跳安全验证页），<em>链接本身有效</em>，手机点开登录即可看到，但薪资与人数取自平台当日抓取的原文，<span class="q">投递前请以页面实时显示为准</span>。</li>
-      <li><b>薪资的含义</b>：表内是招聘页写的<span class="q">区间</span>，不是到手价。写 6-9K、5千-1万的多为「底薪+提成」，实际取决于直播间 GMV。全表只有她时代品质购把固定底薪写死（5000），向宠看齐则明说「本岗位无提成」。</li>
-      <li><b>俊彩星驰有两处存疑</b>：由个人招聘者（夏先生）发布，无工商全称，店铺规模 0-20 人；且地址自相矛盾——页面标「岳麓区-金盆岭」，正文写「3号线洋湖新城地铁口 400 米」。面试前务必问清地点。</li>
-      <li><b>知花知果的作息要留意</b>：早班要求 6:00 前到岗做开播准备，直播 6:00-8:00，下午 14:30 还要回公司上到 18:00。薪资写 6-10K，正文为「底薪+绩效 6-8K + 提成 + 五险一金」。</li>
-      <li><b>已剔除</b>：长沙星居文化传媒、长沙融创优品文化传播——两家工商状态均已「注销」却仍在挂招聘。长沙人才网另有 3 条岗位，因页面不显示招聘单位全称、发布时间又在 4-7 月，未纳入本表，也不臆造公司名。</li>
-      <li><b>总量</b>：这个岗位在长沙并不多。智联全长沙「中控/场控」仅 7 条、6 家公司；前程无忧搜「直播中控」仅 2 条、「直播场控」0 条。本表基本是当前能摸到的全貌，招聘页随时下线，建议 3 天内投递。</li>
-      <li><b>标记的含义</b>：<span class="t"><i class="d on"></i>已核验</span>　＝　我打开页面读到了正文；<span class="t"><i class="d"></i>待确认</span>　＝　链接有效但被反爬挡住，未能读到最终渲染结果。</li>
+      <li><b>推荐排序怎么来的</b>：满分 100——时效 28 分（越新越高）、薪资上限 38 分、明确坑位 18 分、门槛友好度 8 分、信息可信度 8 分；同分时按发布时间新旧排。它排的是<span class="q">投递性价比</span>，不是公司实力榜。</li>
+      <li><b>时效分级</b>：以 2026-11-06 为基准日。≤7 天标<span class="q">新</span>，8-30 天标<span class="q">较新</span>，31-90 天标<span class="q">偏旧</span>，超过 90 天或页面未标日期标<span class="q">待核</span>。日期照招聘页原文抄录，未做换算。</li>
+      <li><b>已核验 14 家</b>：逐条打开招聘页读到岗位正文，薪资、人数、工作内容、经验要求全部照原文抄，没有一处估算。来源为猎聘、前程无忧、智联的职位详情页，及店长直聘、湖南高校就业平台岗位页。</li>
+      <li><b>待确认 2 家</b>：只在 BOSS直聘挂出，该站对程序访问全站拦截。<em>链接有效</em>，手机登录可看，但数据取自平台当日抓取原文，<span class="q">投递前请以页面实时显示为准</span>。</li>
+      <li><b>薪资是区间不是到手</b>：写 6-9K、5千-1万 的多为「底薪+提成」，取决于直播间 GMV。全表只有她时代品质购写死固定底薪 5000，向宠看齐类岗位则明说「无提成」。</li>
+      <li><b>俊彩星驰两处存疑</b>：个人招聘者（夏先生）发布，无工商全称，店铺 0-20 人；地址矛盾——页面标「岳麓区-金盆岭」，正文写「3 号线洋湖新城地铁口 400 米」。</li>
+      <li><b>知花知果作息苛刻</b>：早班 6:00 前到岗，直播 6:00-8:00，下午 14:30 再回公司上到 18:00。薪资 6-10K 实为「底薪+绩效 6-8K + 提成」。</li>
+      <li><b>已剔除</b>：长沙星居文化传媒、长沙融创优品文化传播——工商状态均「注销」却仍在挂招聘。长沙人才网另有 3 条岗位因页面不显示单位全称、发布时间在 4-7 月，未纳入，也不臆造公司名。</li>
+      <li><b>总量</b>：智联全长沙「中控/场控」仅 7 条、6 家公司；前程无忧搜「直播中控」仅 2 条、「直播场控」0 条。本表基本是当前能摸到的全貌，建议 3 天内投递。</li>
+      <li><b>标记含义</b>：<span class="lg t ok"><i></i>已核验</span>　读到页面正文；<span class="lg t warn"><i></i>待确认</span>　链接有效但被反爬挡住，未能读到渲染结果。</li>
     </ol>
   </section>
 
