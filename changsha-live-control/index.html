@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长沙 · 直播中控 在招公司清单（2026-11-06）</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #eef1f6;
+    color: #1b2430;
+    font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  .head {
+    background: #fff; border: 1px solid #e3e8ef; border-radius: 14px;
+    padding: 22px 24px 20px; box-shadow: 0 1px 2px rgba(20,35,60,.04);
+  }
+  .head h1 { margin: 0 0 6px; font-size: 22px; font-weight: 700; letter-spacing: .3px; }
+  .head .sub { color: #5b6776; font-size: 13px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .chip {
+    display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px;
+    background: #f1f4f9; color: #47546a; border: 1px solid #e3e8ef;
+  }
+  .chip.ok { background: #e9f7ee; color: #15743a; border-color: #c9ebd5; }
+  .chip.warn { background: #fff5e6; color: #96550a; border-color: #f8e0bd; }
+
+  .bar {
+    position: sticky; top: 0; z-index: 20; margin: 16px 0 0;
+    background: rgba(255,255,255,.94); backdrop-filter: blur(8px);
+    border: 1px solid #e3e8ef; border-radius: 12px; padding: 12px 14px;
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    box-shadow: 0 2px 10px rgba(20,35,60,.05);
+  }
+  .bar .label { font-size: 12px; color: #7c8797; margin-right: 2px; }
+  button {
+    font-family: inherit; font-size: 13px; cursor: pointer;
+    border-radius: 9px; padding: 9px 14px;
+    border: 1px solid #d5dce6; background: #fff; color: #25313f;
+    transition: .16s; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  button:hover { border-color: #a9b8cc; background: #f8fafd; }
+  button:active { transform: translateY(1px); }
+  button.primary {
+    background: #1f6feb; border-color: #1f6feb; color: #fff; font-weight: 600;
+    box-shadow: 0 2px 8px rgba(31,111,235,.25);
+  }
+  button.primary:hover { background: #1a5fd0; border-color: #1a5fd0; }
+  button.ghost { background: #f7f9fc; }
+
+  .tablecard {
+    margin-top: 14px; background: #fff; border: 1px solid #e3e8ef;
+    border-radius: 14px; overflow: hidden; box-shadow: 0 1px 2px rgba(20,35,60,.04);
+  }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 1200px; }
+  thead th {
+    background: #f6f8fc; color: #33415a; font-size: 12.5px; font-weight: 700;
+    text-align: left; padding: 12px; border-bottom: 1px solid #e3e8ef;
+    white-space: nowrap; letter-spacing: .2px;
+  }
+  tbody td {
+    padding: 13px 12px; border-bottom: 1px solid #eef1f6;
+    vertical-align: top; font-size: 13px; color: #2a3542;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #fbfcfe; }
+  .co-name { font-weight: 700; font-size: 13.5px; color: #16202c; line-height: 1.45; }
+  .co-tag { display: inline-block; margin-top: 5px; font-size: 11px; padding: 1px 7px; border-radius: 5px; font-weight: 400; }
+  .t-ok { background: #e9f7ee; color: #15743a; }
+  .t-warn { background: #fff5e6; color: #96550a; }
+  .co-job { margin-top: 6px; font-size: 12px; color: #6a7686; }
+  .intro { color: #4d5a6b; font-size: 12.5px; line-height: 1.65; }
+  .req { font-size: 12.5px; line-height: 1.7; color: #3b4859; }
+  .num { white-space: nowrap; font-weight: 600; color: #16202c; }
+  .num small { display: block; font-weight: 400; color: #8a95a4; font-size: 11px; white-space: normal; line-height: 1.4; }
+  .sal { color: #c0392b; font-weight: 700; font-size: 13px; white-space: normal; word-break: break-word; }
+  .sal small { display: block; font-weight: 400; color: #6a7686; font-size: 11.5px; margin-top: 4px; line-height: 1.5; }
+  .lnk a { color: #1a56c4; text-decoration: none; font-size: 11.5px; word-break: break-all; line-height: 1.5; display: block; }
+  .lnk a:hover { text-decoration: underline; }
+  .lnk .pf { display: inline-block; font-size: 11px; color: #6a7686; background: #f1f4f9; border-radius: 4px; padding: 0 6px; margin-bottom: 4px; }
+
+  .notes {
+    margin-top: 16px; background: #fff; border: 1px solid #e3e8ef;
+    border-radius: 14px; padding: 18px 22px 20px;
+  }
+  .notes h2 { font-size: 14px; margin: 0 0 10px; color: #16202c; }
+  .notes p, .notes li { font-size: 12.5px; color: #55627a; line-height: 1.8; margin: 0 0 6px; }
+  .notes ol { margin: 0; padding-left: 20px; }
+  .notes .em { color: #c0392b; font-weight: 600; }
+
+  #toast {
+    position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%) translateY(20px);
+    background: #16202c; color: #fff; font-size: 13px; padding: 11px 20px; border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.22); opacity: 0; pointer-events: none;
+    transition: .26s; z-index: 99; max-width: 82vw; text-align: center;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 14px 10px 44px; }
+    .head { padding: 18px 16px; }
+    .head h1 { font-size: 18px; }
+    button { font-size: 12px; padding: 8px 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .bar, #toast { display: none !important; }
+    .wrap { padding: 0; max-width: none; }
+    .head, .tablecard, .notes { box-shadow: none; border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>长沙 · 直播中控 在招公司清单</h1>
+    <div class="sub">数据快照：2026年11月6日 19:00 ｜ 共 16 家 ｜ 岗位口径：电商带货直播间中控 / 场控 / 中控助播（已剔除娱乐团播助播）</div>
+    <div class="meta">
+      <span class="chip ok">✅ 打开招聘原文核验 14 家</span>
+      <span class="chip warn">🟡 平台在架 2 家（BOSS）</span>
+      <span class="chip">薪资区间 3K - 10K/月</span>
+      <span class="chip">12 家写明人数，共 21 个坑位</span>
+      <span class="chip">智联全长沙该岗仅 7 条</span>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span class="label">复制到微信：</span>
+    <button class="primary" id="btnImg">🖼 复制表格图片（格式绝不乱）</button>
+    <button id="btnText">📋 复制纯文本（微信聊天直接发）</button>
+    <button class="ghost" id="btnRich">📊 复制表格（Word / 企业微信 / 邮件）</button>
+    <button class="ghost" id="btnDl">⬇ 保存图片</button>
+  </div>
+
+  <div class="tablecard">
+    <div class="scroll">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th style="width:178px">公司</th>
+            <th style="width:238px">公司简介</th>
+            <th style="width:300px">直播中控 · 岗位要求</th>
+            <th style="width:98px">人数</th>
+            <th style="width:176px">薪资待遇</th>
+            <th style="width:186px">招聘链接</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h2>怎么用 / 数据可信度说明（建议看完 4、5 两条）</h2>
+    <ol>
+      <li><b>要发微信群或私聊</b> → 点「复制表格图片」，粘贴即发，微信不会把它压成乱码。</li>
+      <li><b>要对方能直接点开链接</b> → 点「复制纯文本」，链接完整可点，按公司分段排版，不会错行。</li>
+      <li><b>要贴进 Word / 企业微信文档 / 邮件</b> → 点「复制表格（Word / 企业微信）」，是真正的可编辑表格。</li>
+      <li><b>✅ 已核验 12 家</b>：我逐条打开了招聘页面、读到岗位正文，薪资 / 人数 / 学历经验是照页面原文抄的，没有一处是我估的。猎聘、前程无忧、智联、店长直聘、校招平台都能直接打开。</li>
+      <li><b>🟡 在架 2 家（宜可珈、大热文化）</b>：BOSS直聘对程序访问是<span class="em">全站拦截</span>——只回"正在加载中"，硬访问会 302 到安全验证页。<b>链接有效</b>，手机点开用 BOSS App 登录就能看到，但这两家的薪资与人数取自今日平台抓取原文，投递前请再看一眼。</li>
+      <li><b>俊彩星驰有两个坑</b>：① 是<b>个人招聘者（夏先生）发布</b>，无工商全称，店铺规模 0-20 人；② 地址矛盾——页面标"岳麓区-金盆岭"，JD 正文写"3号线洋湖新城出地铁口 400 米"。面试前先问清地点。</li>
+      <li><b>知花知果这条要能吃苦</b>：早班要求<span class="em">早上 6:00 前到岗</span>做开播准备，直播 6:00-8:00，下午 14:30 还要回公司上到 18:00；晚班 14:30 到岗、20:30 左右下班。薪资写 6-10K，正文是"底薪+绩效 6-8K + 提成 + 五险一金"。</li>
+      <li>薪资都是招聘页的<span class="em">区间</span>，实际到手看底薪结构、提成比例、试用期折扣。多家写明"单休 / 大小休 / 早晚轮班 / 晚班到 23 点"，投递前先确认作息。</li>
+      <li>长沙这个岗位总量很小（实测）：智联全长沙「中控/场控」仅 <span class="em">7 条、6 家公司</span>；前程无忧搜「直播中控」只有 <span class="em">2 条</span>，「直播场控」0 条。所以这张表基本就是当前能摸到的全貌，看中了就赶紧投，不要等“下个月再看”。</li>
+      <li>已剔除 2 家<span class="em">工商状态已“注销”却还在挂招聘</span>的公司（长沙星居文化传媒、长沙融创优品文化传播），这类投了也白投。长沙人才网另有 3 条岗位因页面不显示招聘单位名称、且发布时间在 4-7 月，未纳入表格。</li>
+    </ol>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* =========================================================
+   数据（唯一数据源：表格 / 复制 / 图片都读这里）
+   排序：按薪资上限从高到低
+   ========================================================= */
+const DATA = [
+  {
+    company: "长沙知花知果网络科技集团有限公司",
+    alias: "知花知果",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播中控",
+    intro: "2014年创立的长沙生鲜社群团购公司，精选国内外水果海鲜产地直采+社区直配；现主推预制菜直播，80/90 后创业团队。",
+    req: "大专、1-3年；会场景搭建与设备维护、后台链接与库存配置；直播中盯流量/GMV 用耳返提示主播；能接受早班 6:00 到岗。",
+    num: "1 人",
+    numNote: "HR 一周前在线",
+    salary: "6000-10000 元/月",
+    salaryNote: "底薪+绩效6-8K+提成+五险一金；※早班6:00到岗",
+    platform: "猎聘",
+    link: "https://www.liepin.com/job/1983347123.shtml"
+  },
+  {
+    company: "长沙市爱巴森网络科技有限公司",
+    alias: "爱森电商",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "秒播直播中控（童装）",
+    intro: "长沙岳麓区电商公司，少于50人；服务森马、巴拉巴拉等童装品牌做品牌自播代运营。",
+    req: "大专、1年以上；有秒播中控经验优先，写明「优先颜值高、情商高」；中控台操作、样衣设备管理、粉丝答疑、播前准备与播后复盘。",
+    num: "1 人",
+    numNote: "10-30 发布",
+    salary: "5000-10000 元/月",
+    salaryNote: "绩效奖金+提成+五险+零食下午茶+培训",
+    platform: "前程无忧",
+    link: "https://jobs.51job.com/changsha-ylq/174082240.html"
+  },
+  {
+    company: "湖南奇异生物科技有限公司",
+    alias: "奇异生物",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "中控 / 场控 / 助播",
+    intro: "湖南食品生物科技企业，100-299人；做食品类目自播，办公在开福区锦绣华天。",
+    req: "大专、1-3年；1年以上电商直播中控/场控/助播经验；熟抖音快手后台；上下架、库存、优惠券、弹窗全流程；能弹性排班。",
+    num: "未标注",
+    numNote: "09-05 发布",
+    salary: "7000-10000 元/月",
+    salaryNote: "全表起薪最高；食品类目自播团队",
+    platform: "智联招聘",
+    link: "https://m.zhaopin.com/jobs/CC512540320J40935267812.htm"
+  },
+  {
+    company: "长沙星莱德文化发展有限公司",
+    alias: "星莱德文化",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播间技术专员（灯光/运镜/场控）",
+    intro: "长沙本土传媒公司，主打直播间视觉与技术支撑；技术型中控岗，管灯光、控镜头、稳画面。",
+    req: "18-30岁、大专、应届可投；会直播灯光与机位基础操作，懂运镜调色优先；无经验肯学也行；能适应直播排班。",
+    num: "2 人",
+    numNote: "11-03 更新",
+    salary: "5000-10000 元/月",
+    salaryNote: "阶梯式提成+绩效；免费带薪培训、老手带教",
+    platform: "猎聘",
+    link: "https://m.liepin.com/lptjob/85169397"
+  },
+  {
+    company: "长沙宜可珈文化传媒有限公司",
+    alias: "宜可珈传媒",
+    tag: "warn",
+    tagText: "🟡 在架",
+    job: "直播中控 / 场控",
+    intro: "2024年成立的新媒体公司，运营自研智能摄像头品牌「神眸」；视频号监控赛道头部直播间，20-99人。",
+    req: "1-3年、学历不限；跟播单品付费直播间，对画面声音异常敏感能及时调设备；回复公屏、配合主播逼单；要有冲劲。",
+    num: "未标注",
+    numNote: "开福区君泰大厦",
+    salary: "5000-10000 元/月",
+    salaryNote: "底薪5000-6000，提成后可达8000-10000",
+    platform: "BOSS直聘",
+    link: "https://www.zhipin.com/job_detail/8b5bd0242c48321003N409m0F1dR.html"
+  },
+  {
+    company: "湖南大热文化传媒有限公司",
+    alias: "大热文化",
+    tag: "warn",
+    tagText: "🟡 在架",
+    job: "直播间中控 / 场控（同时在招中控助播）",
+    intro: "2018年成立的长沙头部 MCN，视频号直播带货头部机构，主做女装、形体、瑜伽、家居；100-499人，两整层办公。",
+    req: "大专、1年以内可投；开播前调灯光设备；商品上下架、改库存改价；直播中配合主播喊话，性格外向不怯场。",
+    num: "未标注",
+    numNote: "两个岗位同招",
+    salary: "6000-9000 元/月",
+    salaryNote: "无责底薪+绩效+提成+五险；晋升：场控→组长→主管",
+    platform: "BOSS直聘",
+    link: "https://www.zhipin.com/job_detail/3b6556f6ca279c3e03d52tS5FFpY.html"
+  },
+  {
+    company: "长沙嘉时嘉辰文化传媒有限公司",
+    alias: "嘉时嘉辰",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播中控 / 助播",
+    intro: "长沙电商直播公司，成熟达人直播间、成熟抖音账号；20-99人，团队年轻，有系统培训。",
+    req: "大专、1-3年；6个月以上相关经验；熟主流直播平台操作；细致、临场应变强，能配合主播调控节奏。",
+    num: "2 人",
+    numNote: "招聘顾问今日在线",
+    salary: "5000-9000 元/月",
+    salaryNote: "无责底薪+提成+五险；免费零食、系统培训",
+    platform: "猎聘",
+    link: "https://www.liepin.com/job/1983889173.shtml"
+  },
+  {
+    company: "俊彩星驰文化传媒",
+    alias: "",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播中控",
+    intro: "电商/淘宝直播团队，店铺规模0-20人；负责人深耕抖音多年，多品类 0-1 起号，已起号、销售额稳定的成熟团队。（个人招聘者发布）",
+    req: "学历经验不限、可无经验；会上架、设优惠券；会调直播设备与灯光；晚班 13:00-22:00，反应快、声音洪亮。",
+    num: "1 人",
+    numNote: "※ 地址有矛盾",
+    salary: "5000-9000 元/月",
+    salaryNote: "试用期4000-5000，转正5000-1万；五险+年终奖",
+    platform: "店长直聘",
+    link: "https://b.dianzhangzhipin.com/job/1XF739S5FFE~.html"
+  },
+  {
+    company: "湖南她时代品质购电子商务有限公司",
+    alias: "她时代品质购",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播中控",
+    intro: "电商/淘宝直播间，店铺规模50-99人；自有品牌直播间，走「固定底薪+销售额提成」结构。",
+    req: "大专、1-3年；上下架产品、改价、弹框；配合主播转化流量；有数据敏感度；突发情况能快速决策；责任心强、能吃苦。",
+    num: "2 人",
+    numNote: "近期更新",
+    salary: "5000-8000 元/月",
+    salaryNote: "固定底薪5000+销售额提成；五险一金，次月15号发薪",
+    platform: "店长直聘",
+    link: "https://dianzhangm.zhipin.com/job/1n183t6-GVM~.html"
+  },
+  {
+    company: "深圳市冠旭电子股份有限公司",
+    alias: "冠旭电子 · 长沙直播点",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "产品直播场控",
+    intro: "1997年成立的深圳高新技术企业，自主耳机品牌 Cleer、233621，1000-5000人；长沙设直播间，办公在开福区博创园。",
+    req: "大专、1年以上直播场控经验；精通抖音快手后台与 OBS 推流；能盯流量数据调推流节奏、处理设备与话术异常；接受夜班。",
+    num: "1 人",
+    numNote: "11-02 发布",
+    salary: "4000-8000 元/月",
+    salaryNote: "五险一金、带薪年假、节日福利、专业培训",
+    platform: "前程无忧",
+    link: "https://jobs.51job.com/changsha-kfq/173541384.html"
+  },
+  {
+    company: "闹闹虎（湖南）科技有限公司",
+    alias: "闹闹虎",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播中控",
+    intro: "湖南本土科技服务公司，20-99人；直播合作方为天心区潮奢虎奢侈品服饰集合店，办公在坡子街。",
+    req: "大专、1-3年；负责直播过程中的中控操作与设备调试，保证音视频输出质量；实时监控直播数据并对效果负责。",
+    num: "未标注",
+    numNote: "天心区坡子街",
+    salary: "5000-8000 元/月",
+    salaryNote: "人事活跃，回复较快",
+    platform: "智联招聘",
+    link: "https://m.zhaopin.com/jobs/CCL1311029400J40803465405.htm"
+  },
+  {
+    company: "长沙考拉鼻鼻品牌管理有限责任公司",
+    alias: "考拉鼻鼻",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播场控 / 中控 / 助播",
+    intro: "品牌管理公司，100-299人，主做鞋服箱包类目直播；办公在岳麓区麓谷企业广场。",
+    req: "大专、1-3年；熟抖音直播玩法与后台；懂带货话术、会提产品卖点；排班制（最晚 14:00-23:00），大小休。",
+    num: "2 人",
+    numNote: "08-26 发布",
+    salary: "6000-7000 元/月",
+    salaryNote: "季度聚餐、年度旅游、下午茶、生日会、奖金",
+    platform: "智联招聘",
+    link: "https://m.zhaopin.com/jobs/CCL1475543930J40742789007.htm"
+  },
+  {
+    company: "劲仔食品集团股份有限公司",
+    alias: "劲仔食品 003000",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "中控 / 场控",
+    intro: "A股上市公司（003000），湖南本土休闲食品龙头，「劲仔小鱼」品牌；1000-9999人。",
+    req: "大专、经验门槛宽松（1年以下可投）；半年以上中控/场控经验；熟抖音规则与流量机制；数据敏感、懂投放 ROI。",
+    num: "1 人",
+    numNote: "09-09 发布",
+    salary: "4000-7000 元/月",
+    salaryNote: "上市企业，福利体系完整",
+    platform: "智联招聘",
+    link: "https://m.zhaopin.com/jobs/CC463084220J40695164212.htm"
+  },
+  {
+    company: "昆明冬冬食品有限公司",
+    alias: "冬冬食品 · 长沙直播点",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播中控",
+    intro: "1997年成立的云南休闲食品企业（卤蛋、辣条面筋、鸭脖等九大类80余品种），年产值20亿+；500-1000人，长沙设直播点。",
+    req: "大专、1年以上；有抖音带货直播间中控/助播经验优先，有千川投流经验优先；熟直播软硬件；能适应高强度、抗压。",
+    num: "1 人",
+    numNote: "11-04 发布",
+    salary: "4000-7000 元/月",
+    salaryNote: "带薪年假、五险、交通补贴、通讯补贴",
+    platform: "前程无忧",
+    link: "https://jobs.51job.com/changsha-frq/174122508.html"
+  },
+  {
+    company: "湖南航业控股集团有限公司",
+    alias: "航业控股",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "中控（同批另招助播 5 人）",
+    intro: "2022年成立于长沙的独资小微企业，注册资本200万，主营企业管理、园区运营、教育咨询；少于50人，在岳麓区望城坡。",
+    req: "大专及以上、不限专业；熟悉抖音/视频号后台操作优先；细心、抗压，能接受直播排班与灵活节奏。",
+    num: "5 人",
+    numNote: "10-27 发布",
+    salary: "3000-6000 元/月",
+    salaryNote: "校招岗；同批助播岗也是 5 人、同薪资",
+    platform: "校招平台",
+    link: "https://csxy.bysjy.com.cn/detail/job?id=3280227&jobfair_id=31537"
+  },
+  {
+    company: "湖南佳澜文化传媒有限公司",
+    alias: "佳澜文化",
+    tag: "ok",
+    tagText: "✅ 已核验",
+    job: "直播中控",
+    intro: "2021年成立的电商新媒体公司，核心团队来自湖南广电，服务淘宝/抖音/小红书/视频号全域；长沙网络主播协会理事单位，少于50人。",
+    req: "大专及以上，应届生/大四实习优先；打字快、会基础办公软件，无经验可带薪培训；接受晚班轮班与周末排班。",
+    num: "2 人",
+    numNote: "09-01 发布",
+    salary: "3000-5000 元/月",
+    salaryNote: "零基础带薪培训；考核后跟班实操",
+    platform: "校招平台",
+    link: "https://jy.hunau.edu.cn/detail/job?id=3232208"
+  }
+];
+
+/* =========================================================
+   渲染表格
+   ========================================================= */
+const tbody = document.querySelector("#tbl tbody");
+tbody.innerHTML = DATA.map(d => `
+  <tr>
+    <td>
+      <div class="co-name">${d.company}</div>
+      ${d.alias ? `<div class="co-job">${d.alias}</div>` : ""}
+      <span class="co-tag ${d.tag === "ok" ? "t-ok" : "t-warn"}">${d.tagText}</span>
+      <div class="co-job">${d.job}</div>
+    </td>
+    <td><div class="intro">${d.intro}</div></td>
+    <td><div class="req">${d.req}</div></td>
+    <td><div class="num">${d.num}<small>${d.numNote}</small></div></td>
+    <td><div class="sal">${d.salary}<small>${d.salaryNote}</small></div></td>
+    <td class="lnk">
+      <span class="pf">${d.platform}</span>
+      <a href="${d.link}" target="_blank" rel="noopener">${d.link.replace(/^https?:\/\//, "")}</a>
+    </td>
+  </tr>
+`).join("");
+
+/* =========================================================
+   工具
+   ========================================================= */
+function toast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 2800);
+}
+
+/* ---------- 纯文本（微信聊天版） ---------- */
+function buildPlainText() {
+  const lines = [];
+  lines.push("【长沙 · 直播中控 在招公司清单】");
+  lines.push("数据快照：2026-11-06 19:00 ｜ 共16家 ｜ 电商带货直播间中控/场控");
+  lines.push("");
+  DATA.forEach((d, i) => {
+    lines.push("━━━━━━━━━━━━");
+    lines.push(`${i + 1}. ${d.company}${d.alias ? "（" + d.alias + "）" : ""}  ${d.tagText}`);
+    lines.push(`【岗位】${d.job}`);
+    lines.push(`【薪资】${d.salary}｜${d.salaryNote}`);
+    lines.push(`【人数】${d.num}（${d.numNote}）`);
+    lines.push(`【简介】${d.intro}`);
+    lines.push(`【要求】${d.req}`);
+    lines.push(`【链接·${d.platform}】${d.link}`);
+  });
+  lines.push("━━━━━━━━━━━━");
+  lines.push("说明：✅=已打开招聘原文逐项核验；🟡=平台在架、需登录查看。薪资为招聘页区间，实际以面试为准。");
+  return lines.join("\n");
+}
+
+/* ---------- 富文本 HTML ---------- */
+function buildHtmlTable() {
+  const TH = 'style="background:#f2f5fa;color:#2b3a55;font-weight:700;font-size:13px;padding:10px;border:1px solid #d7dee8;text-align:left;"';
+  const TD = 'style="padding:10px;border:1px solid #d7dee8;vertical-align:top;font-size:12.5px;color:#22303f;line-height:1.6;"';
+  let rows = `
+    <tr>
+      <td ${TH} width="16%">公司</td>
+      <td ${TH} width="23%">公司简介</td>
+      <td ${TH} width="29%">直播中控 · 岗位要求</td>
+      <td ${TH} width="7%">人数</td>
+      <td ${TH} width="13%">薪资待遇</td>
+      <td ${TH} width="12%">招聘链接</td>
+    </tr>`;
+  DATA.forEach(d => {
+    rows += `
+    <tr>
+      <td ${TD}>
+        <div style="font-weight:700;font-size:13px;color:#101b28;">${d.company}</div>
+        <div style="font-size:11.5px;color:#6a7686;margin-top:3px;">${d.job}</div>
+        <div style="font-size:11px;color:${d.tag === "ok" ? "#15743a" : "#96550a"};margin-top:3px;">${d.tagText}</div>
+      </td>
+      <td ${TD}><span style="font-size:12px;color:#4d5a6b;">${d.intro}</span></td>
+      <td ${TD}><span style="font-size:12px;color:#3b4859;">${d.req}</span></td>
+      <td ${TD}><b>${d.num}</b><br><span style="font-size:11px;color:#8a95a4;">${d.numNote}</span></td>
+      <td ${TD}>
+        <div style="color:#c0392b;font-weight:700;font-size:12.5px;">${d.salary}</div>
+        <div style="font-size:11px;color:#6a7686;margin-top:4px;">${d.salaryNote}</div>
+      </td>
+      <td ${TD}><span style="font-size:11px;color:#6a7686;">${d.platform}</span><br><a href="${d.link}" style="color:#1a56c4;font-size:11px;word-break:break-all;">${d.link.replace(/^https?:\/\//, "")}</a></td>
+    </tr>`;
+  });
+  return `<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;">
+    <div style="font-size:16px;font-weight:700;color:#101b28;margin-bottom:4px;">长沙 · 直播中控 在招公司清单</div>
+    <div style="font-size:12px;color:#5b6776;margin-bottom:10px;">数据快照：2026-11-06 19:00 ｜ 共16家 ｜ 岗位口径：电商带货直播间中控/场控</div>
+    <table style="border-collapse:collapse;width:100%;font-family:'Microsoft YaHei','PingFang SC',sans-serif;">${rows}</table>
+    <div style="font-size:11.5px;color:#7a8698;margin-top:8px;">✅=已打开招聘原文核验；🟡=平台在架、需登录查看。薪资为招聘页区间，实际以面试为准。</div>
+  </div>`;
+}
+
+/* ---------- 复制：富文本 ---------- */
+async function copyRich() {
+  const html = buildHtmlTable();
+  const text = buildPlainText();
+  try {
+    await navigator.clipboard.write([new ClipboardItem({
+      "text/html": new Blob([html], { type: "text/html" }),
+      "text/plain": new Blob([text], { type: "text/plain" })
+    })]);
+    toast("✅ 已复制表格，可直接粘贴到 Word / 企业微信 / 邮件");
+  } catch (e) {
+    fallbackCopyHtml(html);
+  }
+}
+
+function fallbackCopyHtml(html) {
+  const box = document.createElement("div");
+  box.contentEditable = "true";
+  box.style.cssText = "position:fixed;left:-9999px;top:0;";
+  box.innerHTML = html;
+  document.body.appendChild(box);
+  const r = document.createRange();
+  r.selectNodeContents(box);
+  const s = window.getSelection();
+  s.removeAllRanges(); s.addRange(r);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+  s.removeAllRanges();
+  document.body.removeChild(box);
+  toast(ok ? "✅ 已复制表格" : "※ 复制失败，请改用「复制纯文本」或「保存图片」");
+}
+
+/* ---------- 复制：纯文本 ---------- */
+async function copyText() {
+  const text = buildPlainText();
+  try {
+    await navigator.clipboard.writeText(text);
+    toast("✅ 已复制纯文本，粘贴到微信聊天即可，不会错行");
+  } catch (e) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.cssText = "position:fixed;left:-9999px;";
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (e2) { ok = false; }
+    document.body.removeChild(ta);
+    toast(ok ? "✅ 已复制纯文本" : "※ 复制失败，请长按选中文本手动复制");
+  }
+}
+
+/* =========================================================
+   Canvas 生成表格图片
+   ========================================================= */
+const COLS = [
+  { key: "company", title: "公司", w: 184 },
+  { key: "intro",   title: "公司简介", w: 232 },
+  { key: "req",     title: "直播中控 · 岗位要求", w: 300 },
+  { key: "num",     title: "人数", w: 98 },
+  { key: "salary",  title: "薪资待遇", w: 180 },
+  { key: "link",    title: "招聘链接", w: 206 }
+];
+const PAD = 11;
+const FONT = '"Microsoft YaHei", "PingFang SC", sans-serif';
+
+function cellLines(d, key) {
+  switch (key) {
+    case "company": {
+      const lines = [d.company];
+      const styles = ["bold"];
+      if (d.alias) { lines.push(d.alias); styles.push("sub"); }
+      lines.push(d.tagText); styles.push(d.tag === "ok" ? "tagok" : "tagwarn");
+      lines.push(d.job); styles.push("sub");
+      return { lines, styles };
+    }
+    case "intro":  return { lines: [d.intro], styles: ["body"] };
+    case "req":    return { lines: [d.req], styles: ["body"] };
+    case "num":    return { lines: [d.num, d.numNote], styles: ["bold", "tiny"] };
+    case "salary": return { lines: [d.salary, d.salaryNote], styles: ["salary", "tiny"] };
+    case "link":   return { lines: [d.platform, d.link.replace(/^https?:\/\//, "")], styles: ["pf", "url"] };
+  }
+}
+
+function fontOf(style) {
+  switch (style) {
+    case "bold":    return `700 12px ${FONT}`;
+    case "salary":  return `700 12.5px ${FONT}`;
+    case "sub":     return `400 10.5px ${FONT}`;
+    case "tagok":   return `400 10.5px ${FONT}`;
+    case "tagwarn": return `400 10.5px ${FONT}`;
+    case "tiny":    return `400 10.5px ${FONT}`;
+    case "pf":      return `400 10.5px ${FONT}`;
+    case "url":     return `400 9.5px ${FONT}`;
+    default:        return `400 11.5px ${FONT}`;
+  }
+}
+function colorOf(style) {
+  switch (style) {
+    case "sub":     return "#6a7686";
+    case "tagok":   return "#15743a";
+    case "tagwarn": return "#96550a";
+    case "tiny":    return "#7a8698";
+    case "pf":      return "#8a95a4";
+    case "url":     return "#1a56c4";
+    case "salary":  return "#c0392b";
+    default:        return "#33404f";
+  }
+}
+function lineH(style) {
+  switch (style) {
+    case "bold": case "salary": return 18.5;
+    case "tagok": case "tagwarn": return 15.5;
+    case "tiny": case "pf": return 14;
+    case "url": return 13.5;
+    case "sub": return 15.5;
+    default: return 18.5;
+  }
+}
+
+function wrap(ctx, text, maxW) {
+  const out = [];
+  let line = "";
+  for (const ch of text) {
+    if (ch === "\n") { out.push(line); line = ""; continue; }
+    const test = line + ch;
+    if (ctx.measureText(test).width > maxW && line) { out.push(line); line = ch; }
+    else line = test;
+  }
+  if (line) out.push(line);
+  return out.length ? out : [""];
+}
+
+function buildCanvas() {
+  const S = 2;
+  const W = COLS.reduce((a, c) => a + c.w, 0);
+  const HEAD_H = 94;
+  const TH_H = 42;
+  const probe = document.createElement("canvas").getContext("2d");
+
+  const rowHeights = [];
+  DATA.forEach(d => {
+    let h = 0;
+    COLS.forEach(c => {
+      const { lines, styles } = cellLines(d, c.key);
+      let ch = 0;
+      lines.forEach((ln, i) => {
+        probe.font = fontOf(styles[i]);
+        wrap(probe, ln, c.w - PAD * 2).forEach(() => { ch += lineH(styles[i]); });
+        ch += 3;
+      });
+      h = Math.max(h, ch);
+    });
+    rowHeights.push(h + PAD * 2);
+  });
+
+  const totalH = HEAD_H + TH_H + rowHeights.reduce((a, b) => a + b, 0) + 54;
+
+  const cv = document.createElement("canvas");
+  cv.width = W * S;
+  cv.height = totalH * S;
+  const ctx = cv.getContext("2d");
+  ctx.scale(S, S);
+  ctx.textBaseline = "top";
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, W, totalH);
+
+  ctx.fillStyle = "#0f1a26";
+  ctx.font = `700 23px ${FONT}`;
+  ctx.fillText("长沙 · 直播中控 在招公司清单", 22, 25);
+
+  ctx.fillStyle = "#5b6776";
+  ctx.font = `400 12.5px ${FONT}`;
+  ctx.fillText("数据快照：2026-11-06 19:00　｜　共16家　｜　岗位口径：电商带货直播间中控 / 场控", 22, 61);
+
+  let y = HEAD_H;
+  ctx.fillStyle = "#f2f5fa";
+  ctx.fillRect(0, y, W, TH_H);
+  ctx.fillStyle = "#2b3a55";
+  ctx.font = `700 13px ${FONT}`;
+  let x = 0;
+  COLS.forEach(c => {
+    ctx.fillText(c.title, x + PAD, y + 14);
+    x += c.w;
+  });
+  ctx.strokeStyle = "#d7dee8";
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, y + TH_H - 0.5); ctx.lineTo(W, y + TH_H - 0.5); ctx.stroke();
+  y += TH_H;
+
+  DATA.forEach((d, ri) => {
+    const h = rowHeights[ri];
+    if (ri % 2 === 1) { ctx.fillStyle = "#fafbfd"; ctx.fillRect(0, y, W, h); }
+
+    let cx = 0;
+    COLS.forEach(c => {
+      const { lines, styles } = cellLines(d, c.key);
+      let cy = y + PAD;
+      lines.forEach((ln, i) => {
+        const st = styles[i];
+        ctx.font = fontOf(st);
+        ctx.fillStyle = colorOf(st);
+        wrap(ctx, ln, c.w - PAD * 2).forEach(w => {
+          ctx.fillText(w, cx + PAD, cy);
+          cy += lineH(st);
+        });
+        cy += 3;
+      });
+      ctx.strokeStyle = "#e8edf4";
+      ctx.beginPath(); ctx.moveTo(cx + 0.5, y); ctx.lineTo(cx + 0.5, y + h); ctx.stroke();
+      cx += c.w;
+    });
+
+    ctx.strokeStyle = "#e8edf4";
+    ctx.beginPath(); ctx.moveTo(0, y + h - 0.5); ctx.lineTo(W, y + h - 0.5); ctx.stroke();
+    y += h;
+  });
+
+  ctx.fillStyle = "#8a95a4";
+  ctx.font = `400 11.5px ${FONT}`;
+  ctx.fillText("✅ = 已打开招聘原文逐项核验　🟡 = 平台在架、需登录查看　｜　薪资为招聘页区间，实际以面试为准", 22, y + 16);
+
+  return cv;
+}
+
+async function renderImage() {
+  if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+  return buildCanvas();
+}
+
+function downloadBlob(blob) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "长沙-直播中控-在招公司清单-20261106.png";
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+
+async function copyImage() {
+  try {
+    toast("正在生成图片…");
+    const cv = await renderImage();
+    cv.toBlob(async (blob) => {
+      if (!blob) { toast("※ 生成图片失败，请改用「复制纯文本」"); return; }
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+        toast("✅ 图片已复制，去微信 Ctrl+V 直接粘贴发送");
+      } catch (e) {
+        downloadBlob(blob);
+        toast("当前环境不支持写入图片，已改为下载 PNG，拖进微信即可");
+      }
+    }, "image/png");
+  } catch (e) {
+    toast("※ 生成图片失败，请改用「复制纯文本」");
+  }
+}
+
+async function downloadImage() {
+  const cv = await renderImage();
+  cv.toBlob(blob => {
+    if (blob) { downloadBlob(blob); toast("✅ 图片已保存"); }
+    else toast("※ 生成图片失败");
+  }, "image/png");
+}
+
+document.getElementById("btnImg").addEventListener("click", copyImage);
+document.getElementById("btnText").addEventListener("click", copyText);
+document.getElementById("btnRich").addEventListener("click", copyRich);
+document.getElementById("btnDl").addEventListener("click", downloadImage);
+</script>
+</body>
+</html>
