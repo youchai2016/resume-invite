@@ -11,7 +11,7 @@
   --surface-0:#faf9f6; --surface-1:#f2f0eb; --surface-2:#fffefd;
   --text-primary:#292824; --text-secondary:#57564e; --text-muted:#69685f;
   --border:#d6d3c9; --border-strong:#9e9b90; --border-stronger:#6e6c62;
-  --bg-accent:#f5e9e0; --text-accent:#82462e; --border-accent:#d5ad96;
+  --bg-accent:#f5e9e0; --text-accent:#82462e; --border-accent:#d5ad96; --river:#c9d5e3;
   --font-sans:"Anthropic Sans",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
   --font-mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
 }
@@ -20,7 +20,7 @@
     --surface-0:#23231f; --surface-1:#2c2c27; --surface-2:#30302a;
     --text-primary:#eeede6; --text-secondary:#cbcac0; --text-muted:#b4b3a6;
     --border:#4b4b41; --border-strong:#737365; --border-stronger:#a5a496;
-    --bg-accent:#392d26; --text-accent:#ebbd9f; --border-accent:#8e6650;
+    --bg-accent:#392d26; --text-accent:#ebbd9f; --border-accent:#8e6650; --river:#3a4654;
   }
 }
 *{box-sizing:border-box}
@@ -99,6 +99,57 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
   border-radius:6px;padding:2px 8px;white-space:nowrap;line-height:1.4}
 .sh:hover{color:var(--text-accent);border-color:var(--border-accent)}
 
+/* ── 方位示意图 ── */
+.mapsec{margin-top:22px;padding-top:16px;border-top:.5px solid var(--border-strong)}
+.mhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.mhead h2{font-size:13.5px;font-weight:500;letter-spacing:.01em}
+.mhead p{font-size:11.5px;color:var(--text-muted)}
+.mbody{display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:14px;margin-top:11px;align-items:start}
+.mwrap{position:relative}
+.mwrap svg{width:100%;height:auto;display:block;border:.5px solid var(--border);border-radius:10px}
+.mbg{fill:var(--surface-1)}
+.river{fill:none;stroke:var(--river);stroke-width:13;stroke-linecap:round;opacity:.75}
+.rivert{font:400 10px var(--font-sans);fill:var(--text-muted);letter-spacing:.3em;opacity:.7;text-anchor:middle}
+.ring{fill:none;stroke:var(--border-strong);stroke-width:.5;stroke-dasharray:2 5;opacity:.55}
+.rl{font:400 9px var(--font-mono);fill:var(--text-muted)}
+.dt{font:400 10.5px var(--font-sans);fill:var(--text-muted);letter-spacing:.2em;opacity:.7}
+.sb line{stroke:var(--border-stronger);stroke-width:.8;fill:none}
+.sb text{font:400 9px var(--font-mono);fill:var(--text-muted);text-anchor:middle}
+.north path{fill:none;stroke:var(--border-stronger);stroke-width:1;stroke-linecap:round}
+.north text{font:400 9px var(--font-mono);fill:var(--text-muted);text-anchor:middle}
+.pt circle{fill:var(--surface-2);stroke:var(--text-accent);stroke-width:1.2}
+.pt .p2{stroke-dasharray:3 2}
+.pt .p3{stroke-dasharray:1.5 2;stroke:var(--border-stronger);opacity:.9}
+.pt:hover circle{stroke-width:2.2}
+.pn{font:400 9px var(--font-mono);fill:var(--text-primary);text-anchor:middle;pointer-events:none}
+.ld{stroke:var(--border-strong);stroke-width:.5;opacity:.6}
+.cring{fill:none;stroke:var(--text-accent);stroke-width:.8;stroke-dasharray:2 3}
+.cdot{fill:var(--text-accent)}
+.clab{font:500 12.5px var(--font-sans);fill:var(--text-primary)}
+.csub{font:400 9.5px var(--font-sans);fill:var(--text-muted)}
+.mhint{display:none;margin-top:5px;font-size:10.5px;color:var(--text-muted)}
+.legend{display:flex;gap:14px;margin-top:7px;font-size:10.5px;color:var(--text-muted)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:50%;background:var(--surface-2);border:1.2px solid var(--text-accent);display:inline-block}
+.legend .lg2{border-style:dashed}
+.legend .lg3{border-style:dotted;border-color:var(--border-stronger)}
+.legend .lgnote{opacity:.75}
+.mlist{border:.5px solid var(--border);border-radius:10px;background:var(--surface-2);padding:6px 10px 8px}
+.mlh{display:flex;justify-content:space-between;padding:3px 0 6px;border-bottom:.5px solid var(--border);
+  font-size:10.5px;letter-spacing:.1em;color:var(--text-muted)}
+.mrow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:.5px solid var(--border);
+  text-decoration:none;color:inherit}
+.mrow:last-child{border-bottom:0}
+.mrow:hover .mt b{color:var(--text-accent)}
+.mn{flex:none;width:16px;font:400 10px var(--font-mono);color:var(--border-stronger);font-variant-numeric:tabular-nums}
+.mt{flex:1;min-width:0}
+.mt b{display:block;font-size:12px;font-weight:500;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mt em{display:block;font-style:normal;font-size:10px;color:var(--text-muted);line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mk{flex:none;font:500 12px var(--font-mono);color:var(--text-accent);font-variant-numeric:tabular-nums}
+.mk i{font-style:normal;font-size:9px;margin-left:1px;color:var(--text-muted)}
+.mnote{margin-top:8px;font-size:11px;line-height:1.65;color:var(--text-muted)}
+.mnote b{font-weight:500;color:var(--text-secondary)}
+
 /* ── 信息保真 ── */
 .fid{margin-top:26px;padding-top:14px;border-top:.5px solid var(--border-strong);padding-bottom:44px}
 .fid h2{display:flex;align-items:baseline;gap:8px;font-size:13.5px;font-weight:500}
@@ -116,6 +167,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
 /* ── 响应式 ── */
 @media (max-width:1010px){
   .cards{grid-template-columns:minmax(0,1fr)}
+  .mbody{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:640px){
   .wrap{width:calc(100% - 24px)}
@@ -126,6 +178,10 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
   .stat:nth-child(odd){border-right:.5px solid var(--border)}
   .stat:nth-child(4){border-right:0}
   .stat:last-child{grid-column:1/-1;border-bottom:0;border-right:0}
+  .mhint{display:block}
+  .mwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mwrap svg{min-width:540px}
+  .mhead p{display:none}
   .card{padding:12px 13px 11px}
   .co{font-size:14.5px}
   .ln{font-size:12.5px}
@@ -148,8 +204,153 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
     </div>
   </header>
 
+  
+  <section class="mapsec" id="map">
+    <div class="mhead">
+      <h2>以中央美郡为圆心的方位示意图</h2>
+      <p>编号即推荐排名，点圆点可跳到对应卡片。距离为直线距离。</p>
+    </div>
+    <div class="mbody">
+      <div class="mwrap"><svg viewBox="0 0 760 520" role="img" aria-label="以长沙岳麓区中央美郡为圆心的在招公司方位示意图">
+    <defs><clipPath id="cp"><rect x="0" y="0" width="760" height="520" rx="10"/></clipPath></defs>
+    <g clip-path="url(#cp)">
+      <rect width="760" height="520" class="mbg"/>
+      <path class="river" d="M 318,0 C 336,86 300,146 316,206 C 332,262 304,318 320,378 C 334,432 316,478 326,520"/>
+      <text class="rivert" x="332" y="26">湘 江</text>
+      
+    <circle cx="209.2" cy="199.3" r="93.6" class="ring"/>
+    <circle cx="209.2" cy="199.3" r="187.2" class="ring"/>
+    <circle cx="209.2" cy="199.3" r="312.0" class="ring"/>
+      <g class="north"><path d="M 40,52 L 40,26 M 40,26 L 35,36 M 40,26 L 45,36"/><text x="40" y="68">N</text></g>
+      <text class="dt" x="96" y="338">岳麓区</text>
+      <text class="dt" x="392" y="46">开福区</text>
+      <text class="dt" x="486" y="318">芙蓉区</text>
+      <text class="dt" x="438" y="352">天心区</text>
+      <text class="dt" x="648" y="52">长沙县</text>
+      <line x1="389.1" y1="268.7" x2="384.7" y2="272.1" class="ld"/><a href="#c-01" class="pt"><title>长沙星莱德文化发展有限公司 · 芙蓉区 · 约 6.2 km</title>
+      <circle cx="384.7" cy="272.1" r="8.6" class="p3"/>
+      <text x="384.7" y="275.4" class="pn">01</text></a><line x1="307.0" y1="152.5" x2="312.4" y2="157.1" class="ld"/><a href="#c-02" class="pt"><title>长沙市爱巴森网络科技有限公司 · 岳麓·银双路 · 约 3.5 km</title>
+      <circle cx="312.4" cy="157.1" r="8.6" class="p1"/>
+      <text x="312.4" y="160.4" class="pn">02</text></a><line x1="294.9" y1="142.1" x2="289.6" y2="137.6" class="ld"/><a href="#c-03" class="pt"><title>湖南她时代品质购电子商务有限公司 · 岳麓·银盆岭 · 约 3.3 km</title>
+      <circle cx="289.6" cy="137.6" r="8.6" class="p2"/>
+      <text x="289.6" y="140.9" class="pn">03</text></a><a href="#c-04" class="pt"><title>深圳市冠旭电子股份有限公司 · 开福·博创园 · 约 7.2 km</title>
+      <circle cx="404.3" cy="86.7" r="8.6" class="p1"/>
+      <text x="404.3" y="90.0" class="pn">04</text></a><a href="#c-05" class="pt"><title>湖南航业控股集团有限公司 · 岳麓·望城坡 · 约 3.0 km</title>
+      <circle cx="115.5" cy="190.7" r="8.6" class="p1"/>
+      <text x="115.5" y="194.0" class="pn">05</text></a><a href="#c-06" class="pt"><title>昆明冬冬食品有限公司 · 芙蓉·置地大厦 · 约 6.2 km</title>
+      <circle cx="397.7" cy="231.1" r="8.6" class="p1"/>
+      <text x="397.7" y="234.4" class="pn">06</text></a><line x1="404.3" y1="256.5" x2="411.1" y2="257.9" class="ld"/><a href="#c-07" class="pt"><title>长沙知花知果网络科技集团有限公司 · 芙蓉区 · 约 6.5 km</title>
+      <circle cx="411.1" cy="257.9" r="8.6" class="p3"/>
+      <text x="411.1" y="261.2" class="pn">07</text></a><a href="#c-08" class="pt"><title>长沙嘉时嘉辰文化传媒有限公司 · 岳麓区 · 约 1.5 km</title>
+      <circle cx="228.0" cy="242.7" r="8.6" class="p3"/>
+      <text x="228.0" y="246.0" class="pn">08</text></a><a href="#c-09" class="pt"><title>俊彩星驰文化传媒 · 岳麓·洋湖新城 · 约 8.2 km</title>
+      <circle cx="282.7" cy="443.7" r="8.6" class="p2"/>
+      <text x="282.7" y="447.0" class="pn">09</text></a><a href="#c-10" class="pt"><title>劲仔食品集团股份有限公司 · 开福·万达广场 · 约 4.8 km</title>
+      <circle cx="355.7" cy="221.9" r="8.6" class="p1"/>
+      <text x="355.7" y="225.2" class="pn">10</text></a><line x1="386.1" y1="208.0" x2="384.2" y2="204.3" class="ld"/><a href="#c-11" class="pt"><title>湖南奇异生物科技有限公司 · 开福·锦绣华天 · 约 5.7 km</title>
+      <circle cx="384.2" cy="204.3" r="8.6" class="p1"/>
+      <text x="384.2" y="207.6" class="pn">11</text></a><a href="#c-12" class="pt"><title>长沙考拉鼻鼻品牌管理有限责任公司 · 岳麓·麓谷 · 约 4.9 km</title>
+      <circle cx="63.8" cy="149.1" r="8.6" class="p1"/>
+      <text x="63.8" y="152.4" class="pn">12</text></a><a href="#c-13" class="pt"><title>长沙宜可珈文化传媒有限公司 · 开福·君泰大厦 · 约 4.9 km</title>
+      <circle cx="361.8" cy="180.3" r="8.6" class="p1"/>
+      <text x="361.8" y="183.6" class="pn">13</text></a><a href="#c-14" class="pt"><title>湖南大热文化传媒有限公司 · 岳麓·孵化大楼 · 约 2.5 km</title>
+      <circle cx="152.0" cy="145.6" r="8.6" class="p1"/>
+      <text x="152.0" y="148.9" class="pn">14</text></a><a href="#c-15" class="pt"><title>闹闹虎（湖南）科技有限公司 · 天心·坡子街 · 约 5.2 km</title>
+      <circle cx="349.6" cy="280.8" r="8.6" class="p1"/>
+      <text x="349.6" y="284.1" class="pn">15</text></a><a href="#c-16" class="pt"><title>湖南佳澜文化传媒有限公司 · 长沙县·经开区 · 约 15.5 km</title>
+      <circle cx="684.0" cy="117.9" r="8.6" class="p1"/>
+      <text x="684.0" y="121.2" class="pn">16</text></a>
+      <g class="sb"><line x1="556" y1="492" x2="664" y2="492"/><line x1="556" y1="487" x2="556" y2="497"/><line x1="664" y1="487" x2="664" y2="497"/><text x="610" y="484">3.5 km</text></g>
+      <g class="center">
+        <circle cx="209.2" cy="199.3" r="13" class="cring"/>
+        <circle cx="209.2" cy="199.3" r="5" class="cdot"/>
+        <text x="190.2" y="198.3" class="clab" text-anchor="end">中央美郡</text>
+        <text x="190.2" y="212.3" class="csub" text-anchor="end">咸嘉湖西路 119 号 · 圆心</text>
+      </g>
+    </g>
+  </svg>
+        <p class="mhint">左右滑动查看完整示意图 →</p>
+        <div class="legend">
+          <span><i class="lg1"></i>楼宇级地址</span>
+          <span><i class="lg2"></i>片区级</span>
+          <span><i class="lg3"></i>仅到区</span>
+          <span class="lgnote">虚线圆＝距圆心 3 / 6 / 10 km</span>
+        </div>
+      </div>
+      <div class="mlist">
+        <div class="mlh"><span>按直线距离</span><span></span></div>
+        <a class="mrow" href="#c-08">
+      <span class="mn">08</span>
+      <span class="mt"><b>嘉时嘉辰</b><em>岳麓区 · 区级</em></span>
+      <span class="mk">1.5<i>km</i></span>
+    </a><a class="mrow" href="#c-14">
+      <span class="mn">14</span>
+      <span class="mt"><b>大热文化</b><em>岳麓·孵化大楼 · 楼宇级</em></span>
+      <span class="mk">2.5<i>km</i></span>
+    </a><a class="mrow" href="#c-05">
+      <span class="mn">05</span>
+      <span class="mt"><b>航业控股</b><em>岳麓·望城坡 · 楼宇级</em></span>
+      <span class="mk">3.0<i>km</i></span>
+    </a><a class="mrow" href="#c-03">
+      <span class="mn">03</span>
+      <span class="mt"><b>她时代品质购</b><em>岳麓·银盆岭 · 片区级</em></span>
+      <span class="mk">3.3<i>km</i></span>
+    </a><a class="mrow" href="#c-02">
+      <span class="mn">02</span>
+      <span class="mt"><b>爱森电商</b><em>岳麓·银双路 · 楼宇级</em></span>
+      <span class="mk">3.5<i>km</i></span>
+    </a><a class="mrow" href="#c-10">
+      <span class="mn">10</span>
+      <span class="mt"><b>劲仔食品 003000</b><em>开福·万达广场 · 楼宇级</em></span>
+      <span class="mk">4.8<i>km</i></span>
+    </a><a class="mrow" href="#c-12">
+      <span class="mn">12</span>
+      <span class="mt"><b>考拉鼻鼻</b><em>岳麓·麓谷 · 楼宇级</em></span>
+      <span class="mk">4.9<i>km</i></span>
+    </a><a class="mrow" href="#c-13">
+      <span class="mn">13</span>
+      <span class="mt"><b>宜可珈传媒</b><em>开福·君泰大厦 · 楼宇级</em></span>
+      <span class="mk">4.9<i>km</i></span>
+    </a><a class="mrow" href="#c-15">
+      <span class="mn">15</span>
+      <span class="mt"><b>闹闹虎</b><em>天心·坡子街 · 楼宇级</em></span>
+      <span class="mk">5.2<i>km</i></span>
+    </a><a class="mrow" href="#c-11">
+      <span class="mn">11</span>
+      <span class="mt"><b>奇异生物</b><em>开福·锦绣华天 · 楼宇级</em></span>
+      <span class="mk">5.7<i>km</i></span>
+    </a><a class="mrow" href="#c-06">
+      <span class="mn">06</span>
+      <span class="mt"><b>冬冬食品 · 长沙直播点</b><em>芙蓉·置地大厦 · 楼宇级</em></span>
+      <span class="mk">6.2<i>km</i></span>
+    </a><a class="mrow" href="#c-01">
+      <span class="mn">01</span>
+      <span class="mt"><b>星莱德文化</b><em>芙蓉区 · 区级</em></span>
+      <span class="mk">6.2<i>km</i></span>
+    </a><a class="mrow" href="#c-07">
+      <span class="mn">07</span>
+      <span class="mt"><b>知花知果</b><em>芙蓉区 · 区级</em></span>
+      <span class="mk">6.5<i>km</i></span>
+    </a><a class="mrow" href="#c-04">
+      <span class="mn">04</span>
+      <span class="mt"><b>冠旭电子 · 长沙直播点</b><em>开福·博创园 · 楼宇级</em></span>
+      <span class="mk">7.2<i>km</i></span>
+    </a><a class="mrow" href="#c-09">
+      <span class="mn">09</span>
+      <span class="mt"><b>俊彩星驰</b><em>岳麓·洋湖新城 · 片区级</em></span>
+      <span class="mk">8.2<i>km</i></span>
+    </a><a class="mrow" href="#c-16">
+      <span class="mn">16</span>
+      <span class="mt"><b>佳澜文化</b><em>长沙县·经开区 · 楼宇级</em></span>
+      <span class="mk">15.5<i>km</i></span>
+    </a>
+      </div>
+    </div>
+    <p class="mnote">底图为示意图，非真实地图：点位按招聘页公开地址所在片区估算，个别点位做了轻微避让（细线指向原位），<b>不能当导航用</b>。距离为圆心直线距离，不是通勤时间。</p>
+  </section>
+
   <div class="cards">
-    <article class="card">
+    <article class="card" id="c-01">
       <div class="ctop">
         <span class="rk top">01</span>
         <h2 class="co">长沙星莱德文化发展有限公司</h2>
@@ -171,7 +372,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-02">
       <div class="ctop">
         <span class="rk top">02</span>
         <h2 class="co">长沙市爱巴森网络科技有限公司</h2>
@@ -193,7 +394,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-03">
       <div class="ctop">
         <span class="rk top">03</span>
         <h2 class="co">湖南她时代品质购电子商务有限公司</h2>
@@ -215,7 +416,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-04">
       <div class="ctop">
         <span class="rk">04</span>
         <h2 class="co">深圳市冠旭电子股份有限公司</h2>
@@ -237,7 +438,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-05">
       <div class="ctop">
         <span class="rk">05</span>
         <h2 class="co">湖南航业控股集团有限公司</h2>
@@ -259,7 +460,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-06">
       <div class="ctop">
         <span class="rk">06</span>
         <h2 class="co">昆明冬冬食品有限公司</h2>
@@ -281,7 +482,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-07">
       <div class="ctop">
         <span class="rk">07</span>
         <h2 class="co">长沙知花知果网络科技集团有限公司</h2>
@@ -303,7 +504,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-08">
       <div class="ctop">
         <span class="rk">08</span>
         <h2 class="co">长沙嘉时嘉辰文化传媒有限公司</h2>
@@ -325,7 +526,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-09">
       <div class="ctop">
         <span class="rk">09</span>
         <h2 class="co">俊彩星驰文化传媒</h2>
@@ -347,7 +548,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-10">
       <div class="ctop">
         <span class="rk">10</span>
         <h2 class="co">劲仔食品集团股份有限公司</h2>
@@ -369,7 +570,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-11">
       <div class="ctop">
         <span class="rk">11</span>
         <h2 class="co">湖南奇异生物科技有限公司</h2>
@@ -391,7 +592,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-12">
       <div class="ctop">
         <span class="rk">12</span>
         <h2 class="co">长沙考拉鼻鼻品牌管理有限责任公司</h2>
@@ -413,7 +614,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-13">
       <div class="ctop">
         <span class="rk">13</span>
         <h2 class="co">长沙宜可珈文化传媒有限公司</h2>
@@ -435,7 +636,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-14">
       <div class="ctop">
         <span class="rk">14</span>
         <h2 class="co">湖南大热文化传媒有限公司</h2>
@@ -457,7 +658,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-15">
       <div class="ctop">
         <span class="rk">15</span>
         <h2 class="co">闹闹虎（湖南）科技有限公司</h2>
@@ -479,7 +680,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
         </div>
       </div>
     </article>
-    <article class="card">
+    <article class="card" id="c-16">
       <div class="ctop">
         <span class="rk">16</span>
         <h2 class="co">湖南佳澜文化传媒有限公司</h2>
