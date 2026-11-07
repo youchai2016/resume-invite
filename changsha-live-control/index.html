@@ -11,7 +11,7 @@
   --surface-0:#faf9f6; --surface-1:#f2f0eb; --surface-2:#fffefd;
   --text-primary:#292824; --text-secondary:#57564e; --text-muted:#69685f;
   --border:#d6d3c9; --border-strong:#9e9b90; --border-stronger:#6e6c62;
-  --bg-accent:#f5e9e0; --text-accent:#82462e; --border-accent:#d5ad96; --river:#c9d5e3;
+  --bg-accent:#f5e9e0; --text-accent:#82462e; --border-accent:#d5ad96; --river:#c9d5e3; --blue:#1f6feb; --blue-bg:#eef5ff; --blue-line:#a9c8ff;
   --font-sans:"Anthropic Sans",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
   --font-mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
 }
@@ -20,10 +20,11 @@
     --surface-0:#23231f; --surface-1:#2c2c27; --surface-2:#30302a;
     --text-primary:#eeede6; --text-secondary:#cbcac0; --text-muted:#b4b3a6;
     --border:#4b4b41; --border-strong:#737365; --border-stronger:#a5a496;
-    --bg-accent:#392d26; --text-accent:#ebbd9f; --border-accent:#8e6650; --river:#3a4654;
+    --bg-accent:#392d26; --text-accent:#ebbd9f; --border-accent:#8e6650; --river:#3a4654; --blue:#7fb0ff; --blue-bg:#1b2634; --blue-line:#3d5f92;
   }
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--surface-0);color:var(--text-primary);
   font:400 14.5px/1.58 var(--font-sans);-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
 h1,h2,p{margin:0}
@@ -48,6 +49,8 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
 .card{background:var(--surface-2);border:.5px solid var(--border);border-radius:9px;
   padding:12px 14px 11px;display:flex;flex-direction:column}
 .card:hover{border-color:var(--border-strong)}
+.card{scroll-margin-top:14px}
+.card:target{border-color:var(--blue);background:var(--blue-bg);box-shadow:0 0 0 2px var(--blue-line)}
 
 .ctop{display:flex;align-items:baseline;gap:8px}
 .rk{flex:none;font:400 12.5px/1.25 var(--font-mono);color:var(--border-stronger);
@@ -104,6 +107,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
 .mhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .mhead h2{font-size:13.5px;font-weight:500;letter-spacing:.01em}
 .mhead p{font-size:11.5px;color:var(--text-muted)}
+.mhead p b{font-weight:500;color:var(--text-secondary)}
 .mbody{display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:14px;margin-top:11px;align-items:start}
 .mwrap{position:relative}
 .mwrap svg{width:100%;height:auto;display:block;border:.5px solid var(--border);border-radius:10px}
@@ -122,7 +126,10 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
 .pt .p3{stroke-dasharray:1.5 2;stroke:var(--border-stronger);opacity:.9}
 .pt:hover circle{stroke-width:2.2}
 .dl{stroke:var(--border-stronger);stroke-width:.6;opacity:.5}
-.dk{font:400 9px var(--font-mono);fill:var(--text-secondary);paint-order:stroke;stroke:var(--surface-1);stroke-width:2.8;stroke-linejoin:round}
+.dka{cursor:pointer}
+.dka .dk{fill:var(--blue);font-weight:500}
+.dka:hover .dk{fill:var(--blue);stroke:var(--blue-line);stroke-width:3.4}
+.dk{font:400 9px var(--font-mono);fill:var(--blue);paint-order:stroke;stroke:var(--surface-1);stroke-width:2.8;stroke-linejoin:round}
 .pn{font:400 9px var(--font-mono);fill:var(--text-primary);text-anchor:middle;pointer-events:none}
 .ld{stroke:var(--border-strong);stroke-width:.5;opacity:.6}
 .cring{fill:none;stroke:var(--text-accent);stroke-width:.8;stroke-dasharray:2 3}
@@ -210,7 +217,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
   <section class="mapsec" id="map">
     <div class="mhead">
       <h2>以中央美郡为圆心的方位示意图</h2>
-      <p>编号即推荐排名，点圆点可跳到对应卡片。距离为直线距离。</p>
+      <p>编号即推荐排名。<b>圆点或蓝色距离数字都可点</b>，跳到对应卡片。距离为直线距离。</p>
     </div>
     <div class="mbody">
       <div class="mwrap"><svg viewBox="0 0 760 520" role="img" aria-label="以长沙岳麓区中央美郡为圆心的在招公司方位示意图">
@@ -262,7 +269,7 @@ h1 .snap{font:400 12px var(--font-mono);color:var(--text-muted);margin-left:10px
       <text x="349.6" y="284.1" class="pn">15</text></a><a href="#c-16" class="pt"><title>湖南佳澜文化传媒有限公司 · 长沙县·经开区 · 约 15.5 km</title>
       <circle cx="684.0" cy="117.9" r="8.6" class="p1"/>
       <text x="684.0" y="121.2" class="pn">16</text></a>
-      <line x1="384.7" y1="272.1" x2="384.7" y2="286.1" class="dl"/><text x="384.7" y="295.1" class="dk" text-anchor="middle">6.2km</text><text x="325.4" y="160.1" class="dk" text-anchor="start">3.5km</text><text x="302.6" y="140.6" class="dk" text-anchor="start">3.3km</text><text x="417.3" y="89.7" class="dk" text-anchor="start">7.2km</text><line x1="115.5" y1="190.7" x2="125.5" y2="181.7" class="dl"/><text x="125.5" y="178.7" class="dk" text-anchor="start">3.0km</text><text x="410.7" y="234.1" class="dk" text-anchor="start">6.2km</text><text x="424.1" y="260.9" class="dk" text-anchor="start">6.5km</text><text x="241.0" y="245.7" class="dk" text-anchor="start">1.5km</text><text x="295.7" y="446.7" class="dk" text-anchor="start">8.2km</text><text x="342.7" y="224.9" class="dk" text-anchor="end">4.8km</text><text x="397.2" y="207.3" class="dk" text-anchor="start">5.7km</text><text x="76.8" y="152.1" class="dk" text-anchor="start">4.9km</text><text x="374.8" y="183.3" class="dk" text-anchor="start">4.9km</text><text x="165.0" y="148.6" class="dk" text-anchor="start">2.5km</text><text x="336.6" y="283.8" class="dk" text-anchor="end">5.2km</text><text x="697.0" y="120.9" class="dk" text-anchor="start">15.5km</text>
+      <line x1="384.7" y1="272.1" x2="384.7" y2="286.1" class="dl"/><a class="dka" href="#c-01"><title>星莱德文化 · 距中央美郡约 6.2 km</title><text x="384.7" y="295.1" class="dk" text-anchor="middle">6.2km</text></a><a class="dka" href="#c-02"><title>爱森电商 · 距中央美郡约 3.5 km</title><text x="325.4" y="160.1" class="dk" text-anchor="start">3.5km</text></a><a class="dka" href="#c-03"><title>她时代品质购 · 距中央美郡约 3.3 km</title><text x="302.6" y="140.6" class="dk" text-anchor="start">3.3km</text></a><a class="dka" href="#c-04"><title>冠旭电子 · 长沙直播点 · 距中央美郡约 7.2 km</title><text x="417.3" y="89.7" class="dk" text-anchor="start">7.2km</text></a><line x1="115.5" y1="190.7" x2="125.5" y2="181.7" class="dl"/><a class="dka" href="#c-05"><title>航业控股 · 距中央美郡约 3.0 km</title><text x="125.5" y="178.7" class="dk" text-anchor="start">3.0km</text></a><a class="dka" href="#c-06"><title>冬冬食品 · 长沙直播点 · 距中央美郡约 6.2 km</title><text x="410.7" y="234.1" class="dk" text-anchor="start">6.2km</text></a><a class="dka" href="#c-07"><title>知花知果 · 距中央美郡约 6.5 km</title><text x="424.1" y="260.9" class="dk" text-anchor="start">6.5km</text></a><a class="dka" href="#c-08"><title>嘉时嘉辰 · 距中央美郡约 1.5 km</title><text x="241.0" y="245.7" class="dk" text-anchor="start">1.5km</text></a><a class="dka" href="#c-09"><title>俊彩星驰 · 距中央美郡约 8.2 km</title><text x="295.7" y="446.7" class="dk" text-anchor="start">8.2km</text></a><a class="dka" href="#c-10"><title>劲仔食品 003000 · 距中央美郡约 4.8 km</title><text x="342.7" y="224.9" class="dk" text-anchor="end">4.8km</text></a><a class="dka" href="#c-11"><title>奇异生物 · 距中央美郡约 5.7 km</title><text x="397.2" y="207.3" class="dk" text-anchor="start">5.7km</text></a><a class="dka" href="#c-12"><title>考拉鼻鼻 · 距中央美郡约 4.9 km</title><text x="76.8" y="152.1" class="dk" text-anchor="start">4.9km</text></a><a class="dka" href="#c-13"><title>宜可珈传媒 · 距中央美郡约 4.9 km</title><text x="374.8" y="183.3" class="dk" text-anchor="start">4.9km</text></a><a class="dka" href="#c-14"><title>大热文化 · 距中央美郡约 2.5 km</title><text x="165.0" y="148.6" class="dk" text-anchor="start">2.5km</text></a><a class="dka" href="#c-15"><title>闹闹虎 · 距中央美郡约 5.2 km</title><text x="336.6" y="283.8" class="dk" text-anchor="end">5.2km</text></a><a class="dka" href="#c-16"><title>佳澜文化 · 距中央美郡约 15.5 km</title><text x="697.0" y="120.9" class="dk" text-anchor="start">15.5km</text></a>
       <g class="sb"><line x1="556" y1="492" x2="664" y2="492"/><line x1="556" y1="487" x2="556" y2="497"/><line x1="664" y1="487" x2="664" y2="497"/><text x="610" y="484">3.5 km</text></g>
       <g class="center">
         <circle cx="209.2" cy="199.3" r="13" class="cring"/>
