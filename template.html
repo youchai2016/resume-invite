@@ -1098,6 +1098,7 @@ body.sheet-open .sheet{transform:translateY(0)}
     } catch(err){
       flashAuto('保存失败：本地空间不足');
     }
+    if (typeof ENV !== 'undefined' && ENV.wx) scheduleHandoff();
   }
   function scheduleSave(){
     clearTimeout(saveTimer);
@@ -1497,10 +1498,148 @@ body.sheet-open .sheet{transform:translateY(0)}
     if (sp) sp.textContent = on ? '生成中…' : '导出 PDF';
   }
 
+  /* ==================== 链接携带内容（微信 → 浏览器） ==================== */
+  function b64url(bytes){
+    var s = '', chunk = 0x8000;
+    for (var i = 0; i < bytes.length; i += chunk){
+      s += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+    }
+    return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function unb64url(str){
+    var s = str.replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    var bin = atob(s);
+    var out = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+
+  function shrinkTo(url, max, q){
+    return new Promise(function(resolve){
+      var im = new Image();
+      im.onload = function(){
+        var k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+        var c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(im.naturalWidth * k));
+        c.height = Math.max(1, Math.round(im.naturalHeight * k));
+        var ctx = c.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, c.width, c.height);
+        ctx.drawImage(im, 0, 0, c.width, c.height);
+        resolve(c.toDataURL('image/jpeg', q));
+      };
+      im.onerror = function(){ resolve(''); };
+      im.src = url;
+    });
+  }
+
+  function packJSON(str){
+    var bytes = new TextEncoder().encode(str);
+    if (!('CompressionStream' in window)) return Promise.resolve('j.' + b64url(bytes));
+    try{
+      var stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'));
+      return new Response(stream).arrayBuffer().then(function(buf){
+        return 'z.' + b64url(new Uint8Array(buf));
+      }).catch(function(){ return 'j.' + b64url(bytes); });
+    }catch(err){
+      return Promise.resolve('j.' + b64url(bytes));
+    }
+  }
+
+  var photoCache = { src:null, out:'' };
+  function packedPhoto(){
+    if (!MODEL.photo) return Promise.resolve('');
+    if (photoCache.src === MODEL.photo) return Promise.resolve(photoCache.out);
+    return shrinkTo(MODEL.photo, 280, 0.72).then(function(out){
+      photoCache = { src:MODEL.photo, out:out };
+      return out;
+    });
+  }
+
+  function buildHandoffHash(){
+    var copy = JSON.parse(JSON.stringify(MODEL));
+    var prep = packedPhoto();
+    return prep.then(function(photo){
+      copy.photo = photo;
+      var payload = { v:3, m:copy, t:state.tpl, th:state.theme };
+      return packJSON(JSON.stringify(payload)).then(function(body){
+        var hash = '#d=' + body;
+        if (hash.length > 160000){
+          copy.photo = '';
+          payload.m = copy;
+          payload.np = 1;
+          return packJSON(JSON.stringify(payload)).then(function(b2){ return '#d=' + b2 + '&np=1'; });
+        }
+        return hash;
+      });
+    });
+  }
+
+  function importFromHash(){
+    var h = location.hash || '';
+    var m = /[#&]d=([zj])\.([A-Za-z0-9\-_]+)/.exec(h);
+    if (!m) return Promise.resolve(false);
+    try{
+      if (sessionStorage.getItem('resume.hash.imported') === '1') return Promise.resolve(false);
+    }catch(err){}
+    var bytes, raw;
+    try{ bytes = unb64url(m[2]); }catch(err){ return Promise.resolve(false); }
+    if (m[1] === 'j'){
+      raw = Promise.resolve(new TextDecoder().decode(bytes));
+    } else {
+      if (!('DecompressionStream' in window)) return Promise.resolve(false);
+      raw = new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw')))
+        .arrayBuffer().then(function(buf){ return new TextDecoder().decode(new Uint8Array(buf)); })
+        .catch(function(){ return ''; });
+    }
+    return raw.then(function(json){
+      if (!json) return false;
+      var d = JSON.parse(json);
+      if (!d || !d.m) return false;
+      MODEL = normalize(d.m);
+      if (typeof d.t === 'number') state.tpl = Math.max(0, Math.min(TPLS.length - 1, d.t));
+      if (d.th) state.theme = d.th;
+      try{ sessionStorage.setItem('resume.hash.imported', '1'); }catch(err){}
+      try{ history.replaceState(null, '', location.pathname + location.search); }catch(err){}
+      save();
+      if (d.np){ setTimeout(function(){ flashAuto('内容已带过来，照片请重新上传'); }, 900); }
+      return true;
+    }).catch(function(){ return false; });
+  }
+
+  var handoffURL = '';
+  var handoffTimer = null;
+
+  function scheduleHandoff(){
+    clearTimeout(handoffTimer);
+    handoffTimer = setTimeout(function(){
+      buildHandoffHash().then(function(hash){
+        handoffURL = location.href.split('#')[0] + hash;
+        try{ history.replaceState(null, '', handoffURL); }catch(err){}
+      }).catch(function(){});
+    }, 1400);
+  }
+
+  function prepareHandoff(){
+    if (btnPdf.disabled) return;
+    setExporting(true);
+    buildHandoffHash().then(function(hash){
+      handoffURL = location.href.split('#')[0] + hash;
+      try{ history.replaceState(null, '', handoffURL); }catch(err){}
+      setExporting(false);
+      showExportTip('wx');
+    }).catch(function(){
+      handoffURL = location.href;
+      setExporting(false);
+      showExportTip('wx');
+    });
+  }
+
   btnPdf.addEventListener('click', function(){
     if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     save();
-    if (ENV.wx){ showExportTip('wx'); return; }
+    if (ENV.wx){ prepareHandoff(); return; }
     if (btnPdf.disabled) return;
     setExporting(true);
     exportPDFBlob().then(function(blob){
@@ -1539,13 +1678,14 @@ body.sheet-open .sheet{transform:translateY(0)}
     var s = document.getElementById('tipSteps');
     var u = document.getElementById('tipUrl');
     var copy = document.getElementById('tipCopy');
-    u.textContent = location.href;
+    var url = handoffURL || location.href;
+    u.textContent = url.length > 80 ? url.slice(0, 78) + '…（已包含你的内容）' : url;
     if (kind === 'wx'){
-      t.textContent = '微信里不能直接导出 PDF';
-      d.textContent = '按下面两步，用手机自带浏览器打开就能保存成 PDF：';
+      t.textContent = '微信里不能直接存 PDF';
+      d.textContent = '你填的内容和照片已经打包进这条链接，打开后会自动恢复，不会丢。';
       s.innerHTML = '<li>点右上角 <b>···</b>，选「在浏览器打开」</li>'
-                  + '<li>在浏览器里再点「导出 PDF」</li>';
-      copy.textContent = '复制链接';
+                  + '<li>在浏览器里点「导出 PDF」即可</li>';
+      copy.textContent = '复制链接（含内容）';
     } else {
       t.textContent = '安卓浏览器请用系统菜单导出';
       d.textContent = '浏览器不支持页面内直接唤起打印，按下面几步保存：';
@@ -1559,7 +1699,7 @@ body.sheet-open .sheet{transform:translateY(0)}
   }
 
   function copyLink(){
-    var url = location.href;
+    var url = handoffURL || location.href;
     function ok(){ flashAuto('链接已复制，去浏览器粘贴打开'); }
     function fail(){ flashAuto('复制失败，请长按上方链接复制'); }
     if (navigator.clipboard && navigator.clipboard.writeText){
@@ -1689,10 +1829,18 @@ body.sheet-open .sheet{transform:translateY(0)}
 
   /* ==================== 启动 ==================== */
   (function boot(){
-    load();
-    document.documentElement.setAttribute('data-theme', state.theme);
-    setTheme(state.theme, true);
-    render();
+    function start(){
+      document.documentElement.setAttribute('data-theme', state.theme);
+      setTheme(state.theme, true);
+      render();
+    }
+    importFromHash().then(function(ok){
+      if (!ok) load();
+      start();
+    }).catch(function(){
+      load();
+      start();
+    });
   })();
 
 })();
