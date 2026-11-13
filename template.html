@@ -452,6 +452,7 @@ body.sheet-open .sheet{transform:translateY(0)}
 }
 .tipwrap.show{display:flex}
 .tipcard{
+  position:relative;
   width:100%;max-width:336px;background:#fff;border-radius:18px;
   padding:22px 20px 16px;
   box-shadow:0 26px 60px -22px rgba(30,20,60,.55);
@@ -472,6 +473,40 @@ body.sheet-open .sheet{transform:translateY(0)}
 }
 .tipbtns .ghost{background:#F2F0F8;color:#6B6488}
 .tipbtns .solid{background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff}
+.tip-x{
+  position:absolute;right:11px;top:11px;width:28px;height:28px;
+  border:0;border-radius:50%;background:#F2F0F8;color:#8B84A6;
+  font:inherit;font-size:17px;line-height:1;cursor:pointer;
+}
+
+/* ==================== 图片预览（微信长按保存） ==================== */
+.imgview{
+  position:fixed;inset:0;z-index:98;display:none;flex-direction:column;
+  background:rgba(18,14,30,.97);
+}
+.imgview.show{display:flex}
+.imgview-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:calc(12px + env(safe-area-inset-top)) 16px 10px;
+  color:#fff;font-size:12px;letter-spacing:.02em;
+}
+.imgview-bar button{
+  border:0;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;
+  font:inherit;font-size:13px;padding:7px 15px;cursor:pointer;
+}
+.imgview-body{
+  flex:1;min-height:0;display:flex;align-items:center;justify-content:center;
+  padding:0 12px;overflow:auto;
+}
+.imgview img{
+  max-width:100%;max-height:100%;background:#fff;
+  box-shadow:0 24px 70px rgba(0,0,0,.55);
+  -webkit-touch-callout:default;user-select:auto;-webkit-user-select:auto;
+}
+.imgview-tip{
+  text-align:center;color:rgba(255,255,255,.7);font-size:11.5px;
+  padding:12px 16px calc(16px + env(safe-area-inset-bottom));
+}
 
 /* ==================== 手机适配 ==================== */
 @media (max-width:640px){
@@ -677,13 +712,14 @@ body.sheet-open .sheet{transform:translateY(0)}
 
   <div class="group">
     <p class="group-t">导出说明</p>
-    <p class="note">点「导出 PDF」会直接生成 A4 文件并下载，<b>不会带网址页脚</b>。<br>若浏览器没有开始下载，可用下面的系统打印：页边距选「默认」，并<b>关闭「页眉和页脚」</b>。</p>
+    <p class="note">点「导出 PDF」会直接生成 A4 文件并下载，<b>不会带网址页脚</b>。<br>在微信里会提供「存为图片」，长按图片即可保存到相册，不用跳浏览器。<br>若浏览器没有开始下载，可用下面的系统打印：页边距选「默认」，并<b>关闭「页眉和页脚」</b>。</p>
     <button class="row-btn" type="button" id="btnPrint">用系统打印 / 另存为 PDF</button>
   </div>
 </div>
 
 <div class="tipwrap" id="tipwrap">
   <div class="tipcard">
+    <button type="button" class="tip-x" id="tipClose" aria-label="关闭">×</button>
     <h3 id="tipTitle">微信里不能直接导出 PDF</h3>
     <p id="tipDesc">按下面两步，用手机自带浏览器打开就能保存成 PDF：</p>
     <ol id="tipSteps">
@@ -693,9 +729,18 @@ body.sheet-open .sheet{transform:translateY(0)}
     <p class="tipurl" id="tipUrl"></p>
     <div class="tipbtns">
       <button type="button" class="ghost" id="tipCopy">复制链接</button>
-      <button type="button" class="solid" id="tipClose">知道了</button>
+      <button type="button" class="solid" id="tipImg">存为图片</button>
     </div>
   </div>
+</div>
+
+<div class="imgview" id="imgview">
+  <div class="imgview-bar">
+    <span>长按图片，选择「保存图片」</span>
+    <button type="button" id="imgClose">关闭</button>
+  </div>
+  <div class="imgview-body"><img id="imgBig" alt="简历图片"></div>
+  <div class="imgview-tip">保存后可直接发给 HR；需要 PDF 时再点「用浏览器打开」</div>
 </div>
 
 <input type="file" id="file" accept="image/*" hidden>
@@ -1294,7 +1339,7 @@ body.sheet-open .sheet{transform:translateY(0)}
   document.addEventListener('touchstart', function(e){
     if (e.touches.length !== 1) return;
     var t = e.target;
-    if (t.closest && (t.closest('.dock') || t.closest('.sheet') || t.closest('.backdrop') || t.closest('.appbar'))) return;
+    if (t.closest && (t.closest('.dock') || t.closest('.sheet') || t.closest('.backdrop') || t.closest('.appbar') || t.closest('.imgview') || t.closest('.tipwrap'))) return;
     swipe.on = true;
     swipe.x = e.touches[0].clientX;
     swipe.y = e.touches[0].clientY;
@@ -1680,12 +1725,14 @@ body.sheet-open .sheet{transform:translateY(0)}
     var copy = document.getElementById('tipCopy');
     var url = handoffURL || location.href;
     u.textContent = url.length > 80 ? url.slice(0, 78) + '…（已包含你的内容）' : url;
+    var imgBtn = document.getElementById('tipImg');
     if (kind === 'wx'){
       t.textContent = '微信里不能直接存 PDF';
-      d.textContent = '你填的内容和照片已经打包进这条链接，打开后会自动恢复，不会丢。';
+      d.textContent = '最省事是存成图片，长按就能保存、直接发给 HR；要 PDF 就按下面两步去浏览器，内容和照片会一起带过去。';
       s.innerHTML = '<li>点右上角 <b>···</b>，选「在浏览器打开」</li>'
                   + '<li>在浏览器里点「导出 PDF」即可</li>';
       copy.textContent = '复制链接（含内容）';
+      imgBtn.style.display = '';
     } else {
       t.textContent = '安卓浏览器请用系统菜单导出';
       d.textContent = '浏览器不支持页面内直接唤起打印，按下面几步保存：';
@@ -1693,6 +1740,7 @@ body.sheet-open .sheet{transform:translateY(0)}
                   + '<li>选「分享」→「打印」</li>'
                   + '<li>目标打印机选「另存为 PDF」</li>';
       copy.textContent = '仍要尝试';
+      imgBtn.style.display = 'none';
     }
     closeSheet();
     document.getElementById('tipwrap').classList.add('show');
@@ -1733,6 +1781,29 @@ body.sheet-open .sheet{transform:translateY(0)}
       return;
     }
     copyLink();
+  });
+
+  document.getElementById('tipImg').addEventListener('click', function(){
+    if (tipMode !== 'wx') return;
+    var btn = this, old = btn.textContent;
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = '生成中…';
+    renderA4Canvas().then(function(cv){
+      document.getElementById('imgBig').src = cv.toDataURL('image/jpeg', 0.95);
+      document.getElementById('tipwrap').classList.remove('show');
+      document.getElementById('imgview').classList.add('show');
+      btn.disabled = false;
+      btn.textContent = old;
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = old;
+      flashAuto('生成失败，请用浏览器导出');
+    });
+  });
+
+  document.getElementById('imgClose').addEventListener('click', function(){
+    document.getElementById('imgview').classList.remove('show');
   });
 
   function openSheet(){ document.body.classList.add('sheet-open'); }
