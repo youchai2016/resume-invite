@@ -570,6 +570,8 @@ body.sheet-open .sheet{transform:translateY(0)}
 @page{size:A4;margin:0}
 @media print{
   html,body{background:#fff !important;margin:0;padding:0}
+  [contenteditable]:empty::before{content:none !important}
+  .row-empty{display:none !important}
   body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .paper{--pp:0;width:auto;max-width:none;margin:0;padding:14mm 15mm;box-shadow:none;border-radius:0;overflow:visible}
   .paper::before{display:none}
@@ -1381,12 +1383,15 @@ body.sheet-open .sheet{transform:translateY(0)}
   }
 
   /* 把 @media print 里的规则抽出来，统一加 .pdfmode 作用域，用于静态渲染 */
+  var SCOPED_CSS = null;
   function printScopedCSS(){
+    if (SCOPED_CSS !== null) return SCOPED_CSS;
     var out = [];
     try{
       for (var i = 0; i < document.styleSheets.length; i++){
         var rules = document.styleSheets[i].cssRules;
         if (!rules) continue;
+        try{ if (document.styleSheets[i].ownerNode && document.styleSheets[i].ownerNode.id === 'pdfmode-style') continue; }catch(e){}
         for (var j = 0; j < rules.length; j++){
           var r = rules[j];
           var isPrint = false;
@@ -1407,25 +1412,147 @@ body.sheet-open .sheet{transform:translateY(0)}
         }
       }
     }catch(err){}
-    return out.join('\n');
+    out.push('.pdfmode .sec:not(:first-of-type),.pdfmode .t2-sec:not(:first-of-type),.pdfmode .t3-sec:not(:first-of-type){padding-top:var(--fill,0px)}');
+    out.push('.pdfmode [contenteditable]:empty::before{content:none}');
+    out.push('.pdfmode .row-empty{display:none}');
+    /* 自适应：按 --fs 缩放字号与间距，让内容自动铺满一页 */
+    out.push('.pdfmode{--fs:1}');
+    out.push('.pdfmode .masthead h1{font-size:calc(25px * var(--fs))}');
+    out.push('.pdfmode .sec{margin-top:calc(9px * var(--fs));padding-top:calc(8px * var(--fs))}');
+    out.push('.pdfmode .sec:first-of-type{padding-top:calc(14px * var(--fs))}');
+    out.push('.pdfmode .sec-head{margin-bottom:calc(6px * var(--fs))}');
+    out.push('.pdfmode .sec-tag{font-size:calc(10.5px * var(--fs))}');
+    out.push('.pdfmode .f,.pdfmode .points li,.pdfmode .skill{font-size:calc(11.6px * var(--fs))}');
+    out.push('.pdfmode .points{margin-top:calc(3px * var(--fs))}');
+    out.push('.pdfmode .points li{margin-bottom:calc(2px * var(--fs))}');
+    out.push('.pdfmode .row-head .org{font-size:calc(12.2px * var(--fs))}');
+    out.push('.pdfmode .row-head .role,.pdfmode .row-head .date{font-size:calc(11px * var(--fs))}');
+    out.push('.pdfmode .summary{font-size:calc(11.4px * var(--fs));padding:calc(8px * var(--fs)) calc(11px * var(--fs))}');
+    out.push('.pdfmode .item+.item{margin-top:calc(8px * var(--fs));padding-top:calc(7px * var(--fs))}');
+    out.push('.pdfmode .t2-name{font-size:calc(21px * var(--fs))}');
+    out.push('.pdfmode .t2-sec{margin-bottom:calc(15px * var(--fs))}');
+    out.push('.pdfmode .t2-sec h2{font-size:calc(11.5px * var(--fs));margin-bottom:calc(8px * var(--fs))}');
+    out.push('.pdfmode .t2 .points li{font-size:calc(12px * var(--fs))}');
+    out.push('.pdfmode .t2-line .org{font-size:calc(12.8px * var(--fs))}');
+    out.push('.pdfmode .t2-line .role{font-size:calc(11.2px * var(--fs))}');
+    out.push('.pdfmode .t2-line .date{font-size:calc(10.6px * var(--fs))}');
+    out.push('.pdfmode .t2 .summary{font-size:calc(12px * var(--fs));padding:calc(9px * var(--fs)) calc(11px * var(--fs))}');
+    out.push('.pdfmode .t2-list li,.pdfmode .t2-info,.pdfmode .t2-skill{font-size:calc(11.4px * var(--fs))}');
+    out.push('.pdfmode .t3-name{font-size:calc(24px * var(--fs))}');
+    out.push('.pdfmode .t3-contact{font-size:calc(10.6px * var(--fs))}');
+    out.push('.pdfmode .t3-sec{margin-bottom:calc(10px * var(--fs))}');
+    out.push('.pdfmode .t3 .points li,.pdfmode .t3 .skill,.pdfmode .t3 .summary{font-size:calc(11.2px * var(--fs))}');
+    out.push('.pdfmode .t3-item{padding-bottom:calc(8px * var(--fs))}');
+    SCOPED_CSS = out.join('\n');
+    try{
+      var st = document.createElement('style');
+      st.id = 'pdfmode-style';
+      st.textContent = SCOPED_CSS;
+      document.head.appendChild(st);
+    }catch(err){}
+    return SCOPED_CSS;
   }
 
   function baseCSS(){
     var out = [];
     var nodes = document.querySelectorAll('style');
-    for (var i = 0; i < nodes.length; i++) out.push(nodes[i].textContent);
+    for (var i = 0; i < nodes.length; i++){
+      if (nodes[i].id === 'pdfmode-style') continue;
+      out.push(nodes[i].textContent);
+    }
     return out.join('\n');
   }
 
-  function buildExportSVG(w, h){
+  /* 离屏测量：放进 794px 宽的 iframe（视口宽度=A4，媒体查询才和导出图一致） */
+  var fitFrame = null;
+  function measureFit(fs){
+    if (!fitFrame || !fitFrame.contentDocument){
+      fitFrame = document.createElement('iframe');
+      fitFrame.setAttribute('aria-hidden', 'true');
+      fitFrame.style.cssText = 'position:fixed;left:-20000px;top:0;width:794px;height:1600px;border:0;visibility:hidden;pointer-events:none';
+      document.body.appendChild(fitFrame);
+    }
+    var doc = fitFrame.contentDocument;
+    var html = new XMLSerializer().serializeToString(paper);
+    var css = baseCSS() + '\n' + printScopedCSS();
+    doc.open();
+    doc.write('<!DOCTYPE html><html data-theme="' + state.theme + '"><head><meta charset="utf-8">'
+      + '<style>' + css + '</style></head><body style="margin:0">'
+      + '<div class="pdfmode" style="width:794px;--fs:' + fs + '">' + html + '</div></body></html>');
+    doc.close();
+    var el = doc.querySelector('.paper');
+    if (!el) return 0;
+    var t2 = el.querySelector('.t2');
+    if (t2) t2.style.minHeight = '0';
+    return el.getBoundingClientRect().height;
+  }
+
+  /* 标记空内容：导出与打印时隐藏，避免把占位提示印进 PDF */
+  function markEmpty(){
+    var rows = paper.querySelectorAll('.f, .points li, .skill');
+    for (var i = 0; i < rows.length; i++){
+      var ed = rows[i].querySelector('[contenteditable]');
+      var empty = !ed || ed.textContent.replace(/[\s\u00a0]/g, '') === '';
+      rows[i].classList.toggle('row-empty', empty);
+    }
+    var items = paper.querySelectorAll('.item, .t2-item, .t3-item');
+    for (var j = 0; j < items.length; j++){
+      var eds = items[j].querySelectorAll('[contenteditable]');
+      var any = false;
+      for (var k = 0; k < eds.length; k++){
+        if (eds[k].textContent.replace(/[\s\u00a0]/g, '') !== ''){ any = true; break; }
+      }
+      items[j].classList.toggle('row-empty', !any);
+    }
+    var secs = paper.querySelectorAll('.sec, .t2-sec, .t3-sec');
+    for (var m = 0; m < secs.length; m++){
+      var ses = secs[m].querySelectorAll('[contenteditable]');
+      var has = false;
+      for (var n = 0; n < ses.length; n++){
+        if (ses[n].textContent.replace(/[\s\u00a0]/g, '') !== ''){ has = true; break; }
+      }
+      if (!has){
+        var tag = secs[m].querySelector('.sec-tag, h2');
+        secs[m].classList.add('row-empty');
+        if (tag) tag.classList.add('row-empty');
+      }
+    }
+  }
+
+  /* 自动找字号比例：内容少就放大、内容多就缩小，让页面接近填满 */
+  function computeFit(){
+    printScopedCSS();   /* 先注入打印版式，测量才准 */
+    var target = 1092;
+    var fs = 1, h = measureFit(1);
+    if (!h || !isFinite(h)) return { fs:1, fill:0 };
+    for (var i = 0; i < 4; i++){
+      var next = fs * (target / h);
+      next = Math.max(0.86, Math.min(1.6, next));
+      if (Math.abs(next - fs) < 0.005) break;
+      fs = next;
+      h = measureFit(fs);
+      if (!h || !isFinite(h)) { fs = 1; h = measureFit(1); break; }
+      if (Math.abs(h - target) <= 6) break;
+    }
+    var secs = paper.querySelectorAll('.sec, .t2-sec, .t3-sec').length;
+    var gaps = Math.max(1, secs - 1);
+    var fill = Math.max(0, Math.min(30, (target - h) / gaps));
+    if (fill < 6) fill = 0;
+    return { fs: Math.round(fs * 1000) / 1000, fill: Math.round(fill) };
+  }
+
+  function buildExportSVG(w, h, fit){
     var ser = new XMLSerializer();
     var html = ser.serializeToString(paper);
     var css = baseCSS() + '\n'
       + '.pdfmode{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans SC","Microsoft YaHei",sans-serif;color:#2A2733;-webkit-font-smoothing:antialiased}\n'
       + printScopedCSS();
+    var fs = (fit && fit.fs) || 1;
+    var fill = (fit && fit.fill) || 0;
     var inner = '<div xmlns="http://www.w3.org/1999/xhtml" class="pdfmode" data-theme="' + state.theme
-      + '" style="width:' + w + 'px;height:' + h + 'px;background:#fff;overflow:hidden">'
-      + '<style>' + escapeXML(css) + '</style>' + html + '</div>';
+      + '" style="width:' + w + 'px;height:' + h + 'px;background:#fff;overflow:hidden;--fs:' + fs + ';--fill:' + fill + 'px">'
+      + '<style>' + escapeXML(css) + '</style>'
+      + html + '</div>';
     return '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '">'
       + '<foreignObject width="100%" height="100%">' + inner + '</foreignObject></svg>';
   }
@@ -1441,13 +1568,15 @@ body.sheet-open .sheet{transform:translateY(0)}
       for (var i = 0; i < d.length; i += 4){
         if (d[i] < 245 || d[i+1] < 245 || d[i+2] < 245) n++;
       }
-      return n > 90 * 120 * 0.02;
+      return n > 90 * 120 * 0.004;
     }catch(err){ return false; }
   }
 
   function renderA4Canvas(){
     return new Promise(function(resolve, reject){
       var W = 794, H = 1123, S = 2;
+      markEmpty();
+      var fit = computeFit();
       var img = new Image();
       img.onload = function(){
         try{
@@ -1462,7 +1591,7 @@ body.sheet-open .sheet{transform:translateY(0)}
         }catch(err){ reject(err); }
       };
       img.onerror = function(){ reject(new Error('render')); };
-      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(buildExportSVG(W, H));
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(buildExportSVG(W, H, fit));
     });
   }
 
@@ -1701,6 +1830,7 @@ body.sheet-open .sheet{transform:translateY(0)}
   function printDialog(){
     if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     save();
+    markEmpty();
     window.print();
   }
 
