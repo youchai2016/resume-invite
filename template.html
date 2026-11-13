@@ -281,19 +281,21 @@ body.preview .item-tools,body.preview .add{display:none}
 }
 .hint b{font-weight:600;color:#8B84A6}
 
-/* ==================== 首次提示 ==================== */
-.coach{
-  position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));
-  transform:translate(-50%,10px);
-  display:flex;align-items:center;gap:7px;
-  padding:9px 15px;border-radius:999px;z-index:76;
-  background:rgba(44,36,74,.93);color:#fff;font-size:12px;
-  box-shadow:0 12px 30px -12px rgba(30,22,60,.6);
-  opacity:0;pointer-events:none;transition:.3s;
+/* ==================== 可编辑提示条 ==================== */
+.editbar{
+  max-width:824px;margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:9px 18px;border-radius:999px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(123,105,198,.18);
+  box-shadow:0 10px 26px -20px rgba(56,40,104,.7);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  font-size:12px;line-height:1.5;color:#6D6690;letter-spacing:.02em;
+  text-align:center;
 }
-.coach.show{opacity:1;transform:translate(-50%,0)}
-.coach.hide{opacity:0;transform:translate(-50%,6px)}
-.coach svg{width:14px;height:14px;opacity:.9}
+.editbar b{color:var(--accent-deep);font-weight:600}
+.editbar svg{width:14px;height:14px;flex:none;opacity:.8}
+body.preview .editbar{display:none}
 
 /* ==================== 弹层 ==================== */
 .backdrop{
@@ -354,6 +356,8 @@ body.sheet-open .sheet{transform:translateY(0)}
 /* ==================== 手机适配 ==================== */
 @media (max-width:640px){
   body{padding:12px 10px 132px}
+  .editbar{font-size:11.5px;padding:8px 13px;gap:6px;margin-bottom:10px}
+  .editbar svg{width:13px;height:13px}
   .paper{--pp:20px;padding:24px var(--pp) 22px;border-radius:12px}
   .masthead h1{font-size:26px;letter-spacing:.12em}
   .en{font-size:9px;letter-spacing:.24em}
@@ -392,7 +396,7 @@ body.sheet-open .sheet{transform:translateY(0)}
   body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .paper{--pp:0;width:auto;max-width:none;margin:0;padding:0;box-shadow:none;border-radius:0;overflow:visible}
   .paper::before{display:none}
-  .paper-foot,.dock,.autosave,.coach,.hint,.backdrop,.sheet{display:none !important}
+  .paper-foot,.dock,.autosave,.hint,.backdrop,.sheet,.editbar{display:none !important}
   .band{margin:10px 0 0;height:7px}
   .masthead h1{
     font-size:26px;
@@ -427,6 +431,11 @@ body.sheet-open .sheet{transform:translateY(0)}
 </style>
 </head>
 <body>
+
+<div class="editbar" id="editbar">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.3 4.9a2.3 2.3 0 0 1 3.3 0l.5.5a2.3 2.3 0 0 1 0 3.3L8.6 19.2 4 20.2l1-4.6L15.3 4.9Z"/></svg>
+  <span><b>这是一份可编辑模板</b> · 点一下任意文字就能直接改</span>
+</div>
 
 <article class="paper" id="paper">
 
@@ -566,12 +575,6 @@ body.sheet-open .sheet{transform:translateY(0)}
 
 <p class="hint">手机上直接填写，<b>「导出 PDF」</b>即可保存为文件发送给 HR</p>
 
-<!-- ========== 首次使用提示 ========== -->
-<div class="coach" id="coach">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.3 4.9a2.3 2.3 0 0 1 3.3 0l.5.5a2.3 2.3 0 0 1 0 3.3L8.6 19.2 4 20.2l1-4.6L15.3 4.9Z"/></svg>
-  点一下文字就能改，改完自动保存
-</div>
-
 <!-- ========== 自动保存提示 ========== -->
 <div class="autosave" id="autosave"><i></i><span id="autoText">已自动保存</span></div>
 
@@ -598,6 +601,11 @@ body.sheet-open .sheet{transform:translateY(0)}
   <div class="sheet-head">
     <h3>排版与内容</h3>
     <button class="x" type="button" id="sheetClose" aria-label="关闭">×</button>
+  </div>
+
+  <div class="group">
+    <p class="group-t">怎么用</p>
+    <p class="note">整份简历都可以改：<b>点任意文字</b>直接输入，改完自动保存。点照片可换证件照，每段经历下方能删除或再加一段。</p>
   </div>
 
   <div class="group">
@@ -690,7 +698,6 @@ body.sheet-open .sheet{transform:translateY(0)}
   var paper      = document.getElementById('paper');
   var autosave   = document.getElementById('autosave');
   var autoText   = document.getElementById('autoText');
-  var coach      = document.getElementById('coach');
   var fileInput  = document.getElementById('file');
   var btnMode    = document.getElementById('btnMode');
   var modeLabel  = document.getElementById('modeLabel');
@@ -845,10 +852,6 @@ body.sheet-open .sheet{transform:translateY(0)}
     if(e.target.closest && e.target.closest('[contenteditable]')) scheduleSave();
   });
 
-  paper.addEventListener('focusin', function(e){
-    if(e.target.closest && e.target.closest('[contenteditable]')) hideCoach();
-  });
-
   paper.addEventListener('keydown', function(e){
     if(e.key === 'Enter' && e.target.hasAttribute && e.target.hasAttribute('data-single')){
       e.preventDefault();
@@ -966,19 +969,6 @@ body.sheet-open .sheet{transform:translateY(0)}
     closeSheet();
     flashAuto('已清空，可以开始填写');
   });
-
-  /* ---------- 首次提示 ---------- */
-  function hideCoach(){
-    if(!coach) return;
-    coach.classList.add('hide');
-    try{ localStorage.setItem('resume.tpl.coach', '1'); }catch(err){}
-  }
-  var coachSeen = false;
-  try{ coachSeen = !!localStorage.getItem('resume.tpl.coach'); }catch(err){}
-  if(!coachSeen){
-    setTimeout(function(){ coach.classList.add('show'); }, 1000);
-    setTimeout(hideCoach, 7000);
-  }
 
   /* ---------- 打印前 ---------- */
   window.addEventListener('beforeprint', function(){
