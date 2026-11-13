@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
 <meta name="theme-color" content="#EDEAF4">
-<meta name="description" content="手机可直接填写的个人简历模板，点击任意文字即可修改，自动保存，一键导出 PDF。">
+<meta name="description" content="手机可直接填写的简历模板，三套版式左右滑动切换，内容自动同步，一键导出 PDF。">
 <title>个人简历 · 可编辑模板</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%237B69C6'/%3E%3Cpath d='M20 16h18l8 8v24a2 2 0 0 1-2 2H20a2 2 0 0 1-2-2V18a2 2 0 0 1 2-2z' fill='%23fff' opacity='.94'/%3E%3Cpath d='M24 28h16M24 34h16M24 40h10' stroke='%237B69C6' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
@@ -53,7 +53,7 @@ body{
     radial-gradient(1100px 520px at 50% -8%, #FAF8FF 0%, rgba(250,248,255,0) 62%),
     radial-gradient(820px 460px at 104% 102%, #F2EEFB 0%, rgba(242,238,251,0) 58%),
     var(--page-bg);
-  padding:30px 16px 124px;
+  padding:24px 16px 124px;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   transition:background-color .35s ease;
@@ -80,8 +80,48 @@ body{
   pointer-events:none;
 }
 .paper>*{position:relative;z-index:1}
+.paper.t2{padding:0}
+.paper.t2::before{display:none}
+.t2{display:flex;align-items:stretch}
+.paper.t3{padding:44px 46px 30px}
 
-/* ==================== 抬头 ==================== */
+/* ==================== 顶部栏 ==================== */
+.appbar{max-width:824px;margin:0 auto 10px;display:flex;align-items:center;gap:8px}
+.editbar{
+  flex:1;min-width:0;margin:0;
+  display:flex;align-items:center;gap:7px;
+  padding:8px 14px;border-radius:999px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(123,105,198,.18);
+  box-shadow:0 10px 26px -20px rgba(56,40,104,.7);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  font-size:12px;line-height:1.5;color:#6D6690;letter-spacing:.02em;
+}
+.editbar b{color:var(--accent-deep);font-weight:600}
+.editbar svg{width:14px;height:14px;flex:none;opacity:.8}
+.editbar .tx{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.preview .editbar{display:none}
+body.preview .appbar{justify-content:center}
+
+.tplswitch{
+  flex:none;display:flex;align-items:center;gap:1px;
+  padding:3px 5px;border-radius:999px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(123,105,198,.18);
+  box-shadow:0 10px 26px -20px rgba(56,40,104,.7);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+.tplswitch button{
+  width:24px;height:24px;padding:0;border:0;border-radius:50%;
+  background:transparent;color:#7A7396;font:inherit;font-size:16px;line-height:1;
+  display:grid;place-items:center;cursor:pointer;transition:background .16s;
+}
+.tplswitch button:hover{background:rgba(123,105,198,.1)}
+.tplswitch button:disabled{opacity:.25;cursor:default}
+.tplname{font-size:11.5px;font-weight:600;color:#5F5880;padding:0 2px;letter-spacing:.02em}
+.tplidx{font-size:9.5px;color:#A8A2BE;padding:0 1px}
+
+/* ==================== 模板一：紫缎 ==================== */
 .masthead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
 .mast-left{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 14px;min-width:0}
 .masthead h1{
@@ -108,8 +148,6 @@ body{
   box-shadow:0 2px 6px rgba(94,78,160,.10),inset 0 1px 0 #fff;
 }
 .seal svg{width:16px;height:16px}
-
-/* 顶部装饰色带（贴边） */
 .band{display:flex;height:9px;margin:17px calc(var(--pp) * -1) 0}
 .band i{display:block}
 .band i:first-child{
@@ -122,8 +160,6 @@ body{
   background:linear-gradient(90deg,var(--accent-line),var(--accent-soft));
   clip-path:polygon(12px 0,100% 0,100% 100%,0 100%);
 }
-
-/* ==================== 板块 ==================== */
 .sec{padding:15px 0 3px;margin-top:15px;border-top:1px solid var(--hair)}
 .sec:first-of-type{border-top:0;margin-top:5px;padding-top:22px}
 .sec-head{display:flex;align-items:center;margin:0 0 11px}
@@ -139,53 +175,22 @@ body{
   content:"";flex:1;height:1px;margin-left:12px;
   background:linear-gradient(90deg,var(--accent-line),rgba(236,233,244,.15));
 }
-
-/* ==================== 基本信息 ==================== */
 .info{display:grid;grid-template-columns:1fr 1fr 104px;gap:9px 20px;align-items:start}
 .f{display:flex;min-width:0;font-size:13px;line-height:1.7}
 .f .k{flex:none;width:4.15em;text-align:justify;text-align-last:justify;color:var(--muted)}
 .f .c{flex:none;color:var(--muted)}
 .f .v{flex:1;min-width:0;font-weight:500;color:var(--ink);overflow-wrap:anywhere}
-.photo{
-  grid-column:3;grid-row:1 / span 4;
-  position:relative;width:100px;height:132px;margin-left:auto;
-  display:flex;align-items:center;justify-content:center;
-  border:1px solid var(--accent-line);border-radius:4px;
-  background:var(--accent-soft);overflow:hidden;cursor:pointer;
-  transition:border-color .2s,box-shadow .2s;
-}
-.photo:hover{border-color:var(--accent-2);box-shadow:0 0 0 3px rgba(123,105,198,.08)}
-.photo:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(123,105,198,.25)}
-.photo .ph{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;
-  font-size:10.5px;line-height:1.45;color:#ACA7BE}
-.photo .ph svg{width:18px;height:18px;opacity:.85}
-.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
-.photo.has img{display:block}
-.photo.has .ph{display:none}
-
-/* ==================== 经历条目 ==================== */
 .item{position:relative}
 .item+.item{margin-top:15px;padding-top:13px;border-top:1px dashed var(--hair)}
 .row-head{display:grid;grid-template-columns:124px 1fr auto;gap:10px;align-items:baseline}
-.row-head .date{
-  font-size:12px;color:var(--muted);white-space:nowrap;
-  font-variant-numeric:tabular-nums;letter-spacing:.01em;
-}
+.row-head .date{font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .row-head .org{font-size:14px;font-weight:700;color:var(--org);text-align:center;line-height:1.6}
 .row-head .role{font-size:13px;font-weight:600;color:var(--ink-2);text-align:right}
 .points{list-style:none;margin:6px 0 0;padding:0}
-.points li{
-  position:relative;padding-left:13px;margin-bottom:5px;
-  font-size:13px;line-height:1.8;color:var(--ink-2);
-}
+.points li{position:relative;padding-left:13px;margin-bottom:5px;font-size:13px;line-height:1.8;color:var(--ink-2)}
 .points li:last-child{margin-bottom:0}
-.points li::before{
-  content:"";position:absolute;left:1px;top:.76em;
-  width:5px;height:5px;border-radius:50%;background:var(--brand);opacity:.85;
-}
+.points li::before{content:"";position:absolute;left:1px;top:.76em;width:5px;height:5px;border-radius:50%;background:var(--brand);opacity:.85}
 .points b{color:var(--ink);font-weight:600}
-
-/* ==================== 技能 / 自我评价 ==================== */
 .skill{display:flex;font-size:13px;line-height:1.82;margin-bottom:5px}
 .skill:last-child{margin-bottom:0}
 .skill b{flex:none;color:var(--ink);font-weight:600}
@@ -196,17 +201,95 @@ body{
   background:linear-gradient(120deg,var(--accent-soft),#FCFAFF);
   font-size:12.9px;line-height:1.9;color:var(--ink-2);
 }
+.paper-foot{margin:24px 0 0;padding-top:12px;border-top:1px solid var(--hair);text-align:center;font-size:10.5px;letter-spacing:.12em;color:#BEB8D3}
+
+/* ==================== 模板二：侧栏 ==================== */
+.t2-side{
+  width:302px;flex:none;padding:34px 24px 28px;
+  background:linear-gradient(168deg,var(--accent-deep) 0%,var(--accent) 64%,var(--accent-2) 100%);
+  color:#fff;position:relative;overflow:hidden;
+}
+.t2-side::after{
+  content:"";position:absolute;right:-46px;top:-46px;width:170px;height:170px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+}
+.t2-top{position:relative;z-index:1;display:flex;gap:12px;align-items:flex-start}
+.t2-id{flex:1;min-width:0}
+.t2-name{margin:0;font-size:25px;font-weight:700;letter-spacing:.1em;line-height:1.32;color:#fff}
+.t2-en{margin:4px 0 0;font-family:Georgia,"Times New Roman",serif;font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.t2-job{margin:12px 0 0;display:inline-block;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);font-size:11px;letter-spacing:.08em;color:#fff}
+.t2-block{margin-top:20px;position:relative;z-index:1}
+.t2-block h3{margin:0 0 9px;font-size:9.5px;font-weight:600;letter-spacing:.2em;color:rgba(255,255,255,.55)}
+.t2-list{list-style:none;margin:0;padding:0}
+.t2-list li{display:flex;align-items:flex-start;gap:7px;font-size:11.6px;line-height:1.62;color:rgba(255,255,255,.92);margin-bottom:8px;word-break:break-word}
+.t2-list li:last-child{margin-bottom:0}
+.t2-list svg{width:13px;height:13px;flex:none;margin-top:2px;opacity:.62}
+.t2-info{display:grid;grid-template-columns:auto 1fr;gap:7px 10px;margin:0;font-size:11.6px;line-height:1.6}
+.t2-info dt{color:rgba(255,255,255,.55);white-space:nowrap}
+.t2-info dd{margin:0;color:#fff;min-width:0;word-break:break-word}
+.t2-skill{margin-bottom:9px;font-size:11.4px;line-height:1.68;color:rgba(255,255,255,.9)}
+.t2-skill:last-child{margin-bottom:0}
+.t2-skill b{display:block;font-size:9.5px;letter-spacing:.12em;font-weight:600;color:rgba(255,255,255,.55);margin-bottom:2px}
+.t2-main{flex:1;min-width:0;padding:34px 30px 26px}
+.t2-sec{margin-bottom:17px}
+.t2-sec:last-child{margin-bottom:0}
+.t2-sec h2{
+  display:flex;align-items:center;gap:9px;margin:0 0 10px;
+  font-size:12px;letter-spacing:.18em;color:var(--accent-deep);font-weight:700;
+}
+.t2-sec h2::after{content:"";flex:1;height:1px;background:var(--accent-line)}
+.t2-item+.t2-item{margin-top:12px;padding-top:11px;border-top:1px dashed var(--hair)}
+.t2-line{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.t2-line .org{font-size:13.4px;font-weight:700;color:var(--org)}
+.t2-line .role{font-size:11.8px;color:var(--ink-2)}
+.t2-line .date{margin-left:auto;font-size:10.8px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.t2 .points{margin:5px 0 0}
+.t2 .points li{font-size:12.3px;line-height:1.78;padding-left:11px;margin-bottom:4px}
+.t2 .points li::before{width:4px;height:4px;border-radius:1px;background:var(--accent);top:.74em}
+.t2 .summary{border-left:0;border-radius:8px;background:var(--accent-soft);padding:11px 13px;font-size:12.2px;line-height:1.82}
+.t2 .t2-photo{width:76px;height:98px;flex:none;margin:0;border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.13)}
+.t2-photo .ph{color:rgba(255,255,255,.8)}
+
+/* ==================== 模板三：极简 ==================== */
+.t3-head{display:flex;align-items:flex-start;gap:18px;padding-bottom:15px;border-bottom:2px solid var(--ink);margin-bottom:19px}
+.t3-id{flex:1;min-width:0}
+.t3-name{margin:0;font-size:33px;font-weight:700;letter-spacing:.12em;line-height:1.22;color:var(--ink)}
+.t3-role{margin:7px 0 0;font-size:12.5px;letter-spacing:.16em;color:var(--accent-deep)}
+.t3-contact{margin:11px 0 0;font-size:11.6px;line-height:1.95;color:var(--muted);word-break:break-word}
+.t3-contact i{font-style:normal;color:#D2CDE2;margin:0 6px}
+.t3-head .photo{width:76px;height:98px;flex:none;margin:0}
+.t3-sec{margin-bottom:17px}
+.t3-sec:last-child{margin-bottom:0}
+.t3-sec h2{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:12.5px;font-weight:700;letter-spacing:.16em;color:var(--ink)}
+.t3-sec h2::before{content:"";width:14px;height:2px;border-radius:1px;background:var(--accent);display:block}
+.t3-list{position:relative;padding-left:15px;margin:0}
+.t3-list::before{content:"";position:absolute;left:2px;top:9px;bottom:9px;width:1px;background:var(--accent-line)}
+.t3-item{position:relative;padding-bottom:14px}
+.t3-item:last-child{padding-bottom:0}
+.t3-item::before{
+  content:"";position:absolute;left:-15px;top:.6em;width:7px;height:7px;border-radius:50%;
+  background:#fff;border:1.5px solid var(--accent);
+}
+.t3-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.t3-line .org{font-size:13.4px;font-weight:700;color:var(--ink)}
+.t3-line .role{font-size:12px;color:var(--muted)}
+.t3-line .date{margin-left:auto;font-size:10.8px;letter-spacing:.06em;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.t3 .points{margin:4px 0 0}
+.t3 .points li{font-size:12.4px;line-height:1.8;padding-left:12px;margin-bottom:3px}
+.t3 .points li::before{width:6px;height:1px;border-radius:0;background:#CFC9E0;top:.82em;left:0}
+.t3 .skill{font-size:12.4px;line-height:1.85;margin-bottom:4px}
+.t3 .summary{background:none;border:0;border-radius:0;padding:0;font-size:12.4px;line-height:1.9}
+.t3-foot{margin:22px 0 0;padding-top:11px;border-top:1px solid var(--hair);text-align:center;font-size:10px;letter-spacing:.12em;color:#C2BCD4}
 
 /* ==================== 编辑态 ==================== */
-[contenteditable]{
-  outline:none;border-radius:3px;
-  transition:background-color .16s,box-shadow .16s;
-  -webkit-box-decoration-break:clone;box-decoration-break:clone;
-}
+[contenteditable]{outline:none;border-radius:3px;transition:background-color .16s,box-shadow .16s;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 [contenteditable]:hover{background:rgba(123,105,198,.055)}
 [contenteditable]:focus{background:var(--accent-soft);box-shadow:0 0 0 2px rgba(123,105,198,.20)}
 [contenteditable]:empty::before{content:attr(data-ph);color:#C0BBD2;font-weight:400;pointer-events:none}
 h1[contenteditable]:hover{background:transparent}
+.t2-side [contenteditable]:hover{background:rgba(255,255,255,.10)}
+.t2-side [contenteditable]:focus{background:rgba(255,255,255,.18);box-shadow:0 0 0 2px rgba(255,255,255,.28)}
+.t2-side [contenteditable]:empty::before{color:rgba(255,255,255,.42)}
 body.preview [contenteditable]:hover,body.preview [contenteditable]:focus{background:transparent;box-shadow:none}
 body.preview .item-tools,body.preview .add{display:none}
 
@@ -227,11 +310,25 @@ body.preview .item-tools,body.preview .add{display:none}
 }
 .add:hover{background:var(--accent-soft);border-color:var(--accent-2)}
 .add svg{width:11px;height:11px}
+.add.t2-add{margin-top:9px;font-size:11px}
+.t2 .item-tools{justify-content:flex-start}
 
-.paper-foot{
-  margin:24px 0 0;padding-top:12px;border-top:1px solid var(--hair);
-  text-align:center;font-size:10.5px;letter-spacing:.12em;color:#BEB8D3;
+/* ==================== 照片 ==================== */
+.photo{
+  position:relative;width:100px;height:132px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--accent-line);border-radius:4px;
+  background:var(--accent-soft);overflow:hidden;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s;
 }
+.photo:hover{border-color:var(--accent-2);box-shadow:0 0 0 3px rgba(123,105,198,.08)}
+.photo:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(123,105,198,.25)}
+.photo .ph{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;font-size:10.5px;line-height:1.45;color:#ACA7BE}
+.photo .ph svg{width:18px;height:18px;opacity:.85}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.photo.has img{display:block}
+.photo.has .ph{display:none}
+.paper.t1 .photo{grid-column:3;grid-row:1 / span 4;margin-left:auto}
 
 /* ==================== 底部操作栏 ==================== */
 .dock{
@@ -254,6 +351,7 @@ body.preview .item-tools,body.preview .add{display:none}
 .dock button svg{width:16px;height:16px;opacity:.85}
 .dock button:hover{background:rgba(123,105,198,.09)}
 .dock button:active{transform:scale(.97)}
+.dock button:disabled{opacity:.6;cursor:default;transform:none}
 .dock .primary{
   color:#fff;
   background:linear-gradient(135deg,var(--accent),var(--accent-deep));
@@ -275,27 +373,8 @@ body.preview .item-tools,body.preview .add{display:none}
 .autosave.show{opacity:1;transform:translate(-50%,0)}
 .autosave i{width:6px;height:6px;border-radius:50%;background:#5FB98C}
 
-.hint{
-  max-width:824px;margin:14px auto 0;text-align:center;
-  font-size:11.5px;line-height:1.9;color:#A29CB8;
-}
+.hint{max-width:824px;margin:14px auto 0;text-align:center;font-size:11.5px;line-height:1.9;color:#A29CB8}
 .hint b{font-weight:600;color:#8B84A6}
-
-/* ==================== 可编辑提示条 ==================== */
-.editbar{
-  max-width:824px;margin:0 auto 12px;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:9px 18px;border-radius:999px;
-  background:rgba(255,255,255,.82);
-  border:1px solid rgba(123,105,198,.18);
-  box-shadow:0 10px 26px -20px rgba(56,40,104,.7);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  font-size:12px;line-height:1.5;color:#6D6690;letter-spacing:.02em;
-  text-align:center;
-}
-.editbar b{color:var(--accent-deep);font-weight:600}
-.editbar svg{width:14px;height:14px;flex:none;opacity:.8}
-body.preview .editbar{display:none}
 
 /* ==================== 弹层 ==================== */
 .backdrop{
@@ -317,10 +396,7 @@ body.sheet-open .sheet{transform:translateY(0)}
 .sheet-grab{width:38px;height:4px;border-radius:99px;background:#E3DFEF;margin:2px auto 4px}
 .sheet-head{display:flex;align-items:center;justify-content:space-between;margin:2px 0 6px}
 .sheet-head h3{margin:0;font-size:15px;font-weight:600;letter-spacing:.02em}
-.x{
-  width:30px;height:30px;border:0;border-radius:50%;background:#F4F2FA;
-  color:#8B84A6;font-size:17px;line-height:1;cursor:pointer;
-}
+.x{width:30px;height:30px;border:0;border-radius:50%;background:#F4F2FA;color:#8B84A6;font-size:17px;line-height:1;cursor:pointer}
 .group{padding:14px 0;border-bottom:1px solid #F1EFF7}
 .group:last-child{border-bottom:0;padding-bottom:4px}
 .group-t{margin:0 0 10px;font-size:11.5px;letter-spacing:.1em;color:#A29CB8}
@@ -332,6 +408,19 @@ body.sheet-open .sheet{transform:translateY(0)}
 }
 .swatches button i{width:13px;height:13px;border-radius:50%;background:var(--c);display:block}
 .swatches button.on{border-color:var(--accent);box-shadow:0 0 0 3px rgba(123,105,198,.10);color:var(--accent-deep);font-weight:600}
+.tplchips{display:flex;gap:8px;flex-wrap:wrap}
+.tplchips button{
+  display:flex;align-items:center;gap:7px;
+  padding:7px 13px 7px 8px;border:1px solid #EAE6F4;border-radius:12px;
+  background:#fff;font:inherit;font-size:12.5px;color:#5C5674;cursor:pointer;transition:.18s;
+}
+.tplchips button.on{border-color:var(--accent);box-shadow:0 0 0 3px rgba(123,105,198,.10);color:var(--accent-deep);font-weight:600}
+.tplchips i{position:relative;width:18px;height:22px;border-radius:3px;background:#fff;border:1px solid #E3DFF0;overflow:hidden;flex:none}
+.tplchips i::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--accent)}
+.tplchips i::after{content:"";position:absolute;left:3px;right:3px;top:9px;height:1px;background:#DCD8E8;box-shadow:0 3px 0 #E8E5F1,0 6px 0 #E8E5F1}
+.tplchips [data-tpl="1"] i::before{top:0;bottom:0;right:auto;width:6px;height:auto}
+.tplchips [data-tpl="2"] i::before{display:none}
+.tplchips [data-tpl="2"] i::after{top:5px}
 .row-btn{
   display:block;width:100%;text-align:left;
   padding:12px 14px;margin-bottom:8px;
@@ -342,9 +431,10 @@ body.sheet-open .sheet{transform:translateY(0)}
 .row-btn.danger{color:#B4574F}
 .row-btn.danger.armed{background:#FCEDEB;border-color:#F0C7C3;color:#A8463E;font-weight:600}
 .note{margin:0;font-size:12px;line-height:1.85;color:#8B84A6}
+.note b{color:#5C5674;font-weight:600}
 @media (min-width:720px){
   .sheet{
-    left:50%;right:auto;bottom:auto;top:50%;width:430px;
+    left:50%;right:auto;bottom:auto;top:50%;width:440px;
     transform:translate(-50%,-46%) scale(.97);opacity:0;
     border-radius:18px;padding:10px 22px 18px;
     transition:opacity .24s,transform .24s;
@@ -353,12 +443,44 @@ body.sheet-open .sheet{transform:translateY(0)}
   .sheet-grab{display:none}
 }
 
+/* ==================== 导出引导 ==================== */
+.tipwrap{
+  position:fixed;inset:0;z-index:95;display:none;
+  align-items:center;justify-content:center;padding:24px;
+  background:rgba(38,32,60,.44);
+  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+}
+.tipwrap.show{display:flex}
+.tipcard{
+  width:100%;max-width:336px;background:#fff;border-radius:18px;
+  padding:22px 20px 16px;
+  box-shadow:0 26px 60px -22px rgba(30,20,60,.55);
+}
+.tipcard h3{margin:0 0 8px;font-size:16px;font-weight:600;letter-spacing:.01em}
+.tipcard p{margin:0 0 12px;font-size:13px;line-height:1.72;color:#5C5674}
+.tipcard ol{margin:0 0 13px;padding-left:19px;font-size:13px;line-height:1.95;color:#4C4959}
+.tipcard ol b{color:var(--accent-deep);font-weight:600}
+.tipurl{
+  margin:0 0 13px;padding:8px 10px;border-radius:8px;
+  background:#F7F5FC;font-size:10.5px;line-height:1.5;color:#8B84A6;
+  word-break:break-all;user-select:all;-webkit-user-select:all;
+}
+.tipbtns{display:flex;gap:9px}
+.tipbtns button{
+  flex:1;padding:11px 0;border:0;border-radius:11px;
+  font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;
+}
+.tipbtns .ghost{background:#F2F0F8;color:#6B6488}
+.tipbtns .solid{background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff}
+
 /* ==================== 手机适配 ==================== */
 @media (max-width:640px){
   body{padding:12px 10px 132px}
-  .editbar{font-size:11.5px;padding:8px 13px;gap:6px;margin-bottom:10px}
-  .editbar svg{width:13px;height:13px}
   .paper{--pp:20px;padding:24px var(--pp) 22px;border-radius:12px}
+  .editbar{font-size:11.5px;padding:8px 12px;gap:6px}
+  .editbar svg{width:13px;height:13px}
+  .tplswitch{padding:3px 3px}
+  .tplswitch button{width:22px;height:22px;font-size:15px}
   .masthead h1{font-size:26px;letter-spacing:.12em}
   .en{font-size:9px;letter-spacing:.24em}
   .seals{gap:7px;padding-top:3px}
@@ -369,7 +491,7 @@ body.sheet-open .sheet{transform:translateY(0)}
   .sec:first-of-type{padding-top:18px}
   .sec-tag{font-size:12px;padding:4px 17px 4px 11px}
   .info{grid-template-columns:1fr 92px;gap:8px 12px}
-  .photo{grid-column:2;grid-row:1 / span 8;width:92px;height:122px;margin:0}
+  .paper.t1 .photo{grid-column:2;grid-row:1 / span 8;width:92px;height:122px;margin:0}
   .f{font-size:13.2px;line-height:1.72}
   .f .k{width:4.1em}
   .row-head{grid-template-columns:1fr auto;gap:2px 10px}
@@ -378,6 +500,25 @@ body.sheet-open .sheet{transform:translateY(0)}
   .row-head .date{grid-column:1 / -1;grid-row:2;font-size:11.5px;margin-top:1px}
   .points li,.skill{font-size:13.2px;line-height:1.84}
   .summary{font-size:12.9px;line-height:1.9;padding:12px 14px}
+  .t2{display:block}
+  .t2-side{width:auto;padding:22px 18px 20px}
+  .t2-name{font-size:23px}
+  .t2 .t2-photo{width:70px;height:92px}
+  .t2-block{margin-top:15px}
+  .t2-block h3{margin-bottom:7px}
+  .t2-main{padding:18px 18px 22px}
+  .t2-line{gap:4px 8px}
+  .t2-line .date{flex-basis:100%;order:3;margin-left:0;font-size:11px}
+  .t2 .points li{font-size:13px}
+  .t2 .summary{font-size:13px}
+  .paper.t3{padding:24px 20px 22px}
+  .t3-name{font-size:27px}
+  .t3-head{gap:12px;padding-bottom:13px;margin-bottom:16px}
+  .t3-head .photo{width:70px;height:92px}
+  .t3-contact{font-size:11.5px;line-height:1.9}
+  .t3 .points li,.t3 .skill,.t3 .summary{font-size:13px}
+  .t3-line{row-gap:2px}
+  .t3-line .date{flex-basis:100%;order:3;margin-left:0;font-size:11px}
   .dock{padding:6px;gap:4px}
   .dock button{padding:9px 12px;font-size:12.5px}
   .dock button svg{width:15px;height:15px}
@@ -387,198 +528,94 @@ body.sheet-open .sheet{transform:translateY(0)}
   .dock button span{display:none}
   .dock .primary span{display:inline}
   .masthead h1{font-size:23px}
+  .editbar .hm{display:none}
 }
 
 /* ==================== 打印 / 导出 PDF ==================== */
-@page{size:A4;margin:13mm 14mm}
+@page{size:A4;margin:0}
 @media print{
   html,body{background:#fff !important;margin:0;padding:0}
   body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .paper{--pp:0;width:auto;max-width:none;margin:0;padding:0;box-shadow:none;border-radius:0;overflow:visible}
+  .paper{--pp:0;width:auto;max-width:none;margin:0;padding:14mm 15mm;box-shadow:none;border-radius:0;overflow:visible}
   .paper::before{display:none}
-  .paper-foot,.dock,.autosave,.hint,.backdrop,.sheet,.editbar{display:none !important}
-  .band{margin:10px 0 0;height:7px}
-  .masthead h1{
-    font-size:26px;
-    background:none;
-    color:var(--accent-deep);
-    -webkit-text-fill-color:var(--accent-deep);
-  }
-  .seal{box-shadow:none}
-  .sec{margin-top:12px;padding-top:10px}
-  .sec:first-of-type{margin-top:0;padding-top:15px}
-  .sec-head{margin-bottom:7px}
-  .sec-tag{font-size:11px;padding:3px 16px 3px 10px;letter-spacing:.14em}
-  .f,.points li,.skill{font-size:12px;line-height:1.66}
-  .f .v{font-weight:500}
-  .points{margin-top:4px}
-  .points li{margin-bottom:3px;padding-left:11px}
-  .points li::before{top:.68em;width:4px;height:4px}
-  .row-head .org{font-size:12.6px}
-  .row-head .role,.row-head .date{font-size:11.4px}
-  .summary{font-size:11.8px;line-height:1.75;padding:9px 12px;margin:0}
-  .item+.item{margin-top:10px;padding-top:8px}
+  .paper.t2{padding:0;margin:0}
+  .paper.t3{padding:14mm 15mm}
+  .paper-foot,.t3-foot,.dock,.autosave,.hint,.backdrop,.sheet,.appbar,.tipwrap{display:none !important}
+  .band{margin:9px 0 0;height:6px}
+  .masthead h1{font-size:25px;background:none;color:var(--accent-deep);-webkit-text-fill-color:var(--accent-deep)}
+  .seal{box-shadow:none;width:30px;height:30px}
+  .seal svg{width:15px;height:15px}
+  .sec{margin-top:9px;padding-top:8px}
+  .sec:first-of-type{margin-top:0;padding-top:14px}
+  .sec-head{margin-bottom:6px}
+  .sec-tag{font-size:10.5px;padding:3px 15px 3px 10px;letter-spacing:.13em}
+  .f,.points li,.skill{font-size:11.6px;line-height:1.62}
+  .points{margin-top:3px}
+  .points li{margin-bottom:2px;padding-left:11px}
+  .points li::before{top:.66em;width:4px;height:4px}
+  .row-head .org{font-size:12.2px}
+  .row-head .role,.row-head .date{font-size:11px}
+  .summary{font-size:11.4px;line-height:1.7;padding:8px 11px;margin:0}
+  .item+.item{margin-top:8px;padding-top:7px}
   .item-tools,.add{display:none !important}
-  .photo{width:92px;height:122px}
+  .photo,.paper.t1 .photo{width:86px;height:114px}
   .photo:hover{box-shadow:none}
   .paper:not(.has-photo) .photo{display:none}
-  .paper:not(.has-photo) .info{grid-template-columns:1fr 1fr}
+  .paper.t1:not(.has-photo) .info{grid-template-columns:1fr 1fr}
   [contenteditable]{background:transparent !important;box-shadow:none !important}
   [contenteditable]:hover,[contenteditable]:focus{background:transparent !important;box-shadow:none !important}
-  .item,.summary{break-inside:avoid}
-  .sec-tag,.band,.seal,.summary{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .item,.t2-item,.t3-item,.summary{break-inside:avoid}
+  .sec-tag,.band,.seal,.summary,.t2-side,.t3-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .t2{display:flex;margin:13mm 13mm;min-height:271mm}
+  .t2-side{width:64mm;padding:10mm 7mm}
+  .t2 .photo{width:64px;height:85px}
+  .t2-name{font-size:21px}
+  .t2-en{font-size:7.5px}
+  .t2-job{font-size:10.5px;margin-top:9px}
+  .t2-block{margin-top:7mm}
+  .t2-main{padding:9mm 9mm 0}
+  .t2-sec{margin-bottom:15px}
+  .t2-sec h2{font-size:11.5px;margin-bottom:8px}
+  .t2 .points li{font-size:12px;line-height:1.74}
+  .t2-line .org{font-size:12.8px}
+  .t2-line .role{font-size:11.2px}
+  .t2-line .date{font-size:10.6px}
+  .t2 .summary{font-size:12px;line-height:1.76;padding:9px 11px}
+  .t2-list li,.t2-info,.t2-skill{font-size:11.4px;line-height:1.68}
+  .t3-head{padding-bottom:9px;margin-bottom:12px}
+  .t3-name{font-size:24px}
+  .t3-contact{font-size:10.6px;line-height:1.75}
+  .t3-sec{margin-bottom:10px}
+  .t3 .points li,.t3 .skill,.t3 .summary{font-size:11.2px;line-height:1.7}
+  .t3-item{padding-bottom:8px}
+  .t3-head .photo{width:66px;height:86px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition-duration:.01ms !important;animation-duration:.01ms !important}
 }
 </style>
 </head>
 <body>
 
-<div class="editbar" id="editbar">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.3 4.9a2.3 2.3 0 0 1 3.3 0l.5.5a2.3 2.3 0 0 1 0 3.3L8.6 19.2 4 20.2l1-4.6L15.3 4.9Z"/></svg>
-  <span><b>这是一份可编辑模板</b> · 点一下任意文字就能直接改</span>
+<div class="appbar">
+  <div class="editbar" id="editbar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.3 4.9a2.3 2.3 0 0 1 3.3 0l.5.5a2.3 2.3 0 0 1 0 3.3L8.6 19.2 4 20.2l1-4.6L15.3 4.9Z"/></svg>
+    <span class="tx"><b>可编辑</b><span class="hm"> · 点文字直接改</span></span>
+  </div>
+  <div class="tplswitch">
+    <button type="button" id="prevTpl" aria-label="上一个模板">‹</button>
+    <span class="tplname" id="tplName">紫缎</span>
+    <span class="tplidx" id="tplIdx">1/3</span>
+    <button type="button" id="nextTpl" aria-label="下一个模板">›</button>
+  </div>
 </div>
 
-<article class="paper" id="paper">
+<article class="paper t1" id="paper"></article>
 
-  <!-- ========== 抬头 ========== -->
-  <header class="masthead">
-    <div class="mast-left">
-      <h1 contenteditable="true" spellcheck="false" data-single data-ph="个人简历">个人简历</h1>
-      <span class="en">Personal Resume</span>
-    </div>
-    <div class="seals" aria-hidden="true">
-      <span class="seal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.6 12 4.2l9.5 4.4L12 13 2.5 8.6Z"/><path d="M6.4 10.7v5.1c0 1.7 2.5 3 5.6 3s5.6-1.3 5.6-3v-5.1"/><path d="M21.5 9.2v5.2"/></svg>
-      </span>
-      <span class="seal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="7.4" width="18.4" height="12.2" rx="2.4"/><path d="M8.8 7.4V5.9A2 2 0 0 1 10.8 3.9h2.4a2 2 0 0 1 2 2v1.5"/><path d="M2.8 12.6h18.4"/><path d="M10.6 12.6h2.8"/></svg>
-      </span>
-      <span class="seal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15.3 4.9a2.3 2.3 0 0 1 3.3 0l.5.5a2.3 2.3 0 0 1 0 3.3L8.6 19.2 4 20.2l1-4.6L15.3 4.9Z"/><path d="M14.2 6l3.8 3.8"/></svg>
-      </span>
-    </div>
-  </header>
+<p class="hint">左右滑动切换模板，内容自动同步 · <b>「导出 PDF」</b>即可保存为文件发送给 HR</p>
 
-  <div class="band" aria-hidden="true"><i></i><i></i></div>
-
-  <!-- ========== 基本信息 ========== -->
-  <section class="sec">
-    <div class="sec-head"><h2 class="sec-tag">基本信息</h2></div>
-    <div class="info">
-      <div class="f"><span class="k">姓名</span><span class="c">：</span><span class="v" contenteditable="true" spellcheck="false" data-single data-ph="姓名">常若雪</span></div>
-      <div class="f"><span class="k">性别</span><span class="c">：</span><span class="v" contenteditable="true" spellcheck="false" data-single data-ph="性别">女</span></div>
-      <div class="f"><span class="k">民族</span><span class="c">：</span><span class="v" contenteditable="true" spellcheck="false" data-single data-ph="民族">汉族</span></div>
-      <div class="f"><span class="k">政治面貌</span><span class="c">：</span><span class="v" contenteditable="true" spellcheck="false" data-single data-ph="政治面貌">中共预备党员</span></div>
-      <div class="f"><span class="k">求职意向</span><span class="c">：</span><span class="v" contenteditable="true" spellcheck="false" data-single data-ph="目标岗位">新媒体运营</span></div>
-      <div class="f"><span class="k">出生年月</span><span class="c">：</span><span class="v" contenteditable="true" spellcheck="false" data-single data-ph="2000.01">2004.08</span></div>
-      <div class="f"><span class="k">电子邮箱</span><span class="c">：</span><span class="v" contenteditable="true" spellcheck="false" data-single data-ph="name@mail.com">xxxxx@email.com</span></div>
-      <div class="f"><span class="k">联系电话</span><span class="c">：</span><span class="v" contenteditable="true" spellcheck="false" data-single data-ph="138-0000-0000">123-XXXX-0551</span></div>
-
-      <div class="photo" id="photo" role="button" tabindex="0" aria-label="上传证件照">
-        <img alt="证件照">
-        <span class="ph">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5h2.6L8 6.4h8l1.4 2.1H20a1.6 1.6 0 0 1 1.6 1.6v8.3A1.6 1.6 0 0 1 20 20H4a1.6 1.6 0 0 1-1.6-1.6v-8.3A1.6 1.6 0 0 1 4 8.5Z"/><circle cx="12" cy="14" r="3.3"/></svg>
-          <span>点击上传<br>证件照</span>
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== 教育背景 ========== -->
-  <section class="sec">
-    <div class="sec-head"><h2 class="sec-tag">教育背景</h2></div>
-    <div id="list-edu">
-      <div class="item">
-        <div class="row-head">
-          <span class="date" contenteditable="true" spellcheck="false" data-single data-ph="2022.09-2026.06">2022.09-2026.06</span>
-          <span class="org" contenteditable="true" spellcheck="false" data-single data-ph="学校名称">中国传媒大学</span>
-          <span class="role" contenteditable="true" spellcheck="false" data-single data-ph="专业 / 学历">网络与新媒体 / 本科</span>
-        </div>
-        <ul class="points">
-          <li><b>主修课程：</b><span contenteditable="true" spellcheck="false" data-ph="列出与目标岗位相关的课程">传播学概论、新闻学原理、新媒体概论、网络传播学、数据新闻与可视化、视听语言、短视频创作、社交媒体运营、网络舆情分析、媒介经营与管理、数字营销。</span></li>
-          <li><b>专业能力：</b><span contenteditable="true" spellcheck="false" data-ph="写清掌握的软件与能独立完成的工作">熟练使用 Premiere 与剪映完成剪辑与字幕包装，掌握 Photoshop 与 Illustrator 做封面设计，能独立完成选题、拍摄到发布的全流程。</span></li>
-        </ul>
-        <div class="item-tools">
-          <button class="del" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l.8 12.2h9.4L17.5 7"/></svg>删除这段</button>
-        </div>
-      </div>
-    </div>
-    <button class="add" type="button" data-to="list-edu" data-tpl="edu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>再加一段教育经历
-    </button>
-  </section>
-
-  <!-- ========== 实践经历 ========== -->
-  <section class="sec">
-    <div class="sec-head"><h2 class="sec-tag">实践经历</h2></div>
-    <div id="list-exp">
-      <div class="item">
-        <div class="row-head">
-          <span class="date" contenteditable="true" spellcheck="false" data-single data-ph="2025.07-2026.01">2025.07-2026.01</span>
-          <span class="org" contenteditable="true" spellcheck="false" data-single data-ph="公司名称">蓝色光标数据科技股份有限公司</span>
-          <span class="role" contenteditable="true" spellcheck="false" data-single data-ph="岗位名称">新媒体运营实习生</span>
-        </div>
-        <ul class="points">
-          <li><b>选题策划：</b><span contenteditable="true" spellcheck="false" data-ph="写清你负责什么、怎么做的、做了多少">关注校园与青年消费类内容选题，每周产出选题清单 10 条，跟踪站内热点与竞品账号动向，累计策划选题 120 余个，采纳率超过六成并同步至选题库。</span></li>
-          <li><b>内容产出：</b><span contenteditable="true" spellcheck="false" data-ph="用数字说明产出量与传播效果">独立完成短视频剪辑与图文排版，累计产出成片 80 余条，其中 2 条登上平台热榜，单条最高播放量 90 万，账号周均互动量较实习初期翻了一倍。</span></li>
-          <li><b>数据复盘：</b><span contenteditable="true" spellcheck="false" data-ph="写清你如何复盘并带来改进">每日跟踪播放量、完播率与互动数据，产出周报与月度复盘报告 18 份，据此优化视频开头三秒与发布时间，账号完播率由 19% 提升至 33%。</span></li>
-        </ul>
-        <div class="item-tools">
-          <button class="del" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l.8 12.2h9.4L17.5 7"/></svg>删除这段</button>
-        </div>
-      </div>
-    </div>
-    <button class="add" type="button" data-to="list-exp" data-tpl="exp">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>再加一段实习 / 工作经历
-    </button>
-  </section>
-
-  <!-- ========== 校园经历 ========== -->
-  <section class="sec">
-    <div class="sec-head"><h2 class="sec-tag">校园经历</h2></div>
-    <div id="list-campus">
-      <div class="item">
-        <div class="row-head">
-          <span class="date" contenteditable="true" spellcheck="false" data-single data-ph="2022.09-2025.06">2022.09-2025.06</span>
-          <span class="org" contenteditable="true" spellcheck="false" data-single data-ph="组织 / 社团名称">校园融媒体中心</span>
-          <span class="role" contenteditable="true" spellcheck="false" data-single data-ph="担任角色">短视频组负责人</span>
-        </div>
-        <ul class="points">
-          <li><b>账号运营：</b><span contenteditable="true" spellcheck="false" data-ph="写清账号体量、增长与代表作">负责校园官方账号的内容规划、制作与日常更新，一年内粉丝由 8000 增长至 4.2 万，单条最高播放量突破 50 万，涨粉数据创下中心年度纪录。</span></li>
-          <li><b>短片创作：</b><span contenteditable="true" spellcheck="false" data-ph="写清项目规模与外部认可">牵头拍摄校园迎新与毕业季系列短片，独立完成分镜、拍摄与后期剪辑包装，作品被学校官方渠道转载 12 次，全网累计播放量已超过 200 万。</span></li>
-        </ul>
-        <div class="item-tools">
-          <button class="del" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l.8 12.2h9.4L17.5 7"/></svg>删除这段</button>
-        </div>
-      </div>
-    </div>
-    <button class="add" type="button" data-to="list-campus" data-tpl="campus">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>再加一段校园经历
-    </button>
-  </section>
-
-  <!-- ========== 专业技能 ========== -->
-  <section class="sec">
-    <div class="sec-head"><h2 class="sec-tag">专业技能</h2></div>
-    <div class="skill"><b>专业软件：</b><span contenteditable="true" spellcheck="false" data-ph="写清软件熟练度与产出类型">熟练使用 Premiere 与剪映完成剪辑与字幕包装，会用 Photoshop 设计封面。</span></div>
-    <div class="skill"><b>荣誉证书：</b><span contenteditable="true" spellcheck="false" data-ph="列出与岗位相关的奖项与证书">曾两次获得校级一等奖学金，获全国大学生广告艺术大赛省级二等奖、校园短视频创作大赛一等奖。</span></div>
-    <div class="skill"><b>综合能力：</b><span contenteditable="true" spellcheck="false" data-ph="写出岗位需要的软技能">网感强，能快速捕捉平台热点并拆解爆款结构，沟通与统筹能力好，能适应快节奏的内容排期。</span></div>
-  </section>
-
-  <!-- ========== 自我评价 ========== -->
-  <section class="sec">
-    <div class="sec-head"><h2 class="sec-tag">自我评价</h2></div>
-    <div class="summary" contenteditable="true" spellcheck="false" data-ph="用三到五句话总结：专业背景 + 关键成果 + 与岗位的匹配度">本人网络与新媒体专业本科毕业，系统学习短视频创作与社交媒体运营等课程，在校担任融媒体中心短视频组负责人，带动账号粉丝从 8000 增长至 4.2 万。实习期间累计产出成片 80 余条、策划选题 120 余个，熟悉内容从策划、拍摄到数据复盘的完整流程。我网感强、执行快，愿从新媒体运营岗位一步步扎实做起。</div>
-  </section>
-
-  <p class="paper-foot">点击任意文字即可修改 · 内容自动保存在本机</p>
-</article>
-
-<p class="hint">手机上直接填写，<b>「导出 PDF」</b>即可保存为文件发送给 HR</p>
-
-<!-- ========== 自动保存提示 ========== -->
 <div class="autosave" id="autosave"><i></i><span id="autoText">已自动保存</span></div>
 
-<!-- ========== 底部操作栏 ========== -->
 <nav class="dock" aria-label="操作">
   <button type="button" id="btnMode">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 12S5.8 5.4 12 5.4 21.8 12 21.8 12 18.2 18.6 12 18.6 2.2 12 2.2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -594,7 +631,6 @@ body.sheet-open .sheet{transform:translateY(0)}
   </button>
 </nav>
 
-<!-- ========== 弹层 ========== -->
 <div class="backdrop" id="backdrop"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="更多设置">
   <div class="sheet-grab"></div>
@@ -605,7 +641,16 @@ body.sheet-open .sheet{transform:translateY(0)}
 
   <div class="group">
     <p class="group-t">怎么用</p>
-    <p class="note">整份简历都可以改：<b>点任意文字</b>直接输入，改完自动保存。点照片可换证件照，每段经历下方能删除或再加一段。</p>
+    <p class="note">整份简历都可以改：<b>点任意文字</b>直接输入，改完自动保存。左右滑动或点右上角箭头可切换 3 套版式，<b>内容自动同步</b>；点照片可换证件照。</p>
+  </div>
+
+  <div class="group">
+    <p class="group-t">模板样式</p>
+    <div class="tplchips" id="tplchips">
+      <button type="button" data-tpl="0" class="on"><i></i>紫缎</button>
+      <button type="button" data-tpl="1"><i></i>侧栏</button>
+      <button type="button" data-tpl="2"><i></i>极简</button>
+    </div>
   </div>
 
   <div class="group">
@@ -632,62 +677,26 @@ body.sheet-open .sheet{transform:translateY(0)}
 
   <div class="group">
     <p class="group-t">导出说明</p>
-    <p class="note">手机：点「导出 PDF」后，在系统打印页选择「存储为 PDF」或「保存到文件」。<br>电脑：在打印对话框里选「另存为 PDF」，页边距保持默认即可，A4 一页正好。</p>
+    <p class="note">点「导出 PDF」会直接生成 A4 文件并下载，<b>不会带网址页脚</b>。<br>若浏览器没有开始下载，可用下面的系统打印：页边距选「默认」，并<b>关闭「页眉和页脚」</b>。</p>
+    <button class="row-btn" type="button" id="btnPrint">用系统打印 / 另存为 PDF</button>
   </div>
 </div>
 
-<!-- ========== 新增条目模板 ========== -->
-<template id="tpl-edu">
-  <div class="item">
-    <div class="row-head">
-      <span class="date" contenteditable="true" spellcheck="false" data-single data-ph="2022.09-2026.06"></span>
-      <span class="org" contenteditable="true" spellcheck="false" data-single data-ph="学校名称"></span>
-      <span class="role" contenteditable="true" spellcheck="false" data-single data-ph="专业 / 学历"></span>
-    </div>
-    <ul class="points">
-      <li><b>主修课程：</b><span contenteditable="true" spellcheck="false" data-ph="列出与目标岗位相关的课程"></span></li>
-      <li><b>专业能力：</b><span contenteditable="true" spellcheck="false" data-ph="写清掌握的软件与能独立完成的工作"></span></li>
-    </ul>
-    <div class="item-tools">
-      <button class="del" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l.8 12.2h9.4L17.5 7"/></svg>删除这段</button>
+<div class="tipwrap" id="tipwrap">
+  <div class="tipcard">
+    <h3 id="tipTitle">微信里不能直接导出 PDF</h3>
+    <p id="tipDesc">按下面两步，用手机自带浏览器打开就能保存成 PDF：</p>
+    <ol id="tipSteps">
+      <li>点右上角 <b>···</b>，选「在浏览器打开」</li>
+      <li>在浏览器里再点「导出 PDF」</li>
+    </ol>
+    <p class="tipurl" id="tipUrl"></p>
+    <div class="tipbtns">
+      <button type="button" class="ghost" id="tipCopy">复制链接</button>
+      <button type="button" class="solid" id="tipClose">知道了</button>
     </div>
   </div>
-</template>
-
-<template id="tpl-exp">
-  <div class="item">
-    <div class="row-head">
-      <span class="date" contenteditable="true" spellcheck="false" data-single data-ph="2025.07-2026.01"></span>
-      <span class="org" contenteditable="true" spellcheck="false" data-single data-ph="公司名称"></span>
-      <span class="role" contenteditable="true" spellcheck="false" data-single data-ph="岗位名称"></span>
-    </div>
-    <ul class="points">
-      <li><b>工作内容：</b><span contenteditable="true" spellcheck="false" data-ph="写清你负责什么、怎么做的"></span></li>
-      <li><b>成果数据：</b><span contenteditable="true" spellcheck="false" data-ph="用数字说明产出量与效果"></span></li>
-      <li><b>复盘优化：</b><span contenteditable="true" spellcheck="false" data-ph="写清你如何复盘并带来改进"></span></li>
-    </ul>
-    <div class="item-tools">
-      <button class="del" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l.8 12.2h9.4L17.5 7"/></svg>删除这段</button>
-    </div>
-  </div>
-</template>
-
-<template id="tpl-campus">
-  <div class="item">
-    <div class="row-head">
-      <span class="date" contenteditable="true" spellcheck="false" data-single data-ph="2022.09-2025.06"></span>
-      <span class="org" contenteditable="true" spellcheck="false" data-single data-ph="组织 / 社团名称"></span>
-      <span class="role" contenteditable="true" spellcheck="false" data-single data-ph="担任角色"></span>
-    </div>
-    <ul class="points">
-      <li><b>主要职责：</b><span contenteditable="true" spellcheck="false" data-ph="写清你负责的事情与规模"></span></li>
-      <li><b>成果数据：</b><span contenteditable="true" spellcheck="false" data-ph="用数字说明成果与认可"></span></li>
-    </ul>
-    <div class="item-tools">
-      <button class="del" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l.8 12.2h9.4L17.5 7"/></svg>删除这段</button>
-    </div>
-  </div>
-</template>
+</div>
 
 <input type="file" id="file" accept="image/*" hidden>
 
@@ -695,6 +704,95 @@ body.sheet-open .sheet{transform:translateY(0)}
 (function(){
   'use strict';
 
+  /* ==================== 基础资料 ==================== */
+  var KEY = 'resume.tpl.v3';
+
+  var BASICS = [
+    {k:'name',     label:'姓名',     ph:'姓名'},
+    {k:'gender',   label:'性别',     ph:'性别'},
+    {k:'nation',   label:'民族',     ph:'民族'},
+    {k:'politics', label:'政治面貌', ph:'政治面貌'},
+    {k:'job',      label:'求职意向', ph:'目标岗位'},
+    {k:'birth',    label:'出生年月', ph:'2000.01'},
+    {k:'email',    label:'电子邮箱', ph:'name@mail.com'},
+    {k:'phone',    label:'联系电话', ph:'138-0000-0000'}
+  ];
+
+  var SKILL_LABELS = ['专业软件','荣誉证书','综合能力'];
+
+  var SECS = {
+    edu:{ title:'教育背景', labels:['主修课程','专业能力'], add:'再加一段教育经历',
+          org:'学校名称', role:'专业 / 学历', date:'2022.09-2026.06' },
+    exp:{ title:'实践经历', labels:['工作内容','成果数据','复盘优化'], add:'再加一段实习 / 工作经历',
+          org:'公司名称', role:'岗位名称', date:'2025.07-2026.01' },
+    cam:{ title:'校园经历', labels:['主要职责','成果数据'], add:'再加一段校园经历',
+          org:'组织 / 社团名称', role:'担任角色', date:'2022.09-2025.06' }
+  };
+  var SEC_KEYS = ['edu','exp','cam'];
+
+  /* ==================== 图标 ==================== */
+  var ICON_PLUS  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  var ICON_TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l.8 12.2h9.4L17.5 7"/></svg>';
+  var ICON_CAM   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5h2.6L8 6.4h8l1.4 2.1H20a1.6 1.6 0 0 1 1.6 1.6v8.3A1.6 1.6 0 0 1 20 20H4a1.6 1.6 0 0 1-1.6-1.6v-8.3A1.6 1.6 0 0 1 4 8.5Z"/><circle cx="12" cy="14" r="3.3"/></svg>';
+  var ICON_TEL   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.8h3l1.4 3.6-2 1.4a12 12 0 0 0 6.3 6.3l1.4-2 3.6 1.4v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 6a2 2 0 0 1 2-2.2Z"/></svg>';
+  var ICON_MAIL  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="m3.8 7.2 8.2 6 8.2-6"/></svg>';
+  var ICON_CAL   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.4"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>';
+  var SEAL1 = '<span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.6 12 4.2l9.5 4.4L12 13 2.5 8.6Z"/><path d="M6.4 10.7v5.1c0 1.7 2.5 3 5.6 3s5.6-1.3 5.6-3v-5.1"/><path d="M21.5 9.2v5.2"/></svg></span>';
+  var SEAL2 = '<span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="7.4" width="18.4" height="12.2" rx="2.4"/><path d="M8.8 7.4V5.9A2 2 0 0 1 10.8 3.9h2.4a2 2 0 0 1 2 2v1.5"/><path d="M2.8 12.6h18.4"/><path d="M10.6 12.6h2.8"/></svg></span>';
+  var SEAL3 = '<span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15.3 4.9a2.3 2.3 0 0 1 3.3 0l.5.5a2.3 2.3 0 0 1 0 3.3L8.6 19.2 4 20.2l1-4.6L15.3 4.9Z"/><path d="M14.2 6l3.8 3.8"/></svg></span>';
+
+  /* ==================== 示例数据 ==================== */
+  var SAMPLE = {
+    title:'个人简历',
+    b:{
+      name:'常若雪', gender:'女', nation:'汉族', politics:'中共预备党员',
+      job:'新媒体运营', birth:'2004.08', email:'xxxxx@email.com', phone:'123-XXXX-0551'
+    },
+    edu:[{
+      date:'2022.09-2026.06', org:'中国传媒大学', role:'网络与新媒体 / 本科',
+      points:[
+        '传播学概论、新闻学原理、新媒体概论、网络传播学、数据新闻与可视化、视听语言、短视频创作、社交媒体运营、网络舆情分析、媒介经营与管理、数字营销。',
+        '熟练使用 Premiere 与剪映完成剪辑与字幕包装，掌握 Photoshop 与 Illustrator 做封面设计，能独立完成选题、拍摄到发布的全流程。'
+      ]
+    }],
+    exp:[{
+      date:'2025.07-2026.01', org:'蓝色光标数据科技股份有限公司', role:'新媒体运营实习生',
+      points:[
+        '关注校园与青年消费类内容选题，每周产出选题清单 10 条，跟踪站内热点与竞品账号动向，累计策划选题 120 余个，采纳率超过六成并同步至选题库。',
+        '独立完成短视频剪辑与图文排版，累计产出成片 80 余条，其中 2 条登上平台热榜，单条最高播放量 90 万，账号周均互动量较实习初期翻了一倍。',
+        '每日跟踪播放量、完播率与互动数据，产出周报与月度复盘报告 18 份，据此优化视频开头三秒与发布时间，账号完播率由 19% 提升至 33%。'
+      ]
+    }],
+    cam:[{
+      date:'2022.09-2025.06', org:'校园融媒体中心', role:'短视频组负责人',
+      points:[
+        '负责校园官方账号的内容规划、制作与日常更新，一年内粉丝由 8000 增长至 4.2 万，单条最高播放量突破 50 万，涨粉数据创下中心年度纪录。',
+        '牵头拍摄校园迎新与毕业季系列短片，独立完成分镜、拍摄与后期剪辑包装，作品被学校官方渠道转载 12 次，全网累计播放量已超过 200 万。'
+      ]
+    }],
+    skills:[
+      '熟练使用 Premiere 与剪映完成剪辑与字幕包装，会用 Photoshop 设计封面。',
+      '曾两次获得校级一等奖学金，获全国大学生广告艺术大赛省级二等奖、校园短视频创作大赛一等奖。',
+      '网感强，能快速捕捉平台热点并拆解爆款结构，沟通与统筹能力好，能适应快节奏的内容排期。'
+    ],
+    summary:'本人网络与新媒体专业本科毕业，系统学习短视频创作与社交媒体运营等课程，在校担任融媒体中心短视频组负责人，带动账号粉丝从 8000 增长至 4.2 万。实习期间累计产出成片 80 余条、策划选题 120 余个，熟悉内容从策划、拍摄到数据复盘的完整流程。我网感强、执行快，愿从新媒体运营岗位一步步扎实做起。',
+    photo:''
+  };
+
+  function blankItem(sec){
+    return { date:'', org:'', role:'', points:SECS[sec].labels.map(function(){ return ''; }) };
+  }
+  function blankModel(){
+    return {
+      title:'个人简历',
+      b:{ name:'', gender:'', nation:'', politics:'', job:'', birth:'', email:'', phone:'' },
+      edu:[blankItem('edu')], exp:[blankItem('exp')], cam:[blankItem('cam')],
+      skills:['','',''], summary:'', photo:''
+    };
+  }
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+  /* ==================== 文档引用 ==================== */
   var paper      = document.getElementById('paper');
   var autosave   = document.getElementById('autosave');
   var autoText   = document.getElementById('autoText');
@@ -706,19 +804,284 @@ body.sheet-open .sheet{transform:translateY(0)}
   var backdrop   = document.getElementById('backdrop');
   var sheet      = document.getElementById('sheet');
   var swatches   = document.getElementById('swatches');
+  var tplchips   = document.getElementById('tplchips');
+  var tplNameEl  = document.getElementById('tplName');
+  var tplIdxEl   = document.getElementById('tplIdx');
+  var prevBtn    = document.getElementById('prevTpl');
+  var nextBtn    = document.getElementById('nextTpl');
 
-  var KEY = 'resume.tpl.v2';
   var THEME_BG = { violet:'#EDEAF4', blue:'#E9EFF6', green:'#E7F0EC', sand:'#F1ECE3' };
 
-  var SAMPLE = paper.innerHTML;          // 原始示例，用于「恢复示例」
-  var state  = { theme:'violet', mode:'edit' };
+  var MODEL = clone(SAMPLE);
+  var state = { tpl:0, theme:'violet', mode:'edit', busy:false };
+  var swipe = { on:false, x:0, y:0 };
   var saveTimer = null, autoTimer = null;
 
-  function $(sel, root){ return (root || document).querySelector(sel); }
-  function $$(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
-  function editables(){ return $$('[contenteditable]', paper); }
+  /* ==================== 渲染工具 ==================== */
+  function esc(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function CE(key){ return ' contenteditable="true" spellcheck="false" data-single data-k="' + key + '"'; }
 
-  /* ---------- 保存 / 提示 ---------- */
+  function photo(cls){
+    return '<div class="photo ' + (cls || '') + '" role="button" tabindex="0" aria-label="上传证件照">'
+      + '<img alt="证件照">'
+      + '<span class="ph">' + ICON_CAM + '<span>点击上传<br>证件照</span></span>'
+      + '</div>';
+  }
+  function delBtn(sec, i){
+    return '<button class="del" type="button" data-sec="' + sec + '" data-i="' + i + '">' + ICON_TRASH + '删除这段</button>';
+  }
+  function addBtn(sec, cls){
+    return '<button class="add ' + (cls || '') + '" type="button" data-sec="' + sec + '">'
+      + ICON_PLUS + SECS[sec].add + '</button>';
+  }
+  function pointsHTML(sec, i, it){
+    var labels = SECS[sec].labels, out = '';
+    for (var p = 0; p < labels.length; p++){
+      out += '<li><b>' + labels[p] + '：</b><span' + CE(sec + '.' + i + '.p' + p)
+           + ' data-ph="写清你做了什么、怎么做的、结果如何">' + esc(it.points[p]) + '</span></li>';
+    }
+    return out;
+  }
+
+  /* ==================== 模板一：紫缎 ==================== */
+  function secT1(title, body){
+    return '<section class="sec"><div class="sec-head"><h2 class="sec-tag">' + title + '</h2></div>' + body + '</section>';
+  }
+  function itemT1(sec, i, it){
+    var meta = SECS[sec];
+    return '<div class="item">'
+      + '<div class="row-head">'
+      +   '<span class="date"' + CE(sec + '.' + i + '.date') + ' data-ph="' + meta.date + '">' + esc(it.date) + '</span>'
+      +   '<span class="org"'  + CE(sec + '.' + i + '.org')  + ' data-ph="' + meta.org  + '">' + esc(it.org)  + '</span>'
+      +   '<span class="role"' + CE(sec + '.' + i + '.role') + ' data-ph="' + meta.role + '">' + esc(it.role) + '</span>'
+      + '</div>'
+      + '<ul class="points">' + pointsHTML(sec, i, it) + '</ul>'
+      + '<div class="item-tools">' + delBtn(sec, i) + '</div>'
+      + '</div>';
+  }
+  function itemsT1(sec){
+    var arr = MODEL[sec], out = '';
+    for (var i = 0; i < arr.length; i++) out += itemT1(sec, i, arr[i]);
+    return out;
+  }
+  function skillsHTML(){
+    var out = '';
+    for (var i = 0; i < SKILL_LABELS.length; i++){
+      out += '<div class="skill"><b>' + SKILL_LABELS[i] + '：</b><span' + CE('s.' + i)
+           + ' data-ph="写清技能熟练度与产出">' + esc(MODEL.skills[i]) + '</span></div>';
+    }
+    return out;
+  }
+  function summaryHTML(ph){
+    return '<div class="summary"' + CE('summary') + ' data-ph="' + ph + '">' + esc(MODEL.summary) + '</div>';
+  }
+
+  function renderT1(){
+    var info = '';
+    for (var i = 0; i < BASICS.length; i++){
+      var f = BASICS[i];
+      info += '<div class="f"><span class="k">' + f.label + '</span><span class="c">：</span>'
+            + '<span class="v"' + CE('b.' + f.k) + ' data-ph="' + f.ph + '">' + esc(MODEL.b[f.k]) + '</span></div>';
+    }
+    return ''
+      + '<header class="masthead">'
+      +   '<div class="mast-left">'
+      +     '<h1' + CE('title') + ' data-ph="个人简历">' + esc(MODEL.title) + '</h1>'
+      +     '<span class="en">Personal Resume</span>'
+      +   '</div>'
+      +   '<div class="seals" aria-hidden="true">' + SEAL1 + SEAL2 + SEAL3 + '</div>'
+      + '</header>'
+      + '<div class="band" aria-hidden="true"><i></i><i></i></div>'
+      + secT1('基本信息', '<div class="info">' + info + photo() + '</div>')
+      + secT1('教育背景', '<div class="list" data-list="edu">' + itemsT1('edu') + '</div>' + addBtn('edu'))
+      + secT1('实践经历', '<div class="list" data-list="exp">' + itemsT1('exp') + '</div>' + addBtn('exp'))
+      + secT1('校园经历', '<div class="list" data-list="cam">' + itemsT1('cam') + '</div>' + addBtn('cam'))
+      + secT1('专业技能', skillsHTML())
+      + secT1('自我评价', summaryHTML('用三到五句话总结：专业背景 + 关键成果 + 与岗位的匹配度'))
+      + '<p class="paper-foot">点击任意文字即可修改 · 内容自动保存在本机</p>';
+  }
+
+  /* ==================== 模板二：侧栏 ==================== */
+  function secT2(title, body){
+    return '<section class="t2-sec"><h2>' + title + '</h2>' + body + '</section>';
+  }
+  function itemT2(sec, i, it){
+    var meta = SECS[sec];
+    return '<div class="t2-item">'
+      + '<div class="t2-line">'
+      +   '<span class="org"'  + CE(sec + '.' + i + '.org')  + ' data-ph="' + meta.org  + '">' + esc(it.org)  + '</span>'
+      +   '<span class="role"' + CE(sec + '.' + i + '.role') + ' data-ph="' + meta.role + '">' + esc(it.role) + '</span>'
+      +   '<span class="date"' + CE(sec + '.' + i + '.date') + ' data-ph="' + meta.date + '">' + esc(it.date) + '</span>'
+      + '</div>'
+      + '<ul class="points">' + pointsHTML(sec, i, it) + '</ul>'
+      + '<div class="item-tools">' + delBtn(sec, i) + '</div>'
+      + '</div>';
+  }
+  function itemsT2(sec){
+    var arr = MODEL[sec], out = '';
+    for (var i = 0; i < arr.length; i++) out += itemT2(sec, i, arr[i]);
+    return out;
+  }
+  function skillsT2(){
+    var out = '';
+    for (var i = 0; i < SKILL_LABELS.length; i++){
+      out += '<div class="t2-skill"><b>' + SKILL_LABELS[i] + '</b><span' + CE('s.' + i)
+           + ' data-ph="写清技能熟练度与产出">' + esc(MODEL.skills[i]) + '</span></div>';
+    }
+    return out;
+  }
+
+  function renderT2(){
+    var b = MODEL.b;
+    return '<div class="t2">'
+      + '<aside class="t2-side">'
+      +   '<div class="t2-top">'
+      +     '<div class="t2-id">'
+      +       '<h1 class="t2-name"' + CE('b.name') + ' data-ph="姓名">' + esc(b.name) + '</h1>'
+      +       '<p class="t2-en">Personal Resume</p>'
+      +       '<p class="t2-job"><span' + CE('b.job') + ' data-ph="求职意向">' + esc(b.job) + '</span></p>'
+      +     '</div>'
+      +     photo('t2-photo')
+      +   '</div>'
+      +   '<div class="t2-block"><h3>联系方式</h3><ul class="t2-list">'
+      +     '<li>' + ICON_TEL  + '<span' + CE('b.phone') + ' data-ph="138-0000-0000">' + esc(b.phone) + '</span></li>'
+      +     '<li>' + ICON_MAIL + '<span' + CE('b.email') + ' data-ph="name@mail.com">' + esc(b.email) + '</span></li>'
+      +     '<li>' + ICON_CAL  + '<span' + CE('b.birth') + ' data-ph="2000.01">' + esc(b.birth) + '</span></li>'
+      +   '</ul></div>'
+      +   '<div class="t2-block"><h3>基本信息</h3><dl class="t2-info">'
+      +     '<dt>性别</dt><dd><span' + CE('b.gender') + ' data-ph="性别">' + esc(b.gender) + '</span></dd>'
+      +     '<dt>民族</dt><dd><span' + CE('b.nation') + ' data-ph="民族">' + esc(b.nation) + '</span></dd>'
+      +     '<dt>政治面貌</dt><dd><span' + CE('b.politics') + ' data-ph="政治面貌">' + esc(b.politics) + '</span></dd>'
+      +   '</dl></div>'
+      +   '<div class="t2-block"><h3>专业技能</h3>' + skillsT2() + '</div>'
+      + '</aside>'
+      + '<main class="t2-main">'
+      +   secT2('教育背景', '<div class="list" data-list="edu">' + itemsT2('edu') + '</div>' + addBtn('edu','t2-add'))
+      +   secT2('实践经历', '<div class="list" data-list="exp">' + itemsT2('exp') + '</div>' + addBtn('exp','t2-add'))
+      +   secT2('校园经历', '<div class="list" data-list="cam">' + itemsT2('cam') + '</div>' + addBtn('cam','t2-add'))
+      +   secT2('自我评价', summaryHTML('用三到五句话总结优势与匹配度'))
+      + '</main>'
+      + '</div>';
+  }
+
+  /* ==================== 模板三：极简 ==================== */
+  function secT3(title, body){
+    return '<section class="t3-sec"><h2>' + title + '</h2>' + body + '</section>';
+  }
+  function itemT3(sec, i, it){
+    var meta = SECS[sec];
+    return '<div class="t3-item">'
+      + '<div class="t3-line">'
+      +   '<span class="org"'  + CE(sec + '.' + i + '.org')  + ' data-ph="' + meta.org  + '">' + esc(it.org)  + '</span>'
+      +   '<span class="role"' + CE(sec + '.' + i + '.role') + ' data-ph="' + meta.role + '">' + esc(it.role) + '</span>'
+      +   '<span class="date"' + CE(sec + '.' + i + '.date') + ' data-ph="' + meta.date + '">' + esc(it.date) + '</span>'
+      + '</div>'
+      + '<ul class="points">' + pointsHTML(sec, i, it) + '</ul>'
+      + '<div class="item-tools">' + delBtn(sec, i) + '</div>'
+      + '</div>';
+  }
+  function itemsT3(sec){
+    var arr = MODEL[sec], out = '';
+    for (var i = 0; i < arr.length; i++) out += itemT3(sec, i, arr[i]);
+    return out;
+  }
+
+  function renderT3(){
+    var b = MODEL.b;
+    return '<header class="t3-head">'
+      + '<div class="t3-id">'
+      +   '<h1 class="t3-name"' + CE('b.name') + ' data-ph="姓名">' + esc(b.name) + '</h1>'
+      +   '<p class="t3-role"><span' + CE('b.job') + ' data-ph="求职意向">' + esc(b.job) + '</span></p>'
+      +   '<p class="t3-contact">'
+      +     '<span' + CE('b.phone')  + ' data-ph="138-0000-0000">' + esc(b.phone) + '</span><i>/</i>'
+      +     '<span' + CE('b.email')  + ' data-ph="name@mail.com">' + esc(b.email) + '</span><i>/</i>'
+      +     '<span' + CE('b.birth')  + ' data-ph="2000.01">' + esc(b.birth) + '</span><br>'
+      +     '<span' + CE('b.gender') + ' data-ph="性别">' + esc(b.gender) + '</span><i>/</i>'
+      +     '<span' + CE('b.nation') + ' data-ph="民族">' + esc(b.nation) + '</span><i>/</i>'
+      +     '<span' + CE('b.politics') + ' data-ph="政治面貌">' + esc(b.politics) + '</span>'
+      +   '</p>'
+      + '</div>'
+      + photo()
+      + '</header>'
+      + secT3('教育背景', '<div class="t3-list" data-list="edu">' + itemsT3('edu') + '</div>' + addBtn('edu'))
+      + secT3('实践经历', '<div class="t3-list" data-list="exp">' + itemsT3('exp') + '</div>' + addBtn('exp'))
+      + secT3('校园经历', '<div class="t3-list" data-list="cam">' + itemsT3('cam') + '</div>' + addBtn('cam'))
+      + secT3('专业技能', skillsHTML())
+      + secT3('自我评价', summaryHTML('用三到五句话总结优势与匹配度'))
+      + '<p class="t3-foot">点击任意文字即可修改 · 内容自动保存在本机</p>';
+  }
+
+  /* ==================== 模板表 ==================== */
+  var TPLS = [
+    { id:1, name:'紫缎', render:renderT1 },
+    { id:2, name:'侧栏', render:renderT2 },
+    { id:3, name:'极简', render:renderT3 }
+  ];
+
+  /* ==================== 渲染 / 模式 ==================== */
+  function render(){
+    var t = TPLS[state.tpl];
+    paper.className = 'paper t' + t.id + (MODEL.photo ? ' has-photo' : '');
+    paper.innerHTML = t.render();
+    applyMode();
+    applyPhoto();
+    updateTplUI();
+  }
+
+  function applyMode(){
+    var preview = state.mode === 'preview';
+    document.body.classList.toggle('preview', preview);
+    var els = paper.querySelectorAll('[contenteditable]');
+    for (var i = 0; i < els.length; i++){
+      els[i].setAttribute('contenteditable', preview ? 'false' : 'true');
+      els[i].setAttribute('spellcheck', 'false');
+    }
+    modeLabel.textContent = preview ? '编辑' : '预览';
+    btnMode.setAttribute('aria-pressed', preview ? 'true' : 'false');
+  }
+
+  function applyPhoto(){
+    var box = paper.querySelector('.photo');
+    if (!box) return;
+    var img = box.querySelector('img');
+    if (MODEL.photo){
+      img.setAttribute('src', MODEL.photo);
+      box.classList.add('has');
+    } else {
+      img.removeAttribute('src');
+      box.classList.remove('has');
+    }
+    paper.classList.toggle('has-photo', !!MODEL.photo);
+  }
+
+  function updateTplUI(){
+    tplNameEl.textContent = TPLS[state.tpl].name;
+    tplIdxEl.textContent = (state.tpl + 1) + '/' + TPLS.length;
+    var btns = tplchips.querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++){
+      btns[i].classList.toggle('on', +btns[i].getAttribute('data-tpl') === state.tpl);
+    }
+  }
+
+  /* ==================== 数据读写 ==================== */
+  function setPath(path, val){
+    if (!path) return;
+    var parts = path.split('.'), o = MODEL;
+    for (var i = 0; i < parts.length - 1; i++){
+      o = o[parts[i]];
+      if (!o) return;
+    }
+    o[parts[parts.length - 1]] = val;
+  }
+
+  function readValue(el){
+    var v = el.innerText != null ? el.innerText : el.textContent;
+    return String(v).replace(/\u00a0/g, ' ').replace(/[\r\n]+/g, ' ').replace(/^\s+|\s+$/g, '');
+  }
+
   function flashAuto(msg){
     autoText.textContent = msg;
     autosave.classList.add('show');
@@ -727,73 +1090,99 @@ body.sheet-open .sheet{transform:translateY(0)}
   }
 
   function save(){
-    var clone = paper.cloneNode(true);
-    $$('[contenteditable]', clone).forEach(function(el){ el.setAttribute('contenteditable','true'); });
     try{
       localStorage.setItem(KEY, JSON.stringify({
-        v: 2,
-        theme: state.theme,
-        mode: state.mode,
-        html: clone.innerHTML,
-        t: Date.now()
+        v:3, tpl:state.tpl, theme:state.theme, mode:state.mode, model:MODEL, t:Date.now()
       }));
       flashAuto('已自动保存');
-    }catch(err){
+    } catch(err){
       flashAuto('保存失败：本地空间不足');
     }
   }
-
   function scheduleSave(){
     clearTimeout(saveTimer);
     saveTimer = setTimeout(save, 650);
   }
 
-  /* ---------- 模式（编辑 / 预览） ---------- */
-  function applyMode(){
-    var preview = state.mode === 'preview';
-    document.body.classList.toggle('preview', preview);
-    editables().forEach(function(el){
-      el.setAttribute('contenteditable', preview ? 'false' : 'true');
-      el.setAttribute('spellcheck', 'false');
-    });
-    modeLabel.textContent = preview ? '编辑' : '预览';
-    btnMode.setAttribute('aria-pressed', preview ? 'true' : 'false');
-  }
-
-  /* ---------- 主题 ---------- */
-  function setTheme(name, silent){
-    state.theme = name;
-    document.documentElement.setAttribute('data-theme', name);
-    $$('button[data-theme-set]', swatches).forEach(function(b){
-      b.classList.toggle('on', b.getAttribute('data-theme-set') === name);
-    });
-    var meta = $('meta[name="theme-color"]');
-    if(meta) meta.setAttribute('content', THEME_BG[name] || '#EDEAF4');
-    if(!silent) save();
-  }
-
-  /* ---------- 证件照 ---------- */
-  function syncPhoto(){
-    var box = $('.photo', paper);
-    if(!box) return;
-    var img = $('img', box);
-    var has = !!(img && img.getAttribute('src'));
-    box.classList.toggle('has', has);
-    paper.classList.toggle('has-photo', has);
-  }
-
-  function setPhoto(src){
-    var box = $('.photo', paper);
-    if(!box) return;
-    var img = $('img', box);
-    if(src){
-      img.setAttribute('src', src);
-    }else{
-      img.removeAttribute('src');
+  function normalize(m){
+    var base = blankModel();
+    if (!m || typeof m !== 'object') return base;
+    if (typeof m.title === 'string') base.title = m.title;
+    if (m.b) for (var k in base.b){ if (typeof m.b[k] === 'string') base.b[k] = m.b[k]; }
+    for (var s = 0; s < SEC_KEYS.length; s++){
+      var key = SEC_KEYS[s];
+      if (Object.prototype.toString.call(m[key]) === '[object Array]' && m[key].length){
+        var arr = [];
+        for (var i = 0; i < m[key].length; i++){
+          var it = m[key][i] || {};
+          var pts = [];
+          for (var p = 0; p < SECS[key].labels.length; p++){
+            pts.push(it.points && typeof it.points[p] === 'string' ? it.points[p] : '');
+          }
+          arr.push({
+            date: typeof it.date === 'string' ? it.date : '',
+            org:  typeof it.org  === 'string' ? it.org  : '',
+            role: typeof it.role === 'string' ? it.role : '',
+            points: pts
+          });
+        }
+        base[key] = arr;
+      }
     }
-    syncPhoto();
+    if (m.skills) for (var j = 0; j < 3; j++){ if (typeof m.skills[j] === 'string') base.skills[j] = m.skills[j]; }
+    if (typeof m.summary === 'string') base.summary = m.summary;
+    if (typeof m.photo === 'string') base.photo = m.photo;
+    return base;
   }
 
+  function load(){
+    var d = null;
+    try{ d = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(err){}
+    if (!d || d.v !== 3 || !d.model) return false;
+    MODEL = normalize(d.model);
+    if (typeof d.tpl === 'number') state.tpl = Math.max(0, Math.min(TPLS.length - 1, d.tpl));
+    if (d.theme) state.theme = d.theme;
+    if (d.mode === 'preview') state.mode = 'preview';
+    return true;
+  }
+
+  /* ==================== 模板切换 ==================== */
+  function switchTo(i, dir){
+    var n = TPLS.length;
+    i = ((i % n) + n) % n;
+    if (i === state.tpl || state.busy) return;
+    if (dir == null) dir = i > state.tpl ? 1 : -1;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fallback = null;
+
+    function finish(){
+      if (!state.busy) return;
+      clearTimeout(fallback);
+      state.busy = false;
+      state.tpl = i;
+      render();
+      if (paper.animate && !reduce){
+        paper.animate(
+          [{ transform:'translateX(' + (dir * 30) + 'px)', opacity:0 },
+           { transform:'translateX(0)', opacity:1 }],
+          { duration:300, easing:'cubic-bezier(.22,.7,.28,1)' }
+        );
+      }
+      save();
+    }
+
+    state.busy = true;
+    if (!paper.animate || reduce){ finish(); return; }
+    var a = paper.animate(
+      [{ transform:'translateX(0)', opacity:1 },
+       { transform:'translateX(' + (-dir * 30) + 'px)', opacity:0 }],
+      { duration:170, easing:'ease-in' }
+    );
+    a.onfinish = finish;
+    fallback = setTimeout(finish, 450);
+  }
+
+  /* ==================== 照片 ==================== */
   function pickPhoto(){ fileInput.value = ''; fileInput.click(); }
 
   function shrink(url, cb){
@@ -803,7 +1192,7 @@ body.sheet-open .sheet{transform:translateY(0)}
       var w = im.naturalWidth, h = im.naturalHeight;
       var k = Math.min(1, max / Math.max(w, h));
       var c = document.createElement('canvas');
-      c.width  = Math.max(1, Math.round(w * k));
+      c.width = Math.max(1, Math.round(w * k));
       c.height = Math.max(1, Math.round(h * k));
       var ctx = c.getContext('2d');
       ctx.fillStyle = '#fff';
@@ -817,13 +1206,14 @@ body.sheet-open .sheet{transform:translateY(0)}
 
   fileInput.addEventListener('change', function(){
     var f = fileInput.files && fileInput.files[0];
-    if(!f) return;
-    if(!/^image\//.test(f.type)){ flashAuto('请选择图片文件'); return; }
-    if(f.size > 15 * 1024 * 1024){ flashAuto('图片太大，请换一张'); return; }
+    if (!f) return;
+    if (!/^image\//.test(f.type)){ flashAuto('请选择图片文件'); return; }
+    if (f.size > 15 * 1024 * 1024){ flashAuto('图片太大，请换一张'); return; }
     var reader = new FileReader();
     reader.onload = function(){
       shrink(reader.result, function(src){
-        setPhoto(src);
+        MODEL.photo = src;
+        applyPhoto();
         save();
         closeSheet();
         flashAuto('证件照已保存');
@@ -832,112 +1222,436 @@ body.sheet-open .sheet{transform:translateY(0)}
     reader.readAsDataURL(f);
   });
 
-  /* ---------- 增删条目 ---------- */
-  function addItem(btn){
-    var tpl = document.getElementById('tpl-' + btn.getAttribute('data-tpl'));
-    var list = document.getElementById(btn.getAttribute('data-to'));
-    if(!tpl || !list) return;
-    var node = tpl.content.firstElementChild.cloneNode(true);
-    list.appendChild(node);
-    applyMode();
+  /* ==================== 条目增删 ==================== */
+  function addItem(sec){
+    if (!SECS[sec]) return;
+    MODEL[sec].push(blankItem(sec));
+    render();
     save();
-    var first = $('.org', node);
-    if(first) first.focus();
-    if(node.scrollIntoView) node.scrollIntoView({ behavior:'smooth', block:'center' });
+    var list = paper.querySelector('[data-list="' + sec + '"]');
+    if (list){
+      var orgs = list.querySelectorAll('.org');
+      var last = orgs[orgs.length - 1];
+      if (last){
+        if (last.scrollIntoView) last.scrollIntoView({ behavior:'smooth', block:'center' });
+        last.focus();
+      }
+    }
     flashAuto('已新增一段，直接填写');
   }
 
-  /* ---------- 事件委托 ---------- */
+  function delItem(sec, i){
+    if (!MODEL[sec] || !MODEL[sec][i]) return;
+    MODEL[sec].splice(i, 1);
+    render();
+    save();
+    flashAuto('已删除一段');
+  }
+
+  /* ==================== 编辑事件 ==================== */
   paper.addEventListener('input', function(e){
-    if(e.target.closest && e.target.closest('[contenteditable]')) scheduleSave();
+    var el = e.target.closest ? e.target.closest('[contenteditable]') : null;
+    if (!el) return;
+    setPath(el.getAttribute('data-k'), readValue(el));
+    scheduleSave();
   });
 
   paper.addEventListener('keydown', function(e){
-    if(e.key === 'Enter' && e.target.hasAttribute && e.target.hasAttribute('data-single')){
+    if (e.key === 'Enter' && e.target.hasAttribute && e.target.hasAttribute('data-single')){
       e.preventDefault();
     }
   });
 
   paper.addEventListener('paste', function(e){
-    var el = e.target.closest && e.target.closest('[contenteditable]');
-    if(!el) return;
+    var el = e.target.closest ? e.target.closest('[contenteditable]') : null;
+    if (!el) return;
     e.preventDefault();
     var text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
-    if(el.hasAttribute('data-single')){
-      text = text.replace(/[\r\n]+/g, ' ');
-    }else{
-      text = text.replace(/\r\n?/g, '\n');
-    }
-    text = text.slice(0, 2000);
-    if(document.execCommand){ document.execCommand('insertText', false, text); }
+    text = text.replace(/[\r\n]+/g, ' ').slice(0, 2000);
+    if (document.execCommand) document.execCommand('insertText', false, text);
   });
 
   paper.addEventListener('click', function(e){
-    var del = e.target.closest && e.target.closest('.del');
-    if(del){
-      var item = del.closest('.item');
-      if(item){ item.parentNode.removeChild(item); save(); flashAuto('已删除一段'); }
+    var del = e.target.closest ? e.target.closest('.del') : null;
+    if (del){
+      delItem(del.getAttribute('data-sec'), +del.getAttribute('data-i'));
       return;
     }
-    var add = e.target.closest && e.target.closest('.add');
-    if(add){ addItem(add); return; }
-    if(e.target.closest && e.target.closest('.photo') && state.mode !== 'preview'){ pickPhoto(); }
+    var add = e.target.closest ? e.target.closest('.add') : null;
+    if (add){ addItem(add.getAttribute('data-sec')); return; }
+    if (e.target.closest && e.target.closest('.photo') && state.mode !== 'preview'){ pickPhoto(); }
   });
 
   paper.addEventListener('keydown', function(e){
-    if((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('photo')){
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('photo')){
       e.preventDefault();
-      if(state.mode !== 'preview') pickPhoto();
+      if (state.mode !== 'preview') pickPhoto();
     }
   });
 
-  /* ---------- 底部操作 ---------- */
+  /* ==================== 手势 / 键盘 ==================== */
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length !== 1) return;
+    var t = e.target;
+    if (t.closest && (t.closest('.dock') || t.closest('.sheet') || t.closest('.backdrop') || t.closest('.appbar'))) return;
+    swipe.on = true;
+    swipe.x = e.touches[0].clientX;
+    swipe.y = e.touches[0].clientY;
+  }, { passive:true });
+
+  document.addEventListener('touchend', function(e){
+    if (!swipe.on) return;
+    swipe.on = false;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - swipe.x;
+    var dy = t.clientY - swipe.y;
+    if (Math.abs(dx) < 56) return;
+    if (Math.abs(dx) < Math.abs(dy) * 1.6) return;
+    switchTo(state.tpl + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+  }, { passive:true });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    var a = document.activeElement;
+    if (a && (a.isContentEditable || a.tagName === 'INPUT' || a.tagName === 'TEXTAREA')) return;
+    e.preventDefault();
+    switchTo(state.tpl + (e.key === 'ArrowRight' ? 1 : -1), e.key === 'ArrowRight' ? 1 : -1);
+  });
+
+  prevBtn.addEventListener('click', function(){ switchTo(state.tpl - 1, -1); });
+  nextBtn.addEventListener('click', function(){ switchTo(state.tpl + 1, 1); });
+
+  /* ==================== 底部 / 弹层 ==================== */
   btnMode.addEventListener('click', function(){
     state.mode = state.mode === 'preview' ? 'edit' : 'preview';
     applyMode();
     save();
-    if(state.mode === 'preview'){ window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    if (state.mode === 'preview') window.scrollTo({ top:0, behavior:'smooth' });
   });
 
+  /* ==================== 页面内生成 PDF ==================== */
+  function escapeXML(s){
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  /* 把 @media print 里的规则抽出来，统一加 .pdfmode 作用域，用于静态渲染 */
+  function printScopedCSS(){
+    var out = [];
+    try{
+      for (var i = 0; i < document.styleSheets.length; i++){
+        var rules = document.styleSheets[i].cssRules;
+        if (!rules) continue;
+        for (var j = 0; j < rules.length; j++){
+          var r = rules[j];
+          var isPrint = false;
+          try{ isPrint = r.type === 4 && /print/.test(r.conditionText || (r.media && r.media.mediaText) || ''); }catch(e){}
+          if (!isPrint) continue;
+          for (var k = 0; k < r.cssRules.length; k++){
+            var t = r.cssRules[k].cssText;
+            if (!t || t.charAt(0) === '@') continue;
+            var p = t.indexOf('{');
+            if (p < 0) continue;
+            var sel = t.slice(0, p), body = t.slice(p);
+            var scoped = sel.split(',').map(function(s){
+              s = s.replace(/^\s+|\s+$/g, '');
+              return s ? '.pdfmode ' + s : '';
+            }).filter(Boolean).join(',');
+            out.push(scoped + body);
+          }
+        }
+      }
+    }catch(err){}
+    return out.join('\n');
+  }
+
+  function baseCSS(){
+    var out = [];
+    var nodes = document.querySelectorAll('style');
+    for (var i = 0; i < nodes.length; i++) out.push(nodes[i].textContent);
+    return out.join('\n');
+  }
+
+  function buildExportSVG(w, h){
+    var ser = new XMLSerializer();
+    var html = ser.serializeToString(paper);
+    var css = baseCSS() + '\n'
+      + '.pdfmode{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans SC","Microsoft YaHei",sans-serif;color:#2A2733;-webkit-font-smoothing:antialiased}\n'
+      + printScopedCSS();
+    var inner = '<div xmlns="http://www.w3.org/1999/xhtml" class="pdfmode" data-theme="' + state.theme
+      + '" style="width:' + w + 'px;height:' + h + 'px;background:#fff;overflow:hidden">'
+      + '<style>' + escapeXML(css) + '</style>' + html + '</div>';
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '">'
+      + '<foreignObject width="100%" height="100%">' + inner + '</foreignObject></svg>';
+  }
+
+  function canvasHasInk(c){
+    try{
+      var s = document.createElement('canvas');
+      s.width = 90; s.height = 120;
+      var g = s.getContext('2d');
+      g.drawImage(c, 0, 0, 90, 120);
+      var d = g.getImageData(0, 0, 90, 120).data;
+      var n = 0;
+      for (var i = 0; i < d.length; i += 4){
+        if (d[i] < 245 || d[i+1] < 245 || d[i+2] < 245) n++;
+      }
+      return n > 90 * 120 * 0.02;
+    }catch(err){ return false; }
+  }
+
+  function renderA4Canvas(){
+    return new Promise(function(resolve, reject){
+      var W = 794, H = 1123, S = 2;
+      var img = new Image();
+      img.onload = function(){
+        try{
+          var cv = document.createElement('canvas');
+          cv.width = W * S; cv.height = H * S;
+          var ctx = cv.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, cv.width, cv.height);
+          ctx.drawImage(img, 0, 0, cv.width, cv.height);
+          if (!canvasHasInk(cv)) { reject(new Error('blank')); return; }
+          resolve(cv);
+        }catch(err){ reject(err); }
+      };
+      img.onerror = function(){ reject(new Error('render')); };
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(buildExportSVG(W, H));
+    });
+  }
+
+  function pad10(n){
+    var s = '0000000000' + n;
+    return s.slice(s.length - 10);
+  }
+
+  function makePDF(jpeg, pageW, pageH, imgW, imgH){
+    var enc = new TextEncoder();
+    var chunks = [], offsets = [], pos = 0;
+    function add(x){
+      var b = (typeof x === 'string') ? enc.encode(x) : x;
+      chunks.push(b);
+      pos += b.length;
+    }
+    function obj(n, dict, stream){
+      offsets[n] = pos;
+      add(n + ' 0 obj\n' + dict + '\n');
+      if (stream){
+        add('stream\n');
+        add(stream);
+        add('\nendstream\n');
+      }
+      add('endobj\n');
+    }
+    add('%PDF-1.4\n');
+    obj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+    obj(2, '<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+    obj(3, '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + pageW + ' ' + pageH
+        + '] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>');
+    obj(4, '<< /Type /XObject /Subtype /Image /Width ' + imgW + ' /Height ' + imgH
+        + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + jpeg.length + ' >>', jpeg);
+    var content = 'q\n' + pageW + ' 0 0 ' + pageH + ' 0 0 cm\n/Im0 Do\nQ\n';
+    obj(5, '<< /Length ' + content.length + ' >>', enc.encode(content));
+
+    var xref = pos;
+    add('xref\n0 6\n0000000000 65535 f \n');
+    for (var n = 1; n <= 5; n++) add(pad10(offsets[n]) + ' 00000 n \n');
+    add('trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n' + xref + '\n%%EOF');
+
+    return new Blob(chunks, { type:'application/pdf' });
+  }
+
+  function exportPDFBlob(){
+    return renderA4Canvas().then(function(cv){
+      var dataUrl = cv.toDataURL('image/jpeg', 0.92);
+      var bin = atob(dataUrl.split(',')[1]);
+      var bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return makePDF(bytes, 595.28, 841.89, cv.width, cv.height);
+    });
+  }
+
+  function downloadBlob(blob, name){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.rel = 'noopener';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){
+      URL.revokeObjectURL(url);
+      if (a.parentNode) a.parentNode.removeChild(a);
+    }, 4000);
+  }
+
+  function pdfName(){
+    var n = (MODEL.b.name || '').replace(/[\\/:*?"<>|\s]/g, '');
+    return (n ? n + '-简历' : '个人简历') + '.pdf';
+  }
+
+  function setExporting(on){
+    btnPdf.disabled = on;
+    var sp = btnPdf.querySelector('span');
+    if (sp) sp.textContent = on ? '生成中…' : '导出 PDF';
+  }
+
   btnPdf.addEventListener('click', function(){
-    if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    save();
+    if (ENV.wx){ showExportTip('wx'); return; }
+    if (btnPdf.disabled) return;
+    setExporting(true);
+    exportPDFBlob().then(function(blob){
+      downloadBlob(blob, pdfName());
+      setExporting(false);
+      flashAuto('PDF 已生成，请到下载里查看');
+    }).catch(function(){
+      setExporting(false);
+      if (ENV.android && !ENV.ios){ showExportTip('android'); return; }
+      window.print();
+    });
+  });
+
+  function printDialog(){
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     save();
     window.print();
+  }
+
+  /* ==================== 环境判断 / 导出引导 ==================== */
+  var ENV = (function(){
+    var ua = navigator.userAgent || '';
+    var mobile = /Mobile|Android|iPhone|iPad|iPod/i.test(ua);
+    return {
+      wx: /MicroMessenger/i.test(ua) && mobile,
+      android: /Android/i.test(ua),
+      ios: /iPhone|iPad|iPod/i.test(ua)
+    };
+  })();
+
+  var tipMode = 'wx';
+  function showExportTip(kind){
+    tipMode = kind;
+    var t = document.getElementById('tipTitle');
+    var d = document.getElementById('tipDesc');
+    var s = document.getElementById('tipSteps');
+    var u = document.getElementById('tipUrl');
+    var copy = document.getElementById('tipCopy');
+    u.textContent = location.href;
+    if (kind === 'wx'){
+      t.textContent = '微信里不能直接导出 PDF';
+      d.textContent = '按下面两步，用手机自带浏览器打开就能保存成 PDF：';
+      s.innerHTML = '<li>点右上角 <b>···</b>，选「在浏览器打开」</li>'
+                  + '<li>在浏览器里再点「导出 PDF」</li>';
+      copy.textContent = '复制链接';
+    } else {
+      t.textContent = '安卓浏览器请用系统菜单导出';
+      d.textContent = '浏览器不支持页面内直接唤起打印，按下面几步保存：';
+      s.innerHTML = '<li>点浏览器右上角 <b>⋮</b> 菜单</li>'
+                  + '<li>选「分享」→「打印」</li>'
+                  + '<li>目标打印机选「另存为 PDF」</li>';
+      copy.textContent = '仍要尝试';
+    }
+    closeSheet();
+    document.getElementById('tipwrap').classList.add('show');
+  }
+
+  function copyLink(){
+    var url = location.href;
+    function ok(){ flashAuto('链接已复制，去浏览器粘贴打开'); }
+    function fail(){ flashAuto('复制失败，请长按上方链接复制'); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(ok, fail);
+      return;
+    }
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = url;
+      ta.setAttribute('readonly','');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      var done = document.execCommand('copy');
+      document.body.removeChild(ta);
+      done ? ok() : fail();
+    } catch(err){ fail(); }
+  }
+
+  document.getElementById('tipClose').addEventListener('click', function(){
+    document.getElementById('tipwrap').classList.remove('show');
+  });
+  document.getElementById('tipwrap').addEventListener('click', function(e){
+    if (e.target === this) this.classList.remove('show');
+  });
+  document.getElementById('tipCopy').addEventListener('click', function(){
+    if (tipMode === 'android'){
+      document.getElementById('tipwrap').classList.remove('show');
+      setTimeout(function(){ window.print(); }, 220);
+      return;
+    }
+    copyLink();
   });
 
   function openSheet(){ document.body.classList.add('sheet-open'); }
   function closeSheet(){ document.body.classList.remove('sheet-open'); }
-
   btnMore.addEventListener('click', openSheet);
   document.getElementById('sheetClose').addEventListener('click', closeSheet);
   backdrop.addEventListener('click', closeSheet);
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeSheet(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeSheet(); });
 
-  /* ---------- 弹层内操作 ---------- */
-  $$('button[data-theme-set]', swatches).forEach(function(b){
-    b.addEventListener('click', function(){
-      setTheme(b.getAttribute('data-theme-set'));
+  var chipBtns = tplchips.querySelectorAll('button');
+  for (var c = 0; c < chipBtns.length; c++){
+    chipBtns[c].addEventListener('click', function(){
+      var idx = +this.getAttribute('data-tpl');
+      closeSheet();
+      if (idx !== state.tpl) switchTo(idx, idx > state.tpl ? 1 : -1);
+    });
+  }
+
+  var swBtns = swatches.querySelectorAll('button');
+  for (var w = 0; w < swBtns.length; w++){
+    swBtns[w].addEventListener('click', function(){
+      setTheme(this.getAttribute('data-theme-set'));
       closeSheet();
       flashAuto('配色已切换');
     });
-  });
+  }
+
+  function setTheme(name, silent){
+    state.theme = name;
+    document.documentElement.setAttribute('data-theme', name);
+    for (var i = 0; i < swBtns.length; i++){
+      swBtns[i].classList.toggle('on', swBtns[i].getAttribute('data-theme-set') === name);
+    }
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', THEME_BG[name] || '#EDEAF4');
+    if (!silent) save();
+  }
 
   document.getElementById('pickPhoto').addEventListener('click', function(){
-    pickPhoto();          /* 必须在用户手势内直接唤起，iOS 才允许 */
+    pickPhoto();
     closeSheet();
   });
 
+  document.getElementById('btnPrint').addEventListener('click', function(){
+    closeSheet();
+    setTimeout(printDialog, 240);
+  });
+
   document.getElementById('removePhoto').addEventListener('click', function(){
-    setPhoto('');
+    MODEL.photo = '';
+    applyPhoto();
     save();
     closeSheet();
     flashAuto('证件照已移除');
   });
 
   document.getElementById('restoreSample').addEventListener('click', function(){
-    paper.innerHTML = SAMPLE;
-    syncPhoto();
-    applyMode();
+    MODEL = clone(SAMPLE);
+    render();
     save();
     closeSheet();
     flashAuto('已恢复示例内容');
@@ -951,7 +1665,7 @@ body.sheet-open .sheet{transform:translateY(0)}
     resetBtn.classList.remove('armed');
   }
   resetBtn.addEventListener('click', function(){
-    if(!armed){
+    if (!armed){
       armed = true;
       resetBtn.textContent = '再点一次，确认清空';
       resetBtn.classList.add('armed');
@@ -961,32 +1675,24 @@ body.sheet-open .sheet{transform:translateY(0)}
     }
     clearTimeout(armTimer);
     disarm();
-    editables().forEach(function(el){ el.innerHTML = ''; });
-    $$('.item', paper).forEach(function(el, i){ if(i > 0) el.parentNode.removeChild(el); });
-    $$('.photo img', paper).forEach(function(img){ img.removeAttribute('src'); });
-    syncPhoto();
+    MODEL = blankModel();
+    render();
     save();
     closeSheet();
     flashAuto('已清空，可以开始填写');
   });
 
-  /* ---------- 打印前 ---------- */
+  /* ==================== 打印 ==================== */
   window.addEventListener('beforeprint', function(){
-    if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
   });
 
-  /* ---------- 启动 ---------- */
+  /* ==================== 启动 ==================== */
   (function boot(){
-    var data = null;
-    try{ data = JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(err){}
-    if(data){
-      if(data.html) paper.innerHTML = data.html;
-      if(data.theme) setTheme(data.theme, true);
-      if(data.mode) state.mode = data.mode;
-    }
-    syncPhoto();
-    applyMode();
+    load();
+    document.documentElement.setAttribute('data-theme', state.theme);
     setTheme(state.theme, true);
+    render();
   })();
 
 })();
